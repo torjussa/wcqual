@@ -5,6 +5,26 @@ var figure = scrolly.select("figure");
 var article = scrolly.select("article");
 var step = article.selectAll(".step");
 
+var hosts = [
+  {
+    name: "USA",
+    isoCode: "us",
+    x: 100,
+    y: 300,
+  },
+  {
+    name: "Canada",
+    isoCode: "ca",
+    x: 10,
+    y: 10,
+  },
+  {
+    name: "Mexico",
+    isoCode: "mx",
+    x: 10,
+    y: 50,
+  },
+];
 var countries = [
   {
     name: "Albania",
@@ -188,7 +208,7 @@ var countries = [
     fifaRank: "61",
     nationsLeagueGroup: "B4",
     latitude: "64.963051",
-    longitude: "-19.020835",
+    longitude: "-17.020835",
   },
   {
     name: "Ireland",
@@ -220,7 +240,7 @@ var countries = [
     fifaRank: "103",
     nationsLeagueGroup: "C1",
     latitude: "48.019589",
-    longitude: "66.923684",
+    longitude: "54.923684",
   },
   {
     name: "Kosovo",
@@ -448,6 +468,10 @@ var countries = [
     longitude: "-5.351330",
   },
 ];
+
+var data = []
+
+
 const minLat = countries.reduce(
   (min, country) => Math.min(min, country.latitude),
   200
@@ -464,24 +488,24 @@ const maxLong = countries.reduce(
   (max, country) => Math.max(max, country.longitude),
   -200
 );
-const svg = d3.select("svg");
+var svg = d3.select("svg");
 var svgWidth = parseInt(svg.style("width"));
 var svgHeight = window.innerHeight;
-var mapHeight = Math.min(svgWidth, svgHeight/2)
+var mapHeight = Math.min(svgWidth, svgHeight / 2);
 
-const xPadding = svgWidth * 0.05;
-const yPadding = svgHeight * 0.05;
+var xPadding = svgWidth * 0.06;
+var yPadding = svgHeight * 0.06;
 
-const scaleLong = d3.scaleLinear(
+var flagSize = svgHeight/40
+
+var scaleLong = d3.scaleLinear(
   [minLong, maxLong],
   [0 + xPadding, svgWidth - xPadding]
 );
-const scaleLat = d3.scaleLinear(
+var scaleLat = d3.scaleLinear(
   [minLat, maxLat],
   [mapHeight - yPadding, 0 + yPadding]
 );
-
-console.log(countries.length);
 
 // initialize the scrollama
 var scroller = scrollama();
@@ -489,9 +513,37 @@ var scroller = scrollama();
 // generic window resize listener event
 function handleResize() {
   // 1. update height of step elements
-  var stepH = Math.floor(window.innerHeight * 0.75);
+  var stepH = Math.floor(window.innerHeight * 0.9);
   step.style("height", stepH + "px");
+  /*
+  svg = d3.select("svg");
+  var svgWidth = parseInt(svg.style("width"));
+  var svgHeight = window.innerHeight;
+  var mapHeight = Math.min(svgWidth, svgHeight / 2);
 
+  var xPadding = svgWidth * 0.06;
+  var yPadding = svgHeight * 0.06;
+
+  var scaleLong = d3.scaleLinear(
+    [minLong, maxLong],
+    [0 + xPadding, svgWidth - xPadding]
+  );
+  var scaleLat = d3.scaleLinear(
+    [minLat, maxLat],
+    [mapHeight - yPadding, 0 + yPadding]
+  );
+  svg
+    .selectAll("image")
+    .data(countries)
+    .join(
+      (_) => _,
+      (update) =>
+        update
+          .attr("x", (d) => scaleLong(d.longitude))
+          .attr("y", (d) => scaleLat(d.latitude)),
+      (_) => _
+    );
+*/
   var figureHeight = window.innerHeight;
   var figureMarginTop = (window.innerHeight - figureHeight) / 2;
 
@@ -503,29 +555,8 @@ function handleResize() {
   scroller.resize();
 }
 
-// scrollama event handlers
-function handleStepEnter(response) {
-  console.log(response);
-  // response = { element, direction, index }
-
-  countries = countries.map((d) => Math.random() * 20 + 1);
-
-  // add color to current step only
-  step.classed("is-active", function (d, i) {
-    return i === response.index;
-  });
-
-  // update graphic based on step
-  figure
-    .select("p")
-    .text(response.index + 1)
-    .style("opacity", 0.2);
-
-  //drawFlags();
-}
-
 // Create flags
-function drawFlags() {
+function drawFlagsOnMap() {
   svg
     .selectAll("image")
     .data(countries)
@@ -536,8 +567,8 @@ function drawFlags() {
           .attr("id", (d) => d.name)
           .attr("x", (d) => scaleLong(d.longitude))
           .attr("y", (d) => scaleLat(d.latitude))
-          .attr("width", 20)
-          .attr("height", 24)
+          .attr("width", flagSize)
+          .attr("height", flagSize)
           .attr(
             "xlink:href",
             (d) =>
@@ -547,16 +578,84 @@ function drawFlags() {
           ),
       (update) =>
         update
-          .attr("x", (d) => 100 + d.longitude * 8)
-          .attr("y", (d) => 600 - d.latitude * 8),
+          .attr("id", (d) => d.name)
+          .attr("x", (d) => scaleLong(d.longitude))
+          .attr("y", (d) => scaleLat(d.latitude))
+          .attr("width", flagSize)
+          .attr("height", flagSize)
+          .attr(
+            "xlink:href",
+            (d) =>
+              "https://hatscripts.github.io/circle-flags/flags/" +
+              d.isoCode +
+              ".svg"
+          ),
       (exit) => exit.remove()
     );
+}
+//
+// Steps
+//
+function step1() {
+  console.log("step 1");
+  svg
+    .selectAll("image")
+    .data(hosts)
+    .join((enter) =>
+      enter
+        .append("svg:image")
+        .attr("id", (d) => d.name)
+        .attr("x", (d) => d.x)
+        .attr("y", (d) => d.y)
+        .attr("width", flagSize*3 )
+        .attr("height", flagSize*3)
+        .attr(
+          "xlink:href",
+          (d) =>
+            "https://hatscripts.github.io/circle-flags/flags/" +
+            d.isoCode +
+            ".svg"
+        ),
+        (update) => update,
+        (exit) => exit.attr("opacity", 0).remove()
+    );
+}
+
+function step2() {
+  console.log("step 2");
+  drawFlagsOnMap();
+}
+
+// scrollama event handlers
+function handleStepEnter(response) {
+  // add color to current step only
+  step.classed("is-active", function (d, i) {
+    return i === response.index;
+  });
+  console.log("Enter step ", response.index);
+
+  switch (response.index) {
+    case 0:
+        step1();
+    case 1:
+      step1();
+    case 2:
+      step2();
+  }
+
+  // update graphic based on step
+  figure
+    .select("p")
+    .text(response.index + 1)
+    .style("opacity", 0.2);
 }
 
 function init() {
   // 1. force a resize on load to ensure proper dimensions are sent to scrollama
-  drawFlags();
+
   handleResize();
+  addEventListener("resize", (event) => handleResize());
+  step1()
 
   // 2. setup the scroller passing options
   // 		this will also initialize trigger observations
