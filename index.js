@@ -5,7 +5,8 @@ var figure = scrolly.select("figure");
 var article = scrolly.select("article");
 var step = article.selectAll(".step");
 
-var hosts = [
+const duration = 300;
+const hosts = [
   {
     name: "USA",
     isoCode: "us",
@@ -25,7 +26,7 @@ var hosts = [
     y: 50,
   },
 ];
-var countries = [
+const countries = [
   {
     name: "Albania",
     isoCode: "al",
@@ -469,8 +470,7 @@ var countries = [
   },
 ];
 
-var data = []
-
+var data = [];
 
 const minLat = countries.reduce(
   (min, country) => Math.min(min, country.latitude),
@@ -496,7 +496,7 @@ var mapHeight = Math.min(svgWidth, svgHeight / 2);
 var xPadding = svgWidth * 0.06;
 var yPadding = svgHeight * 0.06;
 
-var flagSize = svgHeight/40
+var flagSize = svgHeight / 40;
 
 var scaleLong = d3.scaleLinear(
   [minLong, maxLong],
@@ -556,19 +556,20 @@ function handleResize() {
 }
 
 // Create flags
-function drawFlagsOnMap() {
+function drawFlags() {
   svg
     .selectAll("image")
-    .data(countries)
+    .data(data)
     .join(
       (enter) =>
         enter
           .append("svg:image")
           .attr("id", (d) => d.name)
-          .attr("x", (d) => scaleLong(d.longitude))
-          .attr("y", (d) => scaleLat(d.latitude))
-          .attr("width", flagSize)
-          .attr("height", flagSize)
+          .attr("x", (d) => d.x)
+          .attr("y", (d) => d.y)
+          .attr("width", (d) => d.size)
+          .attr("height", (d) => d.size)
+          .attr("opacity", (d) => d.opacity)
           .attr(
             "xlink:href",
             (d) =>
@@ -579,10 +580,11 @@ function drawFlagsOnMap() {
       (update) =>
         update
           .attr("id", (d) => d.name)
-          .attr("x", (d) => scaleLong(d.longitude))
-          .attr("y", (d) => scaleLat(d.latitude))
-          .attr("width", flagSize)
-          .attr("height", flagSize)
+          .attr("x", (d) => d.x)
+          .attr("y", (d) => d.y)
+          .attr("width", (d) => d.size)
+          .attr("height", (d) => d.size)
+          .attr("opacity", (d) => d.opacity)
           .attr(
             "xlink:href",
             (d) =>
@@ -590,40 +592,65 @@ function drawFlagsOnMap() {
               d.isoCode +
               ".svg"
           ),
-      (exit) => exit.remove()
+      (exit) =>
+        exit
+          .transition()
+          .duration(duration)
+          .style("opacity", 0)
+          .on("end", function () {
+            d3.select(this).remove();
+          })
     );
 }
 //
 // Steps
 //
+function startScreen() {
+  console.log("startscreen");
+  data = hosts.map((country) => ({
+    isoCode: country.isoCode,
+    name: country.name,
+    x: country.x,
+    y: country.y,
+    size: flagSize,
+    opacity: 1,
+  }));
+  drawFlags();
+}
+
 function step1() {
-  console.log("step 1");
-  svg
-    .selectAll("image")
-    .data(hosts)
-    .join((enter) =>
-      enter
-        .append("svg:image")
-        .attr("id", (d) => d.name)
-        .attr("x", (d) => d.x)
-        .attr("y", (d) => d.y)
-        .attr("width", flagSize*3 )
-        .attr("height", flagSize*3)
-        .attr(
-          "xlink:href",
-          (d) =>
-            "https://hatscripts.github.io/circle-flags/flags/" +
-            d.isoCode +
-            ".svg"
-        ),
-        (update) => update,
-        (exit) => exit.attr("opacity", 0).remove()
-    );
+  data = data.map((c) => ({
+    ...c,
+    x: -300,
+    y: mapHeight / 2,
+  }));
+  drawFlags();
 }
 
 function step2() {
-  console.log("step 2");
-  drawFlagsOnMap();
+  data = [];
+  drawFlags();
+  data = countries.map((c) => ({
+    isoCode: c.isoCode,
+    name: c.name,
+    x: svgWidth * 2,
+    y: scaleLat(c.latitude),
+    size: 1,
+    opacity: 0,
+  }));
+  drawFlags();
+  setTimeout(() => {
+    data = countries.map((c) => ({
+      isoCode: c.isoCode,
+      name: c.name,
+      x: scaleLong(c.longitude),
+      y: scaleLat(c.latitude),
+      size: flagSize,
+      opacity: 1,
+    }));
+
+    drawFlags();
+  }, 500);
 }
 
 // scrollama event handlers
@@ -632,22 +659,22 @@ function handleStepEnter(response) {
   step.classed("is-active", function (d, i) {
     return i === response.index;
   });
-  console.log("Enter step ", response.index);
+  // update graphic based on step
+  figure.select("p").text(response.index).style("opacity", 0.2);
+
+  console.log("Enter step ", response.index, " - dir: " + response.direction);
 
   switch (response.index) {
     case 0:
-        step1();
+      startScreen();
+      break;
     case 1:
       step1();
+      break;
     case 2:
       step2();
+      break;
   }
-
-  // update graphic based on step
-  figure
-    .select("p")
-    .text(response.index + 1)
-    .style("opacity", 0.2);
 }
 
 function init() {
@@ -655,7 +682,7 @@ function init() {
 
   handleResize();
   addEventListener("resize", (event) => handleResize());
-  step1()
+  startScreen();
 
   // 2. setup the scroller passing options
   // 		this will also initialize trigger observations
@@ -663,7 +690,7 @@ function init() {
   scroller
     .setup({
       step: "#scrolly article .step",
-      offset: 0.33,
+      offset: 0.5,
       debug: false,
     })
     .onStepEnter(handleStepEnter);
