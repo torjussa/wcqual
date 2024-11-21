@@ -5,7 +5,7 @@ var figure = scrolly.select("figure");
 var article = scrolly.select("article");
 var step = article.selectAll(".step");
 
-// SIZEZ
+// SIZES
 var svg = d3.select("svg");
 var svgWidth = parseInt(svg.style("width"));
 var svgHeight = window.innerHeight;

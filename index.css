@@ -6,6 +6,23 @@
   background-color: #2a5d93;
 }
 
+.rotate {
+    margin-top: 20rem;
+    font-style: italic;
+    color: #6c94bf;
+  transform: rotate(-90deg);
+  /* Safari */
+  -webkit-transform: rotate(-90deg);
+
+  /* Firefox */
+  -moz-transform: rotate(-90deg);
+
+  /* IE */
+  -ms-transform: rotate(-90deg);
+
+  /* Opera */
+  -o-transform: rotate(-90deg);
+}
 #scrolly > * {
   -webkit-box-flex: 1;
   -ms-flex: 1;
@@ -31,7 +48,7 @@ figure {
 }
 
 .groupname {
-    fill: #363636;
+  fill: #363636;
 }
 
 figure p {
@@ -70,6 +87,11 @@ figure p {
   text-align: center;
   padding: 1rem;
   font-size: 1.5rem;
+}
+.step h2 {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.6rem;
 }
 
 * {
