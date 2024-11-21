@@ -3,7 +3,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: #3a6ea5;
+  background-color: #2a5d93;
 }
 
 #scrolly > * {
@@ -30,6 +30,10 @@ figure {
   z-index: 0;
 }
 
+.groupname {
+    fill: #363636;
+}
+
 figure p {
   text-align: center;
   padding: 1rem;
@@ -47,8 +51,8 @@ figure p {
 .step {
   margin: 0 auto 2rem auto;
   padding-top: 10%;
-  background-color: #3a6ea5;
-  color: #fff;
+  background-color: #2a5d93;
+  color: #363636;
 }
 * {
   transition: all 400ms ease;
@@ -59,7 +63,7 @@ figure p {
 }
 
 .step.is-active {
-  color: #3b3b3b;
+  color: #e5e5e5;
 }
 
 .step p {

@@ -5,25 +5,38 @@ var figure = scrolly.select("figure");
 var article = scrolly.select("article");
 var step = article.selectAll(".step");
 
-const duration = 300;
+// SIZEZ
+var svg = d3.select("svg");
+var svgWidth = parseInt(svg.style("width"));
+var svgHeight = window.innerHeight;
+var mapHeight = Math.min(svgWidth, svgHeight / 2);
+var xPadding = svgWidth * 0.06;
+var yPadding = svgHeight * 0.06;
+var flagSize = svgHeight / 40;
+var flagPadding = flagSize / 3;
+
+// CONSTANTS
+const duration = 400;
+
+// DATA
 const hosts = [
   {
     name: "USA",
     isoCode: "us",
-    x: 100,
-    y: 300,
+    x: svgWidth / 2,
+    y: svgHeight / 3 - flagSize * 3,
   },
   {
     name: "Canada",
     isoCode: "ca",
-    x: 10,
-    y: 10,
+    x: svgWidth / 2 - flagSize * 3,
+    y: svgHeight / 3,
   },
   {
     name: "Mexico",
     isoCode: "mx",
-    x: 10,
-    y: 50,
+    x: svgWidth / 2 + flagSize * 3,
+    y: svgHeight / 3,
   },
 ];
 const countries = [
@@ -31,7 +44,7 @@ const countries = [
     name: "Albania",
     isoCode: "al",
     fifaRank: "82",
-    nationsLeagueGroup: "C3",
+    nationsLeagueGroup: "B1",
     latitude: "41.153332",
     longitude: "20.168169",
   },
@@ -39,7 +52,7 @@ const countries = [
     name: "Andorra",
     isoCode: "ad",
     fifaRank: "157",
-    nationsLeagueGroup: "D1",
+    nationsLeagueGroup: "D2",
     latitude: "42.506305",
     longitude: "1.521801",
   },
@@ -47,7 +60,7 @@ const countries = [
     name: "Armenia",
     isoCode: "am",
     fifaRank: "92",
-    nationsLeagueGroup: "C3",
+    nationsLeagueGroup: "C4",
     latitude: "40.069099",
     longitude: "45.039188",
   },
@@ -55,7 +68,7 @@ const countries = [
     name: "Austria",
     isoCode: "at",
     fifaRank: "24",
-    nationsLeagueGroup: "A3",
+    nationsLeagueGroup: "B3",
     latitude: "47.809402",
     longitude: "13.055000",
   },
@@ -63,7 +76,7 @@ const countries = [
     name: "Azerbaijan",
     isoCode: "az",
     fifaRank: "110",
-    nationsLeagueGroup: "C2",
+    nationsLeagueGroup: "C1",
     latitude: "40.399133",
     longitude: "47.576927",
   },
@@ -79,7 +92,7 @@ const countries = [
     name: "Belgium",
     isoCode: "be",
     fifaRank: "21",
-    nationsLeagueGroup: "A1",
+    nationsLeagueGroup: "A2",
     latitude: "50.503887",
     longitude: "4.469936",
   },
@@ -87,7 +100,7 @@ const countries = [
     name: "Bosnia and Herzegovina",
     isoCode: "ba",
     fifaRank: "62",
-    nationsLeagueGroup: "B3",
+    nationsLeagueGroup: "A3",
     latitude: "44.204791",
     longitude: "17.795321",
   },
@@ -95,7 +108,7 @@ const countries = [
     name: "Bulgaria",
     isoCode: "bg",
     fifaRank: "78",
-    nationsLeagueGroup: "C4",
+    nationsLeagueGroup: "C3",
     latitude: "42.733882",
     longitude: "25.485830",
   },
@@ -119,7 +132,7 @@ const countries = [
     name: "Czech Republic",
     isoCode: "cz",
     fifaRank: "23",
-    nationsLeagueGroup: "A2",
+    nationsLeagueGroup: "B1",
     latitude: "49.817492",
     longitude: "15.473092",
   },
@@ -127,7 +140,7 @@ const countries = [
     name: "Denmark",
     isoCode: "dk",
     fifaRank: "17",
-    nationsLeagueGroup: "A2",
+    nationsLeagueGroup: "A4",
     latitude: "56.263920",
     longitude: "9.501785",
   },
@@ -135,7 +148,7 @@ const countries = [
     name: "England",
     isoCode: "gb-eng",
     fifaRank: "5",
-    nationsLeagueGroup: "A4",
+    nationsLeagueGroup: "B2",
     latitude: "52.355518",
     longitude: "-1.174351",
   },
@@ -143,7 +156,7 @@ const countries = [
     name: "Estonia",
     isoCode: "ee",
     fifaRank: "108",
-    nationsLeagueGroup: "D1",
+    nationsLeagueGroup: "C1",
     latitude: "58.595272",
     longitude: "25.912717",
   },
@@ -151,7 +164,7 @@ const countries = [
     name: "Faroe Islands",
     isoCode: "fo",
     fifaRank: "111",
-    nationsLeagueGroup: "D2",
+    nationsLeagueGroup: "C4",
     latitude: "61.892635",
     longitude: "-6.911806",
   },
@@ -159,7 +172,7 @@ const countries = [
     name: "Finland",
     isoCode: "fi",
     fifaRank: "57",
-    nationsLeagueGroup: "B3",
+    nationsLeagueGroup: "B2",
     latitude: "61.924110",
     longitude: "24.935459",
   },
@@ -167,7 +180,7 @@ const countries = [
     name: "France",
     isoCode: "fr",
     fifaRank: "3",
-    nationsLeagueGroup: "A3",
+    nationsLeagueGroup: "A2",
     latitude: "46.227638",
     longitude: "2.213749",
   },
@@ -175,7 +188,7 @@ const countries = [
     name: "Georgia",
     isoCode: "ge",
     fifaRank: "117",
-    nationsLeagueGroup: "D1",
+    nationsLeagueGroup: "B1",
     latitude: "42.315407",
     longitude: "43.356892",
   },
@@ -191,7 +204,7 @@ const countries = [
     name: "Greece",
     isoCode: "gr",
     fifaRank: "47",
-    nationsLeagueGroup: "B4",
+    nationsLeagueGroup: "B2",
     latitude: "39.074208",
     longitude: "21.824312",
   },
@@ -199,7 +212,7 @@ const countries = [
     name: "Hungary",
     isoCode: "hu",
     fifaRank: "40",
-    nationsLeagueGroup: "A2",
+    nationsLeagueGroup: "A3",
     latitude: "47.162491",
     longitude: "19.503304",
   },
@@ -215,7 +228,7 @@ const countries = [
     name: "Ireland",
     isoCode: "ie",
     fifaRank: "49",
-    nationsLeagueGroup: "B1",
+    nationsLeagueGroup: "B2",
     latitude: "53.412910",
     longitude: "-8.243890",
   },
@@ -223,7 +236,7 @@ const countries = [
     name: "Italy",
     isoCode: "it",
     fifaRank: "6",
-    nationsLeagueGroup: "A1",
+    nationsLeagueGroup: "A2",
     latitude: "41.871941",
     longitude: "12.567380",
   },
@@ -231,7 +244,7 @@ const countries = [
     name: "Israel",
     isoCode: "il",
     fifaRank: "114",
-    nationsLeagueGroup: "C3",
+    nationsLeagueGroup: "A2",
     latitude: "31.046051",
     longitude: "34.851612",
   },
@@ -239,7 +252,7 @@ const countries = [
     name: "Kazakhstan",
     isoCode: "kz",
     fifaRank: "103",
-    nationsLeagueGroup: "C1",
+    nationsLeagueGroup: "B3",
     latitude: "48.019589",
     longitude: "54.923684",
   },
@@ -255,7 +268,7 @@ const countries = [
     name: "Latvia",
     isoCode: "lv",
     fifaRank: "135",
-    nationsLeagueGroup: "D1",
+    nationsLeagueGroup: "C4",
     latitude: "56.949646",
     longitude: "24.105186",
   },
@@ -271,7 +284,7 @@ const countries = [
     name: "Lithuania",
     isoCode: "lt",
     fifaRank: "113",
-    nationsLeagueGroup: "D1",
+    nationsLeagueGroup: "C2",
     latitude: "54.689652",
     longitude: "25.279959",
   },
@@ -280,7 +293,7 @@ const countries = [
     name: "Luxembourg",
     isoCode: "lu",
     fifaRank: "96",
-    nationsLeagueGroup: "D1",
+    nationsLeagueGroup: "C3",
     latitude: "49.815273",
     longitude: "6.129583",
   },
@@ -304,7 +317,7 @@ const countries = [
     name: "Montenegro",
     isoCode: "me",
     fifaRank: "73",
-    nationsLeagueGroup: "C4",
+    nationsLeagueGroup: "B4",
     latitude: "42.506389",
     longitude: "19.408850",
   },
@@ -312,7 +325,7 @@ const countries = [
     name: "Netherlands",
     isoCode: "nl",
     fifaRank: "10",
-    nationsLeagueGroup: "A1",
+    nationsLeagueGroup: "A3",
     latitude: "52.132633",
     longitude: "5.291266",
   },
@@ -320,7 +333,7 @@ const countries = [
     name: "Northern Ireland",
     isoCode: "gb-nir",
     fifaRank: "59", // As of November 2023
-    nationsLeagueGroup: "C1",
+    nationsLeagueGroup: "C3",
     latitude: "54.609323",
     longitude: "-6.131386",
   },
@@ -344,7 +357,7 @@ const countries = [
     name: "Poland",
     isoCode: "pl",
     fifaRank: "15",
-    nationsLeagueGroup: "A4",
+    nationsLeagueGroup: "A1",
     latitude: "51.919438",
     longitude: "19.145136",
   },
@@ -352,23 +365,15 @@ const countries = [
     name: "Portugal",
     isoCode: "pt",
     fifaRank: "9",
-    nationsLeagueGroup: "A4",
+    nationsLeagueGroup: "A1",
     latitude: "39.399872",
     longitude: "-8.224454",
-  },
-  {
-    name: "Republic of Ireland",
-    isoCode: "ie",
-    fifaRank: "49",
-    nationsLeagueGroup: "B1",
-    latitude: "53.412910",
-    longitude: "-8.243890",
   },
   {
     name: "Romania",
     isoCode: "ro",
     fifaRank: "46",
-    nationsLeagueGroup: "B4",
+    nationsLeagueGroup: "C2",
     latitude: "45.943161",
     longitude: "24.966760",
   },
@@ -376,7 +381,7 @@ const countries = [
     name: "San Marino",
     isoCode: "sm",
     fifaRank: "211",
-    nationsLeagueGroup: "D2",
+    nationsLeagueGroup: "D1",
     latitude: "43.942360",
     longitude: "12.457777",
   },
@@ -384,7 +389,7 @@ const countries = [
     name: "Scotland",
     isoCode: "gb-sct",
     fifaRank: "38", // As of November 2023
-    nationsLeagueGroup: "B2",
+    nationsLeagueGroup: "A1",
     latitude: "56.492000",
     longitude: "-3.201000",
   },
@@ -392,7 +397,7 @@ const countries = [
     name: "Serbia",
     isoCode: "rs",
     fifaRank: "22",
-    nationsLeagueGroup: "A3",
+    nationsLeagueGroup: "A4",
     latitude: "44.016521",
     longitude: "21.005859",
   },
@@ -400,7 +405,7 @@ const countries = [
     name: "Slovakia",
     isoCode: "sk",
     fifaRank: "53",
-    nationsLeagueGroup: "B1",
+    nationsLeagueGroup: "C1",
     latitude: "48.669026",
     longitude: "19.699024",
   },
@@ -408,7 +413,7 @@ const countries = [
     name: "Slovenia",
     isoCode: "si",
     fifaRank: "64",
-    nationsLeagueGroup: "B2",
+    nationsLeagueGroup: "B3",
     latitude: "46.151241",
     longitude: "14.995463",
   },
@@ -416,7 +421,7 @@ const countries = [
     name: "Spain",
     isoCode: "es",
     fifaRank: "8",
-    nationsLeagueGroup: "A2",
+    nationsLeagueGroup: "A4",
     latitude: "40.463667",
     longitude: "-3.749220",
   },
@@ -424,7 +429,7 @@ const countries = [
     name: "Sweden",
     isoCode: "se",
     fifaRank: "20",
-    nationsLeagueGroup: "A1",
+    nationsLeagueGroup: "C1",
     latitude: "60.128161",
     longitude: "18.643501",
   },
@@ -440,7 +445,7 @@ const countries = [
     name: "Turkey",
     isoCode: "tr",
     fifaRank: "39",
-    nationsLeagueGroup: "B2",
+    nationsLeagueGroup: "B4",
     latitude: "38.963745",
     longitude: "35.243322",
   },
@@ -456,7 +461,7 @@ const countries = [
     name: "Wales",
     isoCode: "gb-wls",
     fifaRank: "28",
-    nationsLeagueGroup: "A4",
+    nationsLeagueGroup: "B4",
     latitude: "52.130858",
     longitude: "-3.988022",
   },
@@ -464,13 +469,17 @@ const countries = [
     name: "Gibraltar",
     isoCode: "gi",
     fifaRank: "194",
-    nationsLeagueGroup: "D2",
+    nationsLeagueGroup: "D1",
     latitude: "36.140740",
     longitude: "-5.351330",
   },
 ];
+const circles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
+// GLOBAL DATA
 var data = [];
+var circleData = [];
+var textData = [];
 
 const minLat = countries.reduce(
   (min, country) => Math.min(min, country.latitude),
@@ -488,15 +497,6 @@ const maxLong = countries.reduce(
   (max, country) => Math.max(max, country.longitude),
   -200
 );
-var svg = d3.select("svg");
-var svgWidth = parseInt(svg.style("width"));
-var svgHeight = window.innerHeight;
-var mapHeight = Math.min(svgWidth, svgHeight / 2);
-
-var xPadding = svgWidth * 0.06;
-var yPadding = svgHeight * 0.06;
-
-var flagSize = svgHeight / 40;
 
 var scaleLong = d3.scaleLinear(
   [minLong, maxLong],
@@ -504,8 +504,15 @@ var scaleLong = d3.scaleLinear(
 );
 var scaleLat = d3.scaleLinear(
   [minLat, maxLat],
-  [mapHeight - yPadding, 0 + yPadding]
+  [mapHeight + yPadding, 0 + yPadding]
 );
+
+var groupBy = function (xs, key) {
+  return xs.reduce(function (rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+};
 
 // initialize the scrollama
 var scroller = scrollama();
@@ -515,35 +522,7 @@ function handleResize() {
   // 1. update height of step elements
   var stepH = Math.floor(window.innerHeight * 0.9);
   step.style("height", stepH + "px");
-  /*
-  svg = d3.select("svg");
-  var svgWidth = parseInt(svg.style("width"));
-  var svgHeight = window.innerHeight;
-  var mapHeight = Math.min(svgWidth, svgHeight / 2);
 
-  var xPadding = svgWidth * 0.06;
-  var yPadding = svgHeight * 0.06;
-
-  var scaleLong = d3.scaleLinear(
-    [minLong, maxLong],
-    [0 + xPadding, svgWidth - xPadding]
-  );
-  var scaleLat = d3.scaleLinear(
-    [minLat, maxLat],
-    [mapHeight - yPadding, 0 + yPadding]
-  );
-  svg
-    .selectAll("image")
-    .data(countries)
-    .join(
-      (_) => _,
-      (update) =>
-        update
-          .attr("x", (d) => scaleLong(d.longitude))
-          .attr("y", (d) => scaleLat(d.latitude)),
-      (_) => _
-    );
-*/
   var figureHeight = window.innerHeight;
   var figureMarginTop = (window.innerHeight - figureHeight) / 2;
 
@@ -555,7 +534,6 @@ function handleResize() {
   scroller.resize();
 }
 
-// Create flags
 function drawFlags() {
   svg
     .selectAll("image")
@@ -564,44 +542,89 @@ function drawFlags() {
       (enter) =>
         enter
           .append("svg:image")
-          .attr("id", (d) => d.name)
-          .attr("x", (d) => d.x)
-          .attr("y", (d) => d.y)
-          .attr("width", (d) => d.size)
-          .attr("height", (d) => d.size)
-          .attr("opacity", (d) => d.opacity)
           .attr(
             "xlink:href",
             (d) =>
               "https://hatscripts.github.io/circle-flags/flags/" +
               d.isoCode +
               ".svg"
-          ),
+          )
+          .attr("id", (d) => d.name)
+          .call((enter) =>
+            enter.transition().duration((d) => d.duration ?? duration)
+          )
+          .attr("x", (d) => d.x)
+          .attr("y", (d) => d.y)
+          .attr("width", (d) => d.size)
+          .attr("height", (d) => d.size)
+          .attr("opacity", (d) => d.opacity ?? 1),
       (update) =>
         update
-          .attr("id", (d) => d.name)
-          .attr("x", (d) => d.x)
-          .attr("y", (d) => d.y)
-          .attr("width", (d) => d.size)
-          .attr("height", (d) => d.size)
-          .attr("opacity", (d) => d.opacity)
           .attr(
             "xlink:href",
             (d) =>
               "https://hatscripts.github.io/circle-flags/flags/" +
               d.isoCode +
               ".svg"
-          ),
+          )
+          .attr("id", (d) => d.name)
+          .attr("x", (d) => d.x)
+          .attr("y", (d) => d.y)
+          .attr("width", (d) => d.size)
+          .attr("height", (d) => d.size)
+          .attr("opacity", (d) => d.opacity ?? 1),
       (exit) =>
-        exit
-          .transition()
-          .duration(duration)
-          .style("opacity", 0)
-          .on("end", function () {
-            d3.select(this).remove();
-          })
+        exit.transition().duration(duration).style("opacity", 0).remove()
     );
 }
+
+function drawCircles() {
+  svg
+    .selectAll("circle")
+    .data(circleData)
+    .join(
+      (enter) =>
+        enter
+          .append("circle")
+          .attr("r", flagSize / 2)
+          .attr("cx", svgWidth / 8)
+          .attr("cy", (d) => d * 2 * flagSize)
+          .style("opacity", 0)
+          .attr("stroke", "black")
+          .attr("stroke-width", 3)
+          .attr("fill", "gold"),
+      (update) => update,
+      (exit) =>
+        exit.transition().duration(duration).style("opacity", 0).remove()
+    )
+    .transition()
+    .duration(duration)
+    .style("opacity", 1);
+}
+
+function drawGroupNames() {
+  svg
+    .selectAll("text.groupname")
+    .data(textData)
+    .join(
+      (enter) =>
+        enter
+          .append("text")
+          .attr("class", "groupname")
+          .text((d) => d)
+          .attr("x", (d) => getX(d) - flagSize / 5)
+          .attr("y", (d) => getYforHeader(d))
+          .style("opacity", 0),
+      (update) => update,
+      (exit) =>
+        exit.transition().duration(duration).style("opacity", 0).remove()
+    )
+
+    .transition()
+    .duration(800)
+    .style("opacity", 1);
+}
+
 //
 // Steps
 //
@@ -612,45 +635,120 @@ function startScreen() {
     name: country.name,
     x: country.x,
     y: country.y,
-    size: flagSize,
-    opacity: 1,
+    size: flagSize * 3,
   }));
-  drawFlags();
+  circleData = [];
+  redraw();
 }
 
 function step1() {
-  data = data.map((c) => ({
-    ...c,
+  data = hosts.map((c) => ({
+    isoCode: c.isoCode,
     x: -300,
     y: mapHeight / 2,
+    size: 2 * flagSize,
+    opacity: 0,
   }));
+
+  data = data.concat(
+    countries.map((c) => ({
+      isoCode: c.isoCode,
+      x: svgWidth * 2,
+      y: mapHeight / 2,
+      size: 10 * flagSize,
+      opacity: 0,
+    }))
+  );
+  circleData = circles;
+
+  redraw();
+}
+
+function redraw() {
+  drawCircles();
   drawFlags();
+  drawGroupNames();
 }
 
 function step2() {
-  data = [];
-  drawFlags();
   data = countries.map((c) => ({
     isoCode: c.isoCode,
     name: c.name,
-    x: svgWidth * 2,
+    x: scaleLong(c.longitude),
     y: scaleLat(c.latitude),
-    size: 1,
-    opacity: 0,
+    size: flagSize,
+    duration: 1800,
   }));
-  drawFlags();
-  setTimeout(() => {
-    data = countries.map((c) => ({
-      isoCode: c.isoCode,
-      name: c.name,
-      x: scaleLong(c.longitude),
-      y: scaleLat(c.latitude),
-      size: flagSize,
-      opacity: 1,
-    }));
+  circleData = [];
+  textData = [];
 
-    drawFlags();
-  }, 500);
+  redraw();
+}
+
+function getX(group) {
+  if (group.includes("1")) {
+    return svgWidth / 5;
+  }
+  if (group.includes("2")) {
+    return (2 * svgWidth) / 5;
+  }
+  if (group.includes("3")) {
+    return (3 * svgWidth) / 5;
+  }
+  if (group.includes("4")) {
+    return (4 * svgWidth) / 5;
+  }
+}
+function getY(group, i) {
+  if (group.includes("A")) {
+    return svgHeight / 5 + i * (flagSize + flagPadding);
+  }
+  if (group.includes("B")) {
+    return (2 * svgHeight) / 5 + i * (flagSize + flagPadding);
+  }
+  if (group.includes("C")) {
+    return (3 * svgHeight) / 5 + i * (flagSize + flagPadding);
+  }
+  if (group.includes("D")) {
+    return (4 * svgHeight) / 5 + i * (flagSize + flagPadding);
+  }
+}
+
+function getYforHeader(group) {
+  if (group.includes("A")) {
+    return svgHeight / 5 - flagSize / 2;
+  }
+  if (group.includes("B")) {
+    return (2 * svgHeight) / 5 - flagSize / 2;
+  }
+  if (group.includes("C")) {
+    return (3 * svgHeight) / 5 - flagSize / 2;
+  }
+  if (group.includes("D")) {
+    return (4 * svgHeight) / 5 - flagSize / 2;
+  }
+}
+function step3() {
+  data = [];
+  const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
+  Object.keys(nationsLeagueGroups).map((key) => {
+    nationsLeagueGroups[key].map((c, i) =>
+      data.push({
+        isoCode: c.isoCode,
+        x: getX(key),
+        y: getY(key, i),
+        size: flagSize,
+        opacity: 1,
+      })
+    );
+  });
+  textData = Object.keys(nationsLeagueGroups);
+
+  redraw();
+}
+function step4() {
+  // Play NL groups
+  redraw();
 }
 
 // scrollama event handlers
@@ -674,6 +772,12 @@ function handleStepEnter(response) {
     case 2:
       step2();
       break;
+    case 3:
+      step3();
+      break;
+    case 4:
+      step4();
+      break;
   }
 }
 
@@ -690,7 +794,7 @@ function init() {
   scroller
     .setup({
       step: "#scrolly article .step",
-      offset: 0.5,
+      offset: 0.6,
       debug: false,
     })
     .onStepEnter(handleStepEnter);
