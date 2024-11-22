@@ -13,6 +13,7 @@ var mapHeight = Math.min(svgWidth, svgHeight / 2);
 var xPadding = svgWidth * 0.06;
 var yPadding = svgHeight * 0.06;
 var flagSize = svgHeight / 40;
+var bigFlagSize = flagSize * 3;
 var flagPadding = flagSize / 3;
 
 // CONSTANTS
@@ -23,19 +24,19 @@ const hosts = [
   {
     name: "USA",
     isoCode: "us",
-    x: svgWidth / 2,
-    y: svgHeight / 3 - flagSize * 3,
+    x: svgWidth / 2 - bigFlagSize/2,
+    y: svgHeight / 3 - bigFlagSize- flagSize,
   },
   {
     name: "Canada",
     isoCode: "ca",
-    x: svgWidth / 2 - flagSize * 3,
+    x: svgWidth / 2  - bigFlagSize - flagSize,
     y: svgHeight / 3,
   },
   {
     name: "Mexico",
     isoCode: "mx",
-    x: svgWidth / 2 + flagSize * 3,
+    x: svgWidth / 2 + flagSize,
     y: svgHeight / 3,
   },
 ];
@@ -612,9 +613,11 @@ function drawGroupNames() {
           .append("text")
           .attr("class", "groupname")
           .text((d) => d)
-          .attr("x", (d) => getX(d) - flagSize / 5)
+          .attr("x", (d) => getX(d) - flagSize / 7)
+
           .attr("y", (d) => getYforHeader(d))
-          .style("opacity", 0),
+          .style("opacity", 0)
+          .style("font-size", flagSize),
       (update) => update,
       (exit) =>
         exit.transition().duration(duration).style("opacity", 0).remove()
@@ -635,7 +638,7 @@ function startScreen() {
     name: country.name,
     x: country.x,
     y: country.y,
-    size: flagSize * 3,
+    size: bigFlagSize,
   }));
   circleData = [];
   redraw();
