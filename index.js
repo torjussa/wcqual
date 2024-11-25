@@ -24,13 +24,13 @@ const hosts = [
   {
     name: "USA",
     isoCode: "us",
-    x: svgWidth / 2 - bigFlagSize/2,
-    y: svgHeight / 3 - bigFlagSize- flagSize,
+    x: svgWidth / 2 - bigFlagSize / 2,
+    y: svgHeight / 3 - bigFlagSize - flagSize,
   },
   {
     name: "Canada",
     isoCode: "ca",
-    x: svgWidth / 2  - bigFlagSize - flagSize,
+    x: svgWidth / 2 - bigFlagSize - flagSize,
     y: svgHeight / 3,
   },
   {
@@ -46,6 +46,7 @@ const countries = [
     isoCode: "al",
     fifaRank: "82",
     nationsLeagueGroup: "B1",
+    nationsLeaguePosition: 4,
     latitude: "41.153332",
     longitude: "20.168169",
   },
@@ -54,6 +55,7 @@ const countries = [
     isoCode: "ad",
     fifaRank: "157",
     nationsLeagueGroup: "D2",
+    nationsLeaguePosition: 3,
     latitude: "42.506305",
     longitude: "1.521801",
   },
@@ -62,6 +64,7 @@ const countries = [
     isoCode: "am",
     fifaRank: "92",
     nationsLeagueGroup: "C4",
+    nationsLeaguePosition: 2,
     latitude: "40.069099",
     longitude: "45.039188",
   },
@@ -70,6 +73,7 @@ const countries = [
     isoCode: "at",
     fifaRank: "24",
     nationsLeagueGroup: "B3",
+    nationsLeaguePosition: 2,
     latitude: "47.809402",
     longitude: "13.055000",
   },
@@ -78,6 +82,7 @@ const countries = [
     isoCode: "az",
     fifaRank: "110",
     nationsLeagueGroup: "C1",
+    nationsLeaguePosition: 4,
     latitude: "40.399133",
     longitude: "47.576927",
   },
@@ -86,6 +91,7 @@ const countries = [
     isoCode: "by",
     fifaRank: "75",
     nationsLeagueGroup: "C3",
+    nationsLeaguePosition: 3,
     latitude: "53.709807",
     longitude: "27.953389",
   },
@@ -94,6 +100,7 @@ const countries = [
     isoCode: "be",
     fifaRank: "21",
     nationsLeagueGroup: "A2",
+    nationsLeaguePosition: 3,
     latitude: "50.503887",
     longitude: "4.469936",
   },
@@ -102,6 +109,7 @@ const countries = [
     isoCode: "ba",
     fifaRank: "62",
     nationsLeagueGroup: "A3",
+    nationsLeaguePosition: 4,
     latitude: "44.204791",
     longitude: "17.795321",
   },
@@ -110,6 +118,7 @@ const countries = [
     isoCode: "bg",
     fifaRank: "78",
     nationsLeagueGroup: "C3",
+    nationsLeaguePosition: 2,
     latitude: "42.733882",
     longitude: "25.485830",
   },
@@ -118,6 +127,7 @@ const countries = [
     isoCode: "hr",
     fifaRank: "7",
     nationsLeagueGroup: "A1",
+    nationsLeaguePosition: 2,
     latitude: "45.815010",
     longitude: "15.579452",
   },
@@ -126,6 +136,7 @@ const countries = [
     isoCode: "cy",
     fifaRank: "105",
     nationsLeagueGroup: "C2",
+    nationsLeaguePosition: 3,
     latitude: "35.126413",
     longitude: "33.429859",
   },
@@ -134,6 +145,7 @@ const countries = [
     isoCode: "cz",
     fifaRank: "23",
     nationsLeagueGroup: "B1",
+    nationsLeaguePosition: 1,
     latitude: "49.817492",
     longitude: "15.473092",
   },
@@ -142,6 +154,7 @@ const countries = [
     isoCode: "dk",
     fifaRank: "17",
     nationsLeagueGroup: "A4",
+    nationsLeaguePosition: 2,
     latitude: "56.263920",
     longitude: "9.501785",
   },
@@ -150,6 +163,7 @@ const countries = [
     isoCode: "gb-eng",
     fifaRank: "5",
     nationsLeagueGroup: "B2",
+    nationsLeaguePosition: 1,
     latitude: "52.355518",
     longitude: "-1.174351",
   },
@@ -158,6 +172,7 @@ const countries = [
     isoCode: "ee",
     fifaRank: "108",
     nationsLeagueGroup: "C1",
+    nationsLeaguePosition: 3,
     latitude: "58.595272",
     longitude: "25.912717",
   },
@@ -166,6 +181,7 @@ const countries = [
     isoCode: "fo",
     fifaRank: "111",
     nationsLeagueGroup: "C4",
+    nationsLeaguePosition: 3,
     latitude: "61.892635",
     longitude: "-6.911806",
   },
@@ -174,6 +190,7 @@ const countries = [
     isoCode: "fi",
     fifaRank: "57",
     nationsLeagueGroup: "B2",
+    nationsLeaguePosition: 4,
     latitude: "61.924110",
     longitude: "24.935459",
   },
@@ -182,6 +199,7 @@ const countries = [
     isoCode: "fr",
     fifaRank: "3",
     nationsLeagueGroup: "A2",
+    nationsLeaguePosition: 1,
     latitude: "46.227638",
     longitude: "2.213749",
   },
@@ -190,6 +208,7 @@ const countries = [
     isoCode: "ge",
     fifaRank: "117",
     nationsLeagueGroup: "B1",
+    nationsLeaguePosition: 3,
     latitude: "42.315407",
     longitude: "43.356892",
   },
@@ -198,6 +217,7 @@ const countries = [
     isoCode: "de",
     fifaRank: "11",
     nationsLeagueGroup: "A3",
+    nationsLeaguePosition: 1,
     latitude: "51.165691",
     longitude: "10.451526",
   },
@@ -206,6 +226,7 @@ const countries = [
     isoCode: "gr",
     fifaRank: "47",
     nationsLeagueGroup: "B2",
+    nationsLeaguePosition: 2,
     latitude: "39.074208",
     longitude: "21.824312",
   },
@@ -214,6 +235,7 @@ const countries = [
     isoCode: "hu",
     fifaRank: "40",
     nationsLeagueGroup: "A3",
+    nationsLeaguePosition: 3,
     latitude: "47.162491",
     longitude: "19.503304",
   },
@@ -222,6 +244,7 @@ const countries = [
     isoCode: "is",
     fifaRank: "61",
     nationsLeagueGroup: "B4",
+    nationsLeaguePosition: 3,
     latitude: "64.963051",
     longitude: "-17.020835",
   },
@@ -230,6 +253,7 @@ const countries = [
     isoCode: "ie",
     fifaRank: "49",
     nationsLeagueGroup: "B2",
+    nationsLeaguePosition: 3,
     latitude: "53.412910",
     longitude: "-8.243890",
   },
@@ -238,6 +262,7 @@ const countries = [
     isoCode: "it",
     fifaRank: "6",
     nationsLeagueGroup: "A2",
+    nationsLeaguePosition: 2,
     latitude: "41.871941",
     longitude: "12.567380",
   },
@@ -246,6 +271,7 @@ const countries = [
     isoCode: "il",
     fifaRank: "114",
     nationsLeagueGroup: "A2",
+    nationsLeaguePosition: 4,
     latitude: "31.046051",
     longitude: "34.851612",
   },
@@ -254,6 +280,7 @@ const countries = [
     isoCode: "kz",
     fifaRank: "103",
     nationsLeagueGroup: "B3",
+    nationsLeaguePosition: 4,
     latitude: "48.019589",
     longitude: "54.923684",
   },
@@ -262,6 +289,7 @@ const countries = [
     isoCode: "xk",
     fifaRank: "107",
     nationsLeagueGroup: "C2",
+    nationsLeaguePosition: 2,
     latitude: "42.602636",
     longitude: "20.902981",
   },
@@ -270,6 +298,7 @@ const countries = [
     isoCode: "lv",
     fifaRank: "135",
     nationsLeagueGroup: "C4",
+    nationsLeaguePosition: 4,
     latitude: "56.949646",
     longitude: "24.105186",
   },
@@ -278,6 +307,7 @@ const countries = [
     isoCode: "li",
     fifaRank: "192",
     nationsLeagueGroup: "D1",
+    nationsLeaguePosition: 3,
     latitude: "47.166000",
     longitude: "9.555373",
   },
@@ -286,6 +316,7 @@ const countries = [
     isoCode: "lt",
     fifaRank: "113",
     nationsLeagueGroup: "C2",
+    nationsLeaguePosition: 4,
     latitude: "54.689652",
     longitude: "25.279959",
   },
@@ -295,6 +326,7 @@ const countries = [
     isoCode: "lu",
     fifaRank: "96",
     nationsLeagueGroup: "C3",
+    nationsLeaguePosition: 4,
     latitude: "49.815273",
     longitude: "6.129583",
   },
@@ -303,6 +335,7 @@ const countries = [
     isoCode: "mt",
     fifaRank: "174",
     nationsLeagueGroup: "D2",
+    nationsLeaguePosition: 2,
     latitude: "35.937496",
     longitude: "14.375416",
   },
@@ -311,6 +344,7 @@ const countries = [
     isoCode: "md",
     fifaRank: "171",
     nationsLeagueGroup: "D2",
+    nationsLeaguePosition: 1,
     latitude: "47.411653",
     longitude: "28.833887",
   },
@@ -319,6 +353,7 @@ const countries = [
     isoCode: "me",
     fifaRank: "73",
     nationsLeagueGroup: "B4",
+    nationsLeaguePosition: 4,
     latitude: "42.506389",
     longitude: "19.408850",
   },
@@ -327,6 +362,7 @@ const countries = [
     isoCode: "nl",
     fifaRank: "10",
     nationsLeagueGroup: "A3",
+    nationsLeaguePosition: 2,
     latitude: "52.132633",
     longitude: "5.291266",
   },
@@ -335,6 +371,7 @@ const countries = [
     isoCode: "gb-nir",
     fifaRank: "59", // As of November 2023
     nationsLeagueGroup: "C3",
+    nationsLeaguePosition: 1,
     latitude: "54.609323",
     longitude: "-6.131386",
   },
@@ -343,6 +380,7 @@ const countries = [
     isoCode: "mk",
     fifaRank: "67",
     nationsLeagueGroup: "C4",
+    nationsLeaguePosition: 1,
     latitude: "41.608635",
     longitude: "21.745275",
   },
@@ -351,6 +389,7 @@ const countries = [
     isoCode: "no",
     fifaRank: "48",
     nationsLeagueGroup: "B3",
+    nationsLeaguePosition: 1,
     latitude: "59.91129366297636",
     longitude: "10.753603061457929",
   },
@@ -359,6 +398,7 @@ const countries = [
     isoCode: "pl",
     fifaRank: "15",
     nationsLeagueGroup: "A1",
+    nationsLeaguePosition: 4,
     latitude: "51.919438",
     longitude: "19.145136",
   },
@@ -367,6 +407,7 @@ const countries = [
     isoCode: "pt",
     fifaRank: "9",
     nationsLeagueGroup: "A1",
+    nationsLeaguePosition: 1,
     latitude: "39.399872",
     longitude: "-8.224454",
   },
@@ -375,6 +416,7 @@ const countries = [
     isoCode: "ro",
     fifaRank: "46",
     nationsLeagueGroup: "C2",
+    nationsLeaguePosition: 1,
     latitude: "45.943161",
     longitude: "24.966760",
   },
@@ -383,6 +425,7 @@ const countries = [
     isoCode: "sm",
     fifaRank: "211",
     nationsLeagueGroup: "D1",
+    nationsLeaguePosition: 1,
     latitude: "43.942360",
     longitude: "12.457777",
   },
@@ -391,6 +434,7 @@ const countries = [
     isoCode: "gb-sct",
     fifaRank: "38", // As of November 2023
     nationsLeagueGroup: "A1",
+    nationsLeaguePosition: 3,
     latitude: "56.492000",
     longitude: "-3.201000",
   },
@@ -399,6 +443,7 @@ const countries = [
     isoCode: "rs",
     fifaRank: "22",
     nationsLeagueGroup: "A4",
+    nationsLeaguePosition: 3,
     latitude: "44.016521",
     longitude: "21.005859",
   },
@@ -407,6 +452,7 @@ const countries = [
     isoCode: "sk",
     fifaRank: "53",
     nationsLeagueGroup: "C1",
+    nationsLeaguePosition: 2,
     latitude: "48.669026",
     longitude: "19.699024",
   },
@@ -415,6 +461,7 @@ const countries = [
     isoCode: "si",
     fifaRank: "64",
     nationsLeagueGroup: "B3",
+    nationsLeaguePosition: 3,
     latitude: "46.151241",
     longitude: "14.995463",
   },
@@ -423,6 +470,7 @@ const countries = [
     isoCode: "es",
     fifaRank: "8",
     nationsLeagueGroup: "A4",
+    nationsLeaguePosition: 1,
     latitude: "40.463667",
     longitude: "-3.749220",
   },
@@ -431,6 +479,7 @@ const countries = [
     isoCode: "se",
     fifaRank: "20",
     nationsLeagueGroup: "C1",
+    nationsLeaguePosition: 1,
     latitude: "60.128161",
     longitude: "18.643501",
   },
@@ -439,6 +488,7 @@ const countries = [
     isoCode: "ch",
     fifaRank: "16",
     nationsLeagueGroup: "A4",
+    nationsLeaguePosition: 4,
     latitude: "46.818188",
     longitude: "8.227512",
   },
@@ -447,6 +497,7 @@ const countries = [
     isoCode: "tr",
     fifaRank: "39",
     nationsLeagueGroup: "B4",
+    nationsLeaguePosition: 2,
     latitude: "38.963745",
     longitude: "35.243322",
   },
@@ -455,6 +506,7 @@ const countries = [
     isoCode: "ua",
     fifaRank: "27",
     nationsLeagueGroup: "B1",
+    nationsLeaguePosition: 2,
     latitude: "49.838268",
     longitude: "31.165580",
   },
@@ -463,6 +515,7 @@ const countries = [
     isoCode: "gb-wls",
     fifaRank: "28",
     nationsLeagueGroup: "B4",
+    nationsLeaguePosition: 1,
     latitude: "52.130858",
     longitude: "-3.988022",
   },
@@ -471,6 +524,7 @@ const countries = [
     isoCode: "gi",
     fifaRank: "194",
     nationsLeagueGroup: "D1",
+    nationsLeaguePosition: 2,
     latitude: "36.140740",
     longitude: "-5.351330",
   },
@@ -482,6 +536,7 @@ var data = [];
 var circleData = [];
 var textData = [];
 
+//HELPERS
 const minLat = countries.reduce(
   (min, country) => Math.min(min, country.latitude),
   200
@@ -518,23 +573,7 @@ var groupBy = function (xs, key) {
 // initialize the scrollama
 var scroller = scrollama();
 
-// generic window resize listener event
-function handleResize() {
-  // 1. update height of step elements
-  var stepH = Math.floor(window.innerHeight * 0.9);
-  step.style("height", stepH + "px");
-
-  var figureHeight = window.innerHeight;
-  var figureMarginTop = (window.innerHeight - figureHeight) / 2;
-
-  figure
-    .style("height", figureHeight + "px")
-    .style("top", figureMarginTop + "px");
-
-  // 3. tell scrollama to update new element dimensions
-  scroller.resize();
-}
-
+//DRAWING FUNCTIONS
 function drawFlags() {
   svg
     .selectAll("image")
@@ -551,9 +590,6 @@ function drawFlags() {
               ".svg"
           )
           .attr("id", (d) => d.name)
-          .call((enter) =>
-            enter.transition().duration((d) => d.duration ?? duration)
-          )
           .attr("x", (d) => d.x)
           .attr("y", (d) => d.y)
           .attr("width", (d) => d.size)
@@ -568,15 +604,22 @@ function drawFlags() {
               d.isoCode +
               ".svg"
           )
-          .attr("id", (d) => d.name)
-          .attr("x", (d) => d.x)
-          .attr("y", (d) => d.y)
-          .attr("width", (d) => d.size)
-          .attr("height", (d) => d.size)
-          .attr("opacity", (d) => d.opacity ?? 1),
+          .attr("id", (d) => d.name),
       (exit) =>
-        exit.transition().duration(duration).style("opacity", 0).remove()
-    );
+        exit
+          .transition()
+          .duration(duration)
+          .style("opacity", 0)
+          .remove()
+    )
+    .transition()
+    .delay((d) => d.delay || 0)
+    .duration((d) => d.duration || duration)
+    .attr("x", (d) => d.x)
+    .attr("y", (d) => d.y)
+    .attr("width", (d) => d.size)
+    .attr("height", (d) => d.size)
+    .attr("opacity", (d) => d.opacity ?? 1);
 }
 
 function drawCircles() {
@@ -595,8 +638,7 @@ function drawCircles() {
           .attr("stroke-width", 3)
           .attr("fill", "gold"),
       (update) => update,
-      (exit) =>
-        exit.transition().duration(duration).style("opacity", 0).remove()
+      (exit) => exit.transition().duration(duration).attr("cx", -100).style("opacity", 0).remove()
     )
     .transition()
     .duration(duration)
@@ -620,12 +662,15 @@ function drawGroupNames() {
           .style("font-size", flagSize),
       (update) => update,
       (exit) =>
-        exit.transition().duration(duration).style("opacity", 0).remove()
+        exit
+          .transition()
+          .duration(duration * 2)
+          .style("opacity", 0)
+          .remove()
     )
-
     .transition()
-    .duration(800)
-    .style("opacity", 1);
+    .duration(400)
+    .style("opacity", 0.85);
 }
 
 //
@@ -647,7 +692,7 @@ function startScreen() {
 function step1() {
   data = hosts.map((c) => ({
     isoCode: c.isoCode,
-    x: -300,
+    x: svgWidth*2,
     y: mapHeight / 2,
     size: 2 * flagSize,
     opacity: 0,
@@ -674,13 +719,13 @@ function redraw() {
 }
 
 function step2() {
-  data = countries.map((c) => ({
+  data = countries.map((c, i) => ({
     isoCode: c.isoCode,
     name: c.name,
     x: scaleLong(c.longitude),
     y: scaleLat(c.latitude),
     size: flagSize,
-    duration: 1800,
+    delay: 30 * i,
   }));
   circleData = [];
   textData = [];
@@ -734,7 +779,7 @@ function getYforHeader(group) {
 function step3() {
   data = [];
   const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
-  Object.keys(nationsLeagueGroups).map((key) => {
+  Object.keys(nationsLeagueGroups).map((key, j) => {
     nationsLeagueGroups[key].map((c, i) =>
       data.push({
         isoCode: c.isoCode,
@@ -742,6 +787,7 @@ function step3() {
         y: getY(key, i),
         size: flagSize,
         opacity: 1,
+        delay: j*100
       })
     );
   });
@@ -749,8 +795,21 @@ function step3() {
 
   redraw();
 }
-function step4() {
-  // Play NL groups
+function sortNLGroups() {
+  data = [];
+  const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
+  Object.keys(nationsLeagueGroups).map((key, i) => {
+    nationsLeagueGroups[key].map((c) =>
+      data.push({
+        isoCode: c.isoCode,
+        x: getX(key),
+        y: getY(key, c.nationsLeaguePosition - 1),
+        size: flagSize,
+        opacity: 1,
+        delay: 100 + (i * 80),
+      })
+    );
+  });
   redraw();
 }
 
@@ -779,16 +838,37 @@ function handleStepEnter(response) {
       step3();
       break;
     case 4:
-      step4();
+      sortNLGroups();
       break;
   }
+}
+
+// generic window resize listener event
+function handleResize() {
+  console.log("resizing..");
+  console.log();
+  // 1. update height of step elements
+  var stepH = Math.floor(window.innerHeight * 0.9);
+  step.style("height", stepH + "px");
+
+  var figureHeight = window.innerHeight;
+  var figureMarginTop = (window.innerHeight - figureHeight) / 2;
+
+  figure
+    .style("height", figureHeight + "px")
+    .style("top", figureMarginTop + "px");
+
+  svg = d3.select("svg").style("height", figureHeight + "px");
+  redraw();
+  // 3. tell scrollama to update new element dimensions
+  scroller.resize();
 }
 
 function init() {
   // 1. force a resize on load to ensure proper dimensions are sent to scrollama
 
   handleResize();
-  addEventListener("resize", (event) => handleResize());
+  addEventListener("resize", () => handleResize());
   startScreen();
 
   // 2. setup the scroller passing options
