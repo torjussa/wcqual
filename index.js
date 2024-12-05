@@ -16,28 +16,30 @@ var flagSize = svgHeight / 40;
 var bigFlagSize = flagSize * 3;
 var flagPadding = flagSize / 3;
 
+var getSvgWidth = () => parseInt(svg.style("width"));
+
 // CONSTANTS
 const duration = 400;
 
 // DATA
-const hosts = [
+let hosts = [
   {
     name: "USA",
     isoCode: "us",
-    x: svgWidth / 2 - bigFlagSize / 2,
-    y: svgHeight / 3 - bigFlagSize - flagSize,
+    x: () => svgWidth / 2 - bigFlagSize / 2,
+    y: () => svgHeight / 3,
   },
   {
     name: "Canada",
     isoCode: "ca",
-    x: svgWidth / 2 - bigFlagSize - flagSize,
-    y: svgHeight / 3,
+    x: () => svgWidth / 2 - bigFlagSize - flagSize,
+    y: () => svgHeight / 3 + bigFlagSize,
   },
   {
     name: "Mexico",
     isoCode: "mx",
-    x: svgWidth / 2 + flagSize,
-    y: svgHeight / 3,
+    x: () => svgWidth / 2 + flagSize,
+    y: () => svgHeight / 3 + bigFlagSize,
   },
 ];
 const countries = [
@@ -591,27 +593,23 @@ var circleData = [];
 var textData = [];
 
 //HELPERS
-const minLat = countries.reduce(
+var minLat = countries.reduce(
   (min, country) => Math.min(min, country.latitude),
   200
 );
-const maxLat = countries.reduce(
+var maxLat = countries.reduce(
   (max, country) => Math.max(max, country.latitude),
   -200
 );
-const minLong = countries.reduce(
+var minLong = countries.reduce(
   (min, country) => Math.min(min, country.longitude),
   200
 );
-const maxLong = countries.reduce(
+var maxLong = countries.reduce(
   (max, country) => Math.max(max, country.longitude),
   -200
 );
 
-var scaleLong = d3.scaleLinear(
-  [minLong, maxLong],
-  [0 + xPadding, svgWidth - xPadding]
-);
 var scaleLat = d3.scaleLinear(
   [minLat, maxLat],
   [mapHeight + yPadding, 0 + yPadding]
@@ -631,7 +629,7 @@ var scroller = scrollama();
 function drawFlags() {
   svg
     .selectAll("image")
-    .data(data, d => d.isoCode)
+    .data(data, (d) => d.isoCode)
     .join(
       (enter) =>
         enter
@@ -649,16 +647,8 @@ function drawFlags() {
           .attr("width", (d) => d.size)
           .attr("height", (d) => d.size)
           .attr("opacity", (d) => d.opacity ?? 1),
-      (update) =>
-        update
-          .attr(
-            "xlink:href",
-            (d) =>
-              "https://hatscripts.github.io/circle-flags/flags/" +
-              d.isoCode +
-              ".svg"
-          )
-          .attr("id", (d) => d.isoCode),
+      (update) => update,
+
       (exit) =>
         exit.transition().duration(duration).style("opacity", 0).remove()
     )
@@ -683,7 +673,7 @@ function drawCircles() {
           .append("circle")
           .attr("r", flagSize / 2)
           .attr("cx", svgWidth / 8)
-          .attr("cy", (d) => d * 2 * flagSize)
+          .attr("cy", (d, i) => yPadding + (svgHeight / 18) * i)
           .style("opacity", 0)
           .attr("stroke", "black")
           .attr("stroke-width", 3)
@@ -699,6 +689,9 @@ function drawCircles() {
     )
     .transition()
     .duration(duration)
+    .attr("cx", svgWidth / 8)
+    .attr("cy", (d, i) => yPadding + (svgHeight / 18) * i)
+    .attr("r", (d) => flagSize / 2)
     .style("opacity", 1);
 }
 
@@ -715,13 +708,8 @@ function drawGroupNames() {
           .attr("x", (d) => d.x)
           .attr("y", (d) => d.y)
           .style("opacity", 0)
-          .style("font-size", flagSize),
-      (update) =>
-        update
-          .text((d) => d.text)
-          .style("opacity", 0.85)
-          .attr("x", (d) => d.x)
-          .attr("y", (d) => d.y),
+          .style("font-size",flagSize + "px"),
+      (update) => update.text((d) => d.text).style("opacity", 0.85),
       (exit) =>
         exit
           .transition()
@@ -733,7 +721,8 @@ function drawGroupNames() {
     .duration(400)
     .attr("x", (d) => d.x)
     .attr("y", (d) => d.y)
-    .style("opacity", 0.85);
+    .style("opacity", 0.85)
+    .style("font-size",flagSize + "px")
 }
 
 function redraw() {
@@ -750,8 +739,8 @@ function startScreen() {
   data = hosts.map((country) => ({
     isoCode: country.isoCode,
     name: country.name,
-    x: country.x,
-    y: country.y,
+    x: country.x(),
+    y: country.y(),
     size: bigFlagSize,
   }));
   circleData = [];
@@ -761,7 +750,7 @@ function startScreen() {
 function step1() {
   data = hosts.map((c) => ({
     isoCode: c.isoCode,
-    x: svgWidth * 2,
+    x: -svgWidth,
     y: mapHeight / 2,
     size: 2 * flagSize,
     opacity: 0,
@@ -786,8 +775,14 @@ function step2() {
   data = countries.map((c, i) => ({
     isoCode: c.isoCode,
     name: c.name,
-    x: scaleLong(c.longitude),
-    y: scaleLat(c.latitude),
+    x: d3.scaleLinear(
+      [minLong, maxLong],
+      [0 + xPadding, svgWidth - xPadding]
+    )(c.longitude),
+    y: d3.scaleLinear(
+      [minLat, maxLat],
+      [mapHeight + yPadding, 0 + yPadding]
+    )(c.latitude),
     size: flagSize,
     delay: 30 * i,
   }));
@@ -926,7 +921,9 @@ function getQualYforHeader(groupNumber) {
   }
 }
 
+// 5
 function sortQualGroups() {
+  console.log("sortQualGroups");
   data = [];
   const qualGroups = groupBy(countries, "qualGroup");
   Object.keys(qualGroups)
@@ -947,7 +944,7 @@ function sortQualGroups() {
     .sort()
     .map((key, i) => ({
       text: key,
-      x: getQualX(i) + 0.2*flagSize,
+      x: getQualX(i) + 0.2 * flagSize,
       y: getQualYforHeader(i + 1),
     }));
   redraw();
@@ -1002,9 +999,19 @@ function handleResize() {
     .style("top", figureMarginTop + "px");
 
   svg = d3.select("svg").style("height", figureHeight + "px");
-  redraw();
+  svgWidth = parseInt(svg.style("width"));
+  svgHeight = figureHeight;
+  mapHeight = Math.min(svgWidth, svgHeight / 2);
+  xPadding = svgWidth * 0.06;
+  yPadding = svgHeight * 0.06;
+  flagSize = svgHeight / 40;
+  bigFlagSize = flagSize * 3;
+  flagPadding = flagSize / 3;
+
   // 3. tell scrollama to update new element dimensions
   scroller.resize();
+
+  //redraw();
 }
 
 function init() {
