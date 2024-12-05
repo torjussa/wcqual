@@ -1,22 +1,28 @@
 // using d3 for convenience
 var main = d3.select("main");
 var scrolly = main.select("#scrolly");
-var figure = scrolly.select("figure");
+var figure =
+  window.screen.width > 600
+    ? scrolly.select("figure.desktop")
+    : scrolly.select("figure.mobile");
+window.screen.width > 600
+  ? scrolly.select("figure.desktop")
+  : scrolly.select("figure.mobile");
 var article = scrolly.select("article");
 var step = article.selectAll(".step");
 
 // SIZES
-var svg = d3.select("svg");
+var svg =
+  window.screen.width > 600
+    ? d3.select("svg.desktop")
+    : d3.select("svg.mobile");
 var svgWidth = parseInt(svg.style("width"));
 var svgHeight = window.innerHeight;
-var mapHeight = Math.min(svgWidth, svgHeight / 2);
 var xPadding = svgWidth * 0.06;
 var yPadding = svgHeight * 0.06;
 var flagSize = svgHeight / 40;
 var bigFlagSize = flagSize * 3;
 var flagPadding = flagSize / 3;
-
-var getSvgWidth = () => parseInt(svg.style("width"));
 
 // CONSTANTS
 const duration = 400;
@@ -610,10 +616,6 @@ var maxLong = countries.reduce(
   -200
 );
 
-var scaleLat = d3.scaleLinear(
-  [minLat, maxLat],
-  [mapHeight + yPadding, 0 + yPadding]
-);
 
 var groupBy = function (xs, key) {
   return xs.reduce(function (rv, x) {
@@ -708,7 +710,7 @@ function drawGroupNames() {
           .attr("x", (d) => d.x)
           .attr("y", (d) => d.y)
           .style("opacity", 0)
-          .style("font-size",flagSize + "px"),
+          .style("font-size", flagSize + "px"),
       (update) => update.text((d) => d.text).style("opacity", 0.85),
       (exit) =>
         exit
@@ -722,7 +724,7 @@ function drawGroupNames() {
     .attr("x", (d) => d.x)
     .attr("y", (d) => d.y)
     .style("opacity", 0.85)
-    .style("font-size",flagSize + "px")
+    .style("font-size", flagSize + "px");
 }
 
 function redraw() {
@@ -751,7 +753,7 @@ function step1() {
   data = hosts.map((c) => ({
     isoCode: c.isoCode,
     x: -svgWidth,
-    y: mapHeight / 2,
+    y: svgHeight / 2,
     size: 2 * flagSize,
     opacity: 0,
   }));
@@ -760,7 +762,7 @@ function step1() {
     countries.map((c) => ({
       isoCode: c.isoCode,
       x: svgWidth * 2,
-      y: mapHeight / 2,
+      y: svgHeight / 2,
       size: 10 * flagSize,
       opacity: 0,
     }))
@@ -777,11 +779,11 @@ function step2() {
     name: c.name,
     x: d3.scaleLinear(
       [minLong, maxLong],
-      [0 + xPadding, svgWidth - xPadding]
+      [0 + 2*xPadding, svgWidth - 2*xPadding]
     )(c.longitude),
     y: d3.scaleLinear(
       [minLat, maxLat],
-      [mapHeight + yPadding, 0 + yPadding]
+      [svgHeight - 4*yPadding, 0 + 4*yPadding]
     )(c.latitude),
     size: flagSize,
     delay: 30 * i,
@@ -998,10 +1000,14 @@ function handleResize() {
     .style("height", figureHeight + "px")
     .style("top", figureMarginTop + "px");
 
-  svg = d3.select("svg").style("height", figureHeight + "px");
+  svg =
+    window.screen.width > 600
+      ? d3.select("svg.desktop")
+      : d3.select("svg.mobile");
+  console.log(svg);
+  svg.style("height", figureHeight + "px");
   svgWidth = parseInt(svg.style("width"));
   svgHeight = figureHeight;
-  mapHeight = Math.min(svgWidth, svgHeight / 2);
   xPadding = svgWidth * 0.06;
   yPadding = svgHeight * 0.06;
   flagSize = svgHeight / 40;
@@ -1027,7 +1033,7 @@ function init() {
   scroller
     .setup({
       step: "#scrolly article .step",
-      offset: 0.6,
+      offset: 0.7,
       debug: false,
     })
     .onStepEnter(handleStepEnter);
