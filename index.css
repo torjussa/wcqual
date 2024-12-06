@@ -95,7 +95,8 @@ figure p {
   opacity: 0.05;
   @media screen and (max-width: 600px) {
     background-color: transparent;
-    color: #659b5e;
+    color: #404040;
+    
   }
 }
 * {

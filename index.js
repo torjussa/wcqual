@@ -763,7 +763,7 @@ function step1() {
       isoCode: c.isoCode,
       x: svgWidth * 2,
       y: svgHeight / 2,
-      size: 10 * flagSize,
+      size: flagSize,
       opacity: 0,
     }))
   );
@@ -958,8 +958,6 @@ function handleStepEnter(response) {
   step.classed("is-active", function (d, i) {
     return i === response.index;
   });
-  // update graphic based on step
-  figure.select("p").text(response.index).style("opacity", 0.2);
 
   console.log("Enter step ", response.index, " - dir: " + response.direction);
 
@@ -1030,10 +1028,14 @@ function init() {
   // 2. setup the scroller passing options
   // 		this will also initialize trigger observations
   // 3. bind scrollama event handlers (this can be chained like below)
+  // find the halfway point of the initial viewport height
+			// (it changes on mobile, but by just using the initial value
+			// you remove jumpiness on scroll direction change)
+var midpoint =  Math.floor(window.innerHeight * 0.7) + "px" ;
   scroller
     .setup({
       step: "#scrolly article .step",
-      offset: 0.7,
+      offset: midpoint,
       debug: false,
     })
     .onStepEnter(handleStepEnter);
