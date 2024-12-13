@@ -597,6 +597,8 @@ const circles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 var data = [];
 var circleData = [];
 var textData = [];
+var qualified = [];
+var secondPlacers = [];
 
 //HELPERS
 var minLat = countries.reduce(
@@ -615,7 +617,6 @@ var maxLong = countries.reduce(
   (max, country) => Math.max(max, country.longitude),
   -200
 );
-
 
 var groupBy = function (xs, key) {
   return xs.reduce(function (rv, x) {
@@ -667,6 +668,7 @@ function drawFlags() {
 
 function drawCircles() {
   svg
+    .select("#circles-group")
     .selectAll("circle")
     .data(circleData)
     .join(
@@ -674,7 +676,7 @@ function drawCircles() {
         enter
           .append("circle")
           .attr("r", flagSize / 2)
-          .attr("cx", svgWidth / 8)
+          .attr("cx", svgWidth / 12)
           .attr("cy", (d, i) => yPadding + (svgHeight / 18) * i)
           .style("opacity", 0)
           .attr("stroke", "black")
@@ -691,7 +693,7 @@ function drawCircles() {
     )
     .transition()
     .duration(duration)
-    .attr("cx", svgWidth / 8)
+    .attr("cx", svgWidth / 12)
     .attr("cy", (d, i) => yPadding + (svgHeight / 18) * i)
     .attr("r", (d) => flagSize / 2)
     .style("opacity", 1);
@@ -779,11 +781,11 @@ function step2() {
     name: c.name,
     x: d3.scaleLinear(
       [minLong, maxLong],
-      [0 + 2*xPadding, svgWidth - 2*xPadding]
+      [0 + 2 * xPadding, svgWidth - 2 * xPadding]
     )(c.longitude),
     y: d3.scaleLinear(
       [minLat, maxLat],
-      [svgHeight - 4*yPadding, 0 + 4*yPadding]
+      [svgHeight - 4 * yPadding, 0 + 4 * yPadding]
     )(c.latitude),
     size: flagSize,
     delay: 30 * i,
@@ -952,6 +954,158 @@ function sortQualGroups() {
   redraw();
 }
 
+// 6
+function playQualGroups() {
+  console.log("playQualGroups");
+  data = [];
+  circleData = [];
+  const qualGroups = groupBy(countries, "qualGroup");
+  Object.keys(qualGroups)
+    .sort()
+    .map((key, i) => {
+      qualGroups[key]
+        .sort((c1, c2) => c1.fifaRank - c2.fifaRank)
+        .map((c, j) => {
+          if (j == 0) {
+            // add group winners
+            qualified.push(c);
+          }
+          if (j == 1) {
+            // add group winners
+            secondPlacers.push(c);
+          }
+          return data.push({
+            isoCode: c.isoCode,
+            x: getQualX(i),
+            y: getQualY(i + 1, j),
+            size: flagSize,
+            opacity: 1,
+            delay: 100 + i * 80,
+            qualified: j == 0,
+            secondPlace: j == 1,
+            groupIndex: i,
+          });
+        });
+    });
+  textData = Object.keys(qualGroups)
+    .sort()
+    .map((key, i) => ({
+      text: key,
+      x: getQualX(i) + 0.2 * flagSize,
+      y: getQualYforHeader(i + 1),
+    }));
+  redraw();
+}
+
+// 7
+function showQualWinners() {
+  console.log("playQualGroups");
+  data = []
+  const qualGroups = groupBy(countries, "qualGroup");
+  Object.keys(qualGroups)
+    .sort()
+    .map((key, i) => {
+      qualGroups[key]
+        .sort((c1, c2) => c1.fifaRank - c2.fifaRank)
+        .map((c, j) =>
+          data.push({
+            isoCode: c.isoCode,
+            x: getQualX(i),
+            y: getQualY(i + 1, j),
+            size: flagSize,
+            opacity: 1,
+            delay: 100 + i * 80,
+            qualified: j == 0,
+            secondPlace: j == 1,
+            groupIndex: i,
+          })
+        );
+    });
+  data.forEach((c) => {
+    if (c.qualified) {
+      c.x = svgWidth / 12 - flagSize / 2;
+      c.y = yPadding + (svgHeight / 18) * c.groupIndex - flagSize / 2;
+      c.delay = 400 + 200 * c.groupIndex;
+    }
+  });
+  circleData = circles;
+  textData = Object.keys(qualGroups)
+    .sort()
+    .map((key, i) => ({
+      text: key,
+      x: getQualX(i) + 0.2 * flagSize,
+      y: getQualYforHeader(i + 1),
+    }));
+
+  redraw();
+}
+
+// 8
+function ShowSecondPlacers() {
+  console.log("playQualGroups");
+  textData = [];
+  data.forEach((c) => {
+    if (c.secondPlace) {
+      c.x = svgWidth - svgWidth / 12;
+      c.y = yPadding + (svgHeight / 18) * c.groupIndex - flagSize / 2;
+      c.delay = 100 * c.groupIndex;
+    } else if (!c.qualified) {
+      c.opacity = 0;
+      c.delay = 2000 + 40 * c.groupIndex;
+    }
+  });
+  circleData = circles;
+
+  redraw();
+}
+// 9
+function ShowNL() {
+  data = [];
+  const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
+  Object.keys(nationsLeagueGroups).map((key, i) => {
+    nationsLeagueGroups[key].map((c) => {
+      if (qualified.some((q) => q.isoCode == c.isoCode)) {
+        data.push({
+          isoCode: c.isoCode,
+          x: svgWidth / 12 - flagSize / 2,
+          y: yPadding + (svgHeight / 18) * qualified.indexOf(c) - flagSize / 2,
+          size: flagSize,
+          opacity: 1,
+          delay: 100 + i * 40,
+        });
+      } else if (secondPlacers.some((q) => q.isoCode == c.isoCode)) {
+        data.push({
+          isoCode: c.isoCode,
+          x: svgWidth - svgWidth / 12,
+          y:
+            yPadding +
+            (svgHeight / 18) * secondPlacers.indexOf(c) -
+            flagSize / 2,
+          size: flagSize,
+          opacity: 1,
+          delay: 100 + i * 40,
+        });
+      } else {
+        data.push({
+          isoCode: c.isoCode,
+          x: getNlX(key),
+          y: getNlY(key, c.nationsLeaguePosition - 1),
+          size: flagSize,
+          opacity: 1,
+          delay: 100 + i * 80,
+        });
+      }
+    });
+  });
+  textData = Object.keys(nationsLeagueGroups).map((key) => ({
+    text: key,
+    x: getNlX(key) - flagSize / 7,
+    y: getYforHeader(key),
+  }));
+
+  redraw();
+}
+
 // scrollama event handlers
 function handleStepEnter(response) {
   // add color to current step only
@@ -980,6 +1134,18 @@ function handleStepEnter(response) {
     case 5:
       sortQualGroups();
       break;
+    case 6:
+      playQualGroups();
+      break;
+    case 7:
+      showQualWinners();
+      break;
+    case 8:
+      ShowSecondPlacers();
+      break;
+    case 9:
+      ShowNL();
+      break;
   }
 }
 
@@ -991,26 +1157,27 @@ function handleResize() {
   var stepH = Math.floor(window.innerHeight * 0.9);
   step.style("height", stepH + "px");
 
-  var figureHeight = window.innerHeight;
-  var figureMarginTop = (window.innerHeight - figureHeight) / 2;
+  if (window.screen.width > 600) {
+    var figureHeight = window.innerHeight;
+    var figureMarginTop = (window.innerHeight - figureHeight) / 2;
 
-  figure
-    .style("height", figureHeight + "px")
-    .style("top", figureMarginTop + "px");
+    figure
+      .style("height", figureHeight + "px")
+      .style("top", figureMarginTop + "px");
 
-  svg =
-    window.screen.width > 600
-      ? d3.select("svg.desktop")
-      : d3.select("svg.mobile");
-  console.log(svg);
-  svg.style("height", figureHeight + "px");
-  svgWidth = parseInt(svg.style("width"));
-  svgHeight = figureHeight;
-  xPadding = svgWidth * 0.06;
-  yPadding = svgHeight * 0.06;
-  flagSize = svgHeight / 40;
-  bigFlagSize = flagSize * 3;
-  flagPadding = flagSize / 3;
+    svg = d3.select("svg.desktop");
+
+    svg.style("height", figureHeight + "px");
+    svgWidth = parseInt(svg.style("width"));
+    svgHeight = figureHeight;
+    xPadding = svgWidth * 0.06;
+    yPadding = svgHeight * 0.06;
+    flagSize = svgHeight / 40;
+    bigFlagSize = flagSize * 3;
+    flagPadding = flagSize / 3;
+  } else {
+    //if mobile
+  }
 
   // 3. tell scrollama to update new element dimensions
   scroller.resize();
@@ -1029,9 +1196,9 @@ function init() {
   // 		this will also initialize trigger observations
   // 3. bind scrollama event handlers (this can be chained like below)
   // find the halfway point of the initial viewport height
-			// (it changes on mobile, but by just using the initial value
-			// you remove jumpiness on scroll direction change)
-var midpoint =  Math.floor(window.innerHeight * 0.7) + "px" ;
+  // (it changes on mobile, but by just using the initial value
+  // you remove jumpiness on scroll direction change)
+  var midpoint = Math.floor(window.innerHeight * 0.7) + "px";
   scroller
     .setup({
       step: "#scrolly article .step",
