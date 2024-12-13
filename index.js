@@ -1247,7 +1247,7 @@ function LastPlayoffSpots() {
 }
 
 // 11
-function playoffs2() {
+function playoffs1() {
   data = [];
 
   const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
@@ -1283,6 +1283,43 @@ function playoffs2() {
 
   redraw();
 }
+// 12
+function playoffs2() {
+    data = [];
+  
+    const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
+    Object.keys(nationsLeagueGroups).map((key, i) => {
+      nationsLeagueGroups[key].map((c) => {
+        if (qualified.some((q) => q.isoCode == c.isoCode)) {
+          data.push({
+            isoCode: c.isoCode,
+            x: svgWidth / 12 - flagSize / 2,
+            y: yPadding + (svgHeight / 18) * qualified.indexOf(c) - flagSize / 2,
+            size: flagSize,
+            opacity: 1,
+            delay: 100 + i * 40,
+          });
+        } else if (playoffs.some((q) => q.isoCode == c.isoCode)) {
+          data.push({
+            isoCode: c.isoCode,
+            x: svgWidth - svgWidth / 12,
+            y: yPadding + (svgHeight / 18) * playoffs.indexOf(c) - flagSize / 2,
+            size: flagSize,
+            opacity: 1,
+            delay: 100 + i * 40,
+          });
+        }
+      });
+    });
+    textData = ["Pot 1","Pot 2", "Pot 3", "Pot 4"]
+    .map((key, i) => ({
+      text: key,
+      x: 3/4 *svgWidth,
+      y: (svgHeight-2*yPadding) * (i+1)/4 - 3*flagSize,
+    }));
+  
+    redraw();
+  }
 
 // scrollama event handlers
 function handleStepEnter(response) {
