@@ -1207,33 +1207,33 @@ function handleStepEnter(response) {
 function handleResize() {
   console.log("resizing..");
   console.log();
+  var isDesktop = window.innerWidth > 600;
+  
+
   // 1. update height of step elements
   var stepH = Math.floor(window.innerHeight * 0.9);
   step.style("height", stepH + "px");
 
   var figureHeight = window.innerHeight;
   var figureMarginTop = (window.innerHeight - figureHeight) / 2;
-  figure =
-    window.innerWidth > 600
-      ? d3.select("#desktop-fig")
-      : d3.select("#mobile-fig");
+  figure = isDesktop ? d3.select("#desktop-fig") : d3.select("#mobile-fig");
   figure
     .style("height", figureHeight + "px")
     .style("top", figureMarginTop + "px");
 
-  svg =
-    window.innerWidth > 600
-      ? d3.select("#desktop-svg")
-      : d3.select("#mobile-svg");
-  console.log(svg);
-  //svg.style("height", figureHeight + "px");
+  svg = isDesktop ? d3.select("#desktop-svg") : d3.select("#mobile-svg");
+
   svgWidth = parseInt(svg.style("width"));
-  //svgHeight = figureHeight;
   xPadding = svgWidth * 0.06;
-  //yPadding = svgHeight * 0.06;
-  //flagSize = svgHeight / 40;
-  //bigFlagSize = flagSize * 3;
-  //flagPadding = flagSize / 3;
+
+  if (isDesktop) {
+    svg.style("height", figureHeight + "px");
+    svgHeight = figureHeight;
+    yPadding = svgHeight * 0.06;
+    flagSize = svgHeight / 40;
+    bigFlagSize = flagSize * 3;
+    flagPadding = flagSize / 3;
+  }
 
   // 3. tell scrollama to update new element dimensions
   scroller.resize();
@@ -1259,7 +1259,7 @@ function init() {
     .setup({
       step: "#scrolly article .step",
       offset: midpoint,
-      debug: false,
+      debug: true,
     })
     .onStepEnter(handleStepEnter);
 }
