@@ -650,6 +650,7 @@ var circleData = [];
 var textData = [];
 var qualified = [];
 var secondPlacers = [];
+var playoffs = [];
 
 //HELPERS
 var minLat = countries.reduce(
@@ -938,13 +939,13 @@ function sortNLGroups() {
 
 function getQualX(groupNumber) {
   if (groupNumber % 3 == 0) {
-    return svgWidth / 5;
+    return svgWidth / 4 -xPadding;
   }
   if (groupNumber % 3 == 1) {
-    return (2 * svgWidth) / 5;
+    return (2 * svgWidth) / 4 -xPadding;
   }
   if (groupNumber % 3 == 2) {
-    return (3 * svgWidth) / 5;
+    return (3 * svgWidth) / 4 -xPadding;
   }
 }
 function getQualY(groupNumber, j) {
@@ -1095,10 +1096,33 @@ function showQualWinners() {
 
 // 8
 function ShowSecondPlacers() {
-  console.log("playQualGroups");
-  textData = [];
+  data = [];
+  const qualGroups = groupBy(countries, "qualGroup");
+  Object.keys(qualGroups)
+    .sort()
+    .map((key, i) => {
+      qualGroups[key]
+        .sort((c1, c2) => c1.fifaRank - c2.fifaRank)
+        .map((c, j) =>
+          data.push({
+            isoCode: c.isoCode,
+            x: getQualX(i),
+            y: getQualY(i + 1, j),
+            size: flagSize,
+            opacity: 1,
+            delay: 100 + i * 80,
+            qualified: j == 0,
+            secondPlace: j == 1,
+            groupIndex: i,
+          })
+        );
+    });
   data.forEach((c) => {
-    if (c.secondPlace) {
+    if (c.qualified) {
+      c.x = svgWidth / 12 - flagSize / 2;
+      c.y = yPadding + (svgHeight / 18) * c.groupIndex - flagSize / 2;
+      c.delay = 400 + 200 * c.groupIndex;
+    } else if (c.secondPlace) {
       c.x = svgWidth - svgWidth / 12 - flagSize / 2;
       c.y = yPadding + (svgHeight / 18) * c.groupIndex - flagSize / 2;
       c.delay = 100 * c.groupIndex;
@@ -1108,13 +1132,14 @@ function ShowSecondPlacers() {
     }
   });
   circleData = circles;
+  textData = []
 
   redraw();
 }
 // 9
 function ShowNL() {
   data = [];
-  console.log(qualified);
+
   const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
   Object.keys(nationsLeagueGroups).map((key, i) => {
     nationsLeagueGroups[key].map((c) => {
@@ -1162,7 +1187,20 @@ function ShowNL() {
 // 10
 function LastPlayoffSpots() {
   data = [];
-  console.log(qualified);
+  playoffs = [];
+  var top4 = countries
+    .filter(
+      (c) =>
+        !qualified.some((q) => q.isoCode == c.isoCode) &
+        !secondPlacers.some((q) => q.isoCode == c.isoCode)
+    )
+    .sort((a, b) => a.nlRank - b.nlRank)
+    .slice(0, 4);
+
+  playoffs = [...secondPlacers]
+    .sort((a, b) => a.fifaRank - b.fifaRank)
+    .concat(top4);
+
   const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
   Object.keys(nationsLeagueGroups).map((key, i) => {
     nationsLeagueGroups[key].map((c) => {
@@ -1193,8 +1231,8 @@ function LastPlayoffSpots() {
           x: getNlX(key),
           y: getNlY(key, c.nationsLeaguePosition - 1),
           size: flagSize,
-          opacity: 1,
-          delay: 100 + i * 80,
+          opacity: top4.some((t) => t.isoCode == c.isoCode) ? 1 : 0.1,
+          delay: 100 + i * 20,
         });
       }
     });
@@ -1203,6 +1241,44 @@ function LastPlayoffSpots() {
     text: key,
     x: getNlX(key) - flagSize / 7,
     y: getYforHeader(key),
+  }));
+
+  redraw();
+}
+
+// 11
+function playoffs2() {
+  data = [];
+
+  const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
+  Object.keys(nationsLeagueGroups).map((key, i) => {
+    nationsLeagueGroups[key].map((c) => {
+      if (qualified.some((q) => q.isoCode == c.isoCode)) {
+        data.push({
+          isoCode: c.isoCode,
+          x: svgWidth / 12 - flagSize / 2,
+          y: yPadding + (svgHeight / 18) * qualified.indexOf(c) - flagSize / 2,
+          size: flagSize,
+          opacity: 1,
+          delay: 100 + i * 40,
+        });
+      } else if (playoffs.some((q) => q.isoCode == c.isoCode)) {
+        data.push({
+          isoCode: c.isoCode,
+          x: svgWidth - svgWidth / 12,
+          y: yPadding + (svgHeight / 18) * playoffs.indexOf(c) - flagSize / 2,
+          size: flagSize,
+          opacity: 1,
+          delay: 100 + i * 40,
+        });
+      }
+    });
+  });
+  textData = ["Pot 1","Pot 2", "Pot 3", "Pot 4"]
+  .map((key, i) => ({
+    text: key,
+    x: 3/4 *svgWidth,
+    y: (svgHeight-2*yPadding) * (i+1)/4 - 3*flagSize,
   }));
 
   redraw();
@@ -1250,6 +1326,12 @@ function handleStepEnter(response) {
       break;
     case 10:
       LastPlayoffSpots();
+      break;
+    case 11:
+      playoffs1();
+      break;
+    case 12:
+      playoffs2();
       break;
   }
 }
@@ -1310,7 +1392,7 @@ function init() {
     .setup({
       step: "#scrolly article .step",
       offset: midpoint,
-      debug: true,
+      debug: false,
     })
     .onStepEnter(handleStepEnter);
 }
