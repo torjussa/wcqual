@@ -51,7 +51,7 @@ const countries = [
     isoCode: "al",
     fifaRank: "82",
     nationsLeagueGroup: "B1",
-    qualGroup: "B",
+    qualGroup: "K",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "41.153332",
@@ -62,7 +62,7 @@ const countries = [
     isoCode: "ad",
     fifaRank: "157",
     nationsLeagueGroup: "D2",
-    qualGroup: "B",
+    qualGroup: "K",
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "42.506305",
@@ -73,7 +73,7 @@ const countries = [
     isoCode: "am",
     fifaRank: "92",
     nationsLeagueGroup: "C4",
-    qualGroup: "B",
+    qualGroup: "F",
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "40.069099",
@@ -84,7 +84,7 @@ const countries = [
     isoCode: "at",
     fifaRank: "24",
     nationsLeagueGroup: "B3",
-    qualGroup: "B",
+    qualGroup: "H",
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "47.809402",
@@ -95,7 +95,7 @@ const countries = [
     isoCode: "az",
     fifaRank: "110",
     nationsLeagueGroup: "C1",
-    qualGroup: "C",
+    qualGroup: "D",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "40.399133",
@@ -117,7 +117,7 @@ const countries = [
     isoCode: "be",
     fifaRank: "21",
     nationsLeagueGroup: "A2",
-    qualGroup: "C",
+    qualGroup: "J",
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "50.503887",
@@ -128,7 +128,7 @@ const countries = [
     isoCode: "ba",
     fifaRank: "62",
     nationsLeagueGroup: "A3",
-    qualGroup: "C",
+    qualGroup: "H",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "44.204791",
@@ -139,7 +139,7 @@ const countries = [
     isoCode: "bg",
     fifaRank: "78",
     nationsLeagueGroup: "C3",
-    qualGroup: "D",
+    qualGroup: "E",
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "42.733882",
@@ -150,7 +150,7 @@ const countries = [
     isoCode: "hr",
     fifaRank: "7",
     nationsLeagueGroup: "A1",
-    qualGroup: "D",
+    qualGroup: "L",
     nationsLeaguePosition: 2,
     nlRank: 20,
     latitude: "45.815010",
@@ -161,7 +161,7 @@ const countries = [
     isoCode: "cy",
     fifaRank: "105",
     nationsLeagueGroup: "C2",
-    qualGroup: "D",
+    qualGroup: "H",
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "35.126413",
@@ -172,7 +172,7 @@ const countries = [
     isoCode: "cz",
     fifaRank: "23",
     nationsLeagueGroup: "B1",
-    qualGroup: "D",
+    qualGroup: "L",
     nationsLeaguePosition: 1,
     nlRank: 8,
     latitude: "49.817492",
@@ -183,7 +183,7 @@ const countries = [
     isoCode: "dk",
     fifaRank: "17",
     nationsLeagueGroup: "A4",
-    qualGroup: "E",
+    qualGroup: "F",
     nationsLeaguePosition: 2,
     nlRank: 18,
     latitude: "56.263920",
@@ -194,7 +194,7 @@ const countries = [
     isoCode: "gb-eng",
     fifaRank: "5",
     nationsLeagueGroup: "B2",
-    qualGroup: "E",
+    qualGroup: "K",
     nationsLeaguePosition: 1,
     nlRank: 5,
     latitude: "52.355518",
@@ -205,7 +205,7 @@ const countries = [
     isoCode: "ee",
     fifaRank: "108",
     nationsLeagueGroup: "C1",
-    qualGroup: "E",
+    qualGroup: "I",
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "58.595272",
@@ -216,7 +216,7 @@ const countries = [
     isoCode: "fo",
     fifaRank: "111",
     nationsLeagueGroup: "C4",
-    qualGroup: "E",
+    qualGroup: "L",
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "61.892635",
@@ -227,7 +227,7 @@ const countries = [
     isoCode: "fi",
     fifaRank: "57",
     nationsLeagueGroup: "B2",
-    qualGroup: "F",
+    qualGroup: "G",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "61.924110",
@@ -238,7 +238,7 @@ const countries = [
     isoCode: "fr",
     fifaRank: "3",
     nationsLeagueGroup: "A2",
-    qualGroup: "F",
+    qualGroup: "D",
     nationsLeaguePosition: 1,
     nlRank: 4,
     latitude: "46.227638",
@@ -249,7 +249,7 @@ const countries = [
     isoCode: "ge",
     fifaRank: "117",
     nationsLeagueGroup: "B1",
-    qualGroup: "F",
+    qualGroup: "E",
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "42.315407",
@@ -260,7 +260,7 @@ const countries = [
     isoCode: "de",
     fifaRank: "11",
     nationsLeagueGroup: "A3",
-    qualGroup: "F",
+    qualGroup: "A",
     nationsLeaguePosition: 1,
     nlRank: 2,
     latitude: "51.165691",
@@ -271,7 +271,7 @@ const countries = [
     isoCode: "gr",
     fifaRank: "47",
     nationsLeagueGroup: "B2",
-    qualGroup: "G",
+    qualGroup: "C",
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "39.074208",
@@ -282,7 +282,7 @@ const countries = [
     isoCode: "hu",
     fifaRank: "40",
     nationsLeagueGroup: "A3",
-    qualGroup: "G",
+    qualGroup: "F",
     nationsLeaguePosition: 3,
     nlRank: 25,
     latitude: "47.162491",
@@ -293,7 +293,7 @@ const countries = [
     isoCode: "is",
     fifaRank: "61",
     nationsLeagueGroup: "B4",
-    qualGroup: "G",
+    qualGroup: "D",
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "64.963051",
@@ -304,7 +304,7 @@ const countries = [
     isoCode: "ie",
     fifaRank: "49",
     nationsLeagueGroup: "B2",
-    qualGroup: "G",
+    qualGroup: "F",
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "53.412910",
@@ -315,7 +315,7 @@ const countries = [
     isoCode: "it",
     fifaRank: "6",
     nationsLeagueGroup: "A2",
-    qualGroup: "G",
+    qualGroup: "I",
     nationsLeaguePosition: 2,
     nlRank: 16,
     latitude: "41.871941",
@@ -326,7 +326,7 @@ const countries = [
     isoCode: "il",
     fifaRank: "114",
     nationsLeagueGroup: "A2",
-    qualGroup: "H",
+    qualGroup: "I",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "31.046051",
@@ -337,7 +337,7 @@ const countries = [
     isoCode: "kz",
     fifaRank: "103",
     nationsLeagueGroup: "B3",
-    qualGroup: "H",
+    qualGroup: "J",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "48.019589",
@@ -348,7 +348,7 @@ const countries = [
     isoCode: "xk",
     fifaRank: "107",
     nationsLeagueGroup: "C2",
-    qualGroup: "H",
+    qualGroup: "B",
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "42.602636",
@@ -359,7 +359,7 @@ const countries = [
     isoCode: "lv",
     fifaRank: "135",
     nationsLeagueGroup: "C4",
-    qualGroup: "H",
+    qualGroup: "K",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "56.949646",
@@ -370,7 +370,7 @@ const countries = [
     isoCode: "li",
     fifaRank: "192",
     nationsLeagueGroup: "D1",
-    qualGroup: "H",
+    qualGroup: "J",
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "47.166000",
@@ -381,7 +381,7 @@ const countries = [
     isoCode: "lt",
     fifaRank: "113",
     nationsLeagueGroup: "C2",
-    qualGroup: "I",
+    qualGroup: "G",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "54.689652",
@@ -393,7 +393,7 @@ const countries = [
     isoCode: "lu",
     fifaRank: "96",
     nationsLeagueGroup: "C3",
-    qualGroup: "I",
+    qualGroup: "A",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "49.815273",
@@ -404,7 +404,7 @@ const countries = [
     isoCode: "mt",
     fifaRank: "174",
     nationsLeagueGroup: "D2",
-    qualGroup: "I",
+    qualGroup: "G",
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "35.937496",
@@ -426,7 +426,7 @@ const countries = [
     isoCode: "me",
     fifaRank: "73",
     nationsLeagueGroup: "B4",
-    qualGroup: "I",
+    qualGroup: "L",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "42.506389",
@@ -437,7 +437,7 @@ const countries = [
     isoCode: "nl",
     fifaRank: "10",
     nationsLeagueGroup: "A3",
-    qualGroup: "J",
+    qualGroup: "G",
     nationsLeaguePosition: 2,
     nlRank: 17,
     latitude: "52.132633",
@@ -448,7 +448,7 @@ const countries = [
     isoCode: "gb-nir",
     fifaRank: "59", // As of November 2023
     nationsLeagueGroup: "C3",
-    qualGroup: "J",
+    qualGroup: "A",
     nationsLeaguePosition: 1,
     nlRank: 13,
     latitude: "54.609323",
@@ -470,7 +470,7 @@ const countries = [
     isoCode: "no",
     fifaRank: "48",
     nationsLeagueGroup: "B3",
-    qualGroup: "J",
+    qualGroup: "I",
     nationsLeaguePosition: 1,
     nlRank: 6,
     latitude: "59.91129366297636",
@@ -481,7 +481,7 @@ const countries = [
     isoCode: "pl",
     fifaRank: "15",
     nationsLeagueGroup: "A1",
-    qualGroup: "J",
+    qualGroup: "G",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "51.919438",
@@ -492,7 +492,7 @@ const countries = [
     isoCode: "pt",
     fifaRank: "9",
     nationsLeagueGroup: "A1",
-    qualGroup: "K",
+    qualGroup: "C",
     nationsLeaguePosition: 1,
     nlRank: 3,
     latitude: "39.399872",
@@ -503,7 +503,7 @@ const countries = [
     isoCode: "ro",
     fifaRank: "46",
     nationsLeagueGroup: "C2",
-    qualGroup: "K",
+    qualGroup: "H",
     nationsLeaguePosition: 1,
     nlRank: 9,
     latitude: "45.943161",
@@ -514,7 +514,7 @@ const countries = [
     isoCode: "sm",
     fifaRank: "211",
     nationsLeagueGroup: "D1",
-    qualGroup: "K",
+    qualGroup: "H",
     nationsLeaguePosition: 1,
     nlRank: 15,
     latitude: "43.942360",
@@ -525,7 +525,7 @@ const countries = [
     isoCode: "gb-sct",
     fifaRank: "38", // As of November 2023
     nationsLeagueGroup: "A1",
-    qualGroup: "K",
+    qualGroup: "C",
     nationsLeaguePosition: 3,
     nlRank: 21,
     latitude: "56.492000",
@@ -547,7 +547,7 @@ const countries = [
     isoCode: "sk",
     fifaRank: "53",
     nationsLeagueGroup: "C1",
-    qualGroup: "L",
+    qualGroup: "A",
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "48.669026",
@@ -558,7 +558,7 @@ const countries = [
     isoCode: "si",
     fifaRank: "64",
     nationsLeagueGroup: "B3",
-    qualGroup: "L",
+    qualGroup: "B",
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "46.151241",
@@ -569,7 +569,7 @@ const countries = [
     isoCode: "es",
     fifaRank: "8",
     nationsLeagueGroup: "A4",
-    qualGroup: "L",
+    qualGroup: "E",
     nationsLeaguePosition: 1,
     nlRank: 1,
     latitude: "40.463667",
@@ -580,7 +580,7 @@ const countries = [
     isoCode: "se",
     fifaRank: "20",
     nationsLeagueGroup: "C1",
-    qualGroup: "L",
+    qualGroup: "B",
     nationsLeaguePosition: 1,
     nlRank: 10,
     latitude: "60.128161",
@@ -591,7 +591,7 @@ const countries = [
     isoCode: "ch",
     fifaRank: "16",
     nationsLeagueGroup: "A4",
-    qualGroup: "L",
+    qualGroup: "B",
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "46.818188",
@@ -602,7 +602,7 @@ const countries = [
     isoCode: "tr",
     fifaRank: "39",
     nationsLeagueGroup: "B4",
-    qualGroup: "A",
+    qualGroup: "E",
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "38.963745",
@@ -613,7 +613,7 @@ const countries = [
     isoCode: "ua",
     fifaRank: "27",
     nationsLeagueGroup: "B1",
-    qualGroup: "A",
+    qualGroup: "D",
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "49.838268",
@@ -624,7 +624,7 @@ const countries = [
     isoCode: "gb-wls",
     fifaRank: "28",
     nationsLeagueGroup: "B4",
-    qualGroup: "A",
+    qualGroup: "J",
     nationsLeaguePosition: 1,
     nlRank: 7,
     latitude: "52.130858",
@@ -635,7 +635,7 @@ const countries = [
     isoCode: "gi",
     fifaRank: "194",
     nationsLeagueGroup: "D1",
-    qualGroup: "A",
+    qualGroup: "L",
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "36.140740",
@@ -1099,7 +1099,7 @@ function ShowSecondPlacers() {
   textData = [];
   data.forEach((c) => {
     if (c.secondPlace) {
-      c.x = svgWidth - svgWidth / 12;
+      c.x = svgWidth - svgWidth / 12 - flagSize / 2;
       c.y = yPadding + (svgHeight / 18) * c.groupIndex - flagSize / 2;
       c.delay = 100 * c.groupIndex;
     } else if (!c.qualified) {
@@ -1113,6 +1113,54 @@ function ShowSecondPlacers() {
 }
 // 9
 function ShowNL() {
+  data = [];
+  console.log(qualified);
+  const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
+  Object.keys(nationsLeagueGroups).map((key, i) => {
+    nationsLeagueGroups[key].map((c) => {
+      if (qualified.some((q) => q.isoCode == c.isoCode)) {
+        data.push({
+          isoCode: c.isoCode,
+          x: svgWidth / 12 - flagSize / 2,
+          y: yPadding + (svgHeight / 18) * qualified.indexOf(c) - flagSize / 2,
+          size: flagSize,
+          opacity: 1,
+          delay: 100 + i * 40,
+        });
+      } else if (secondPlacers.some((q) => q.isoCode == c.isoCode)) {
+        data.push({
+          isoCode: c.isoCode,
+          x: svgWidth - svgWidth / 12,
+          y:
+            yPadding +
+            (svgHeight / 18) * secondPlacers.indexOf(c) -
+            flagSize / 2,
+          size: flagSize,
+          opacity: 1,
+          delay: 100 + i * 40,
+        });
+      } else {
+        data.push({
+          isoCode: c.isoCode,
+          x: getNlX(key),
+          y: getNlY(key, c.nationsLeaguePosition - 1),
+          size: flagSize,
+          opacity: 1,
+          delay: 100 + i * 80,
+        });
+      }
+    });
+  });
+  textData = Object.keys(nationsLeagueGroups).map((key) => ({
+    text: key,
+    x: getNlX(key) - flagSize / 7,
+    y: getYforHeader(key),
+  }));
+
+  redraw();
+}
+// 10
+function LastPlayoffSpots() {
   data = [];
   console.log(qualified);
   const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
@@ -1200,15 +1248,19 @@ function handleStepEnter(response) {
     case 9:
       ShowNL();
       break;
+    case 10:
+      LastPlayoffSpots();
+      break;
   }
 }
 
 // generic window resize listener event
-function handleResize() {
+function handleResize(init) {
   console.log("resizing..");
   console.log();
   var isDesktop = window.innerWidth > 600;
-  
+
+  if (!isDesktop && !init) return;
 
   // 1. update height of step elements
   var stepH = Math.floor(window.innerHeight * 0.9);
@@ -1237,14 +1289,13 @@ function handleResize() {
 
   // 3. tell scrollama to update new element dimensions
   scroller.resize();
-
-  //redraw();
 }
 
 function init() {
   // 1. force a resize on load to ensure proper dimensions are sent to scrollama
 
-  handleResize();
+  handleResize(true);
+
   addEventListener("resize", () => handleResize());
   startScreen();
 
