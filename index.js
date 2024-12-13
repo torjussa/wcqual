@@ -2,20 +2,17 @@
 var main = d3.select("main");
 var scrolly = main.select("#scrolly");
 var figure =
-  window.screen.width > 600
-    ? scrolly.select("figure.desktop")
-    : scrolly.select("figure.mobile");
-window.screen.width > 600
-  ? scrolly.select("figure.desktop")
-  : scrolly.select("figure.mobile");
+  window.innerWidth > 600
+    ? scrolly.select("#desktop-fig")
+    : scrolly.select("#mobile-fig");
 var article = scrolly.select("article");
 var step = article.selectAll(".step");
 
 // SIZES
 var svg =
-  window.screen.width > 600
-    ? d3.select("svg.desktop")
-    : d3.select("svg.mobile");
+  window.innerWidth > 600
+    ? d3.select("#desktop-svg")
+    : d3.select("#mobile-svg");
 var svgWidth = parseInt(svg.style("width"));
 var svgHeight = window.innerHeight;
 var xPadding = svgWidth * 0.06;
@@ -1216,24 +1213,27 @@ function handleResize() {
 
   var figureHeight = window.innerHeight;
   var figureMarginTop = (window.innerHeight - figureHeight) / 2;
-
+  figure =
+    window.innerWidth > 600
+      ? d3.select("#desktop-fig")
+      : d3.select("#mobile-fig");
   figure
     .style("height", figureHeight + "px")
     .style("top", figureMarginTop + "px");
-    
-  svg =
-    window.screen.width > 600
-      ? d3.select("svg.desktop")
-      : d3.select("svg.mobile");
 
-  svg.style("height", figureHeight + "px");
+  svg =
+    window.innerWidth > 600
+      ? d3.select("#desktop-svg")
+      : d3.select("#mobile-svg");
+  console.log(svg);
+  //svg.style("height", figureHeight + "px");
   svgWidth = parseInt(svg.style("width"));
-  svgHeight = figureHeight;
+  //svgHeight = figureHeight;
   xPadding = svgWidth * 0.06;
-  yPadding = svgHeight * 0.06;
-  flagSize = svgHeight / 40;
-  bigFlagSize = flagSize * 3;
-  flagPadding = flagSize / 3;
+  //yPadding = svgHeight * 0.06;
+  //flagSize = svgHeight / 40;
+  //bigFlagSize = flagSize * 3;
+  //flagPadding = flagSize / 3;
 
   // 3. tell scrollama to update new element dimensions
   scroller.resize();
@@ -1254,7 +1254,7 @@ function init() {
   // find the halfway point of the initial viewport height
   // (it changes on mobile, but by just using the initial value
   // you remove jumpiness on scroll direction change)
-  var midpoint = Math.floor(window.innerHeight * 0.7) + "px";
+  const midpoint = Math.floor(window.innerHeight * 0.7) + "px";
   scroller
     .setup({
       step: "#scrolly article .step",
