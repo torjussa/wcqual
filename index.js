@@ -56,6 +56,7 @@ const countries = [
     nationsLeagueGroup: "B1",
     qualGroup: "B",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "41.153332",
     longitude: "20.168169",
   },
@@ -66,6 +67,7 @@ const countries = [
     nationsLeagueGroup: "D2",
     qualGroup: "B",
     nationsLeaguePosition: 3,
+    nlRank: 200,
     latitude: "42.506305",
     longitude: "1.521801",
   },
@@ -76,6 +78,7 @@ const countries = [
     nationsLeagueGroup: "C4",
     qualGroup: "B",
     nationsLeaguePosition: 2,
+    nlRank: 200,
     latitude: "40.069099",
     longitude: "45.039188",
   },
@@ -86,6 +89,7 @@ const countries = [
     nationsLeagueGroup: "B3",
     qualGroup: "B",
     nationsLeaguePosition: 2,
+    nlRank: 200,
     latitude: "47.809402",
     longitude: "13.055000",
   },
@@ -96,6 +100,7 @@ const countries = [
     nationsLeagueGroup: "C1",
     qualGroup: "C",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "40.399133",
     longitude: "47.576927",
   },
@@ -106,6 +111,7 @@ const countries = [
     nationsLeagueGroup: "C3",
     qualGroup: "C",
     nationsLeaguePosition: 3,
+    nlRank: 200,
     latitude: "53.709807",
     longitude: "27.953389",
   },
@@ -116,6 +122,7 @@ const countries = [
     nationsLeagueGroup: "A2",
     qualGroup: "C",
     nationsLeaguePosition: 3,
+    nlRank: 200,
     latitude: "50.503887",
     longitude: "4.469936",
   },
@@ -126,6 +133,7 @@ const countries = [
     nationsLeagueGroup: "A3",
     qualGroup: "C",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "44.204791",
     longitude: "17.795321",
   },
@@ -136,6 +144,7 @@ const countries = [
     nationsLeagueGroup: "C3",
     qualGroup: "D",
     nationsLeaguePosition: 2,
+    nlRank: 200,
     latitude: "42.733882",
     longitude: "25.485830",
   },
@@ -146,6 +155,7 @@ const countries = [
     nationsLeagueGroup: "A1",
     qualGroup: "D",
     nationsLeaguePosition: 2,
+    nlRank: 20,
     latitude: "45.815010",
     longitude: "15.579452",
   },
@@ -156,6 +166,7 @@ const countries = [
     nationsLeagueGroup: "C2",
     qualGroup: "D",
     nationsLeaguePosition: 3,
+    nlRank: 200,
     latitude: "35.126413",
     longitude: "33.429859",
   },
@@ -166,6 +177,7 @@ const countries = [
     nationsLeagueGroup: "B1",
     qualGroup: "D",
     nationsLeaguePosition: 1,
+    nlRank: 8,
     latitude: "49.817492",
     longitude: "15.473092",
   },
@@ -176,6 +188,7 @@ const countries = [
     nationsLeagueGroup: "A4",
     qualGroup: "E",
     nationsLeaguePosition: 2,
+    nlRank: 18,
     latitude: "56.263920",
     longitude: "9.501785",
   },
@@ -186,6 +199,7 @@ const countries = [
     nationsLeagueGroup: "B2",
     qualGroup: "E",
     nationsLeaguePosition: 1,
+    nlRank: 5,
     latitude: "52.355518",
     longitude: "-1.174351",
   },
@@ -196,6 +210,7 @@ const countries = [
     nationsLeagueGroup: "C1",
     qualGroup: "E",
     nationsLeaguePosition: 3,
+    nlRank: 200,
     latitude: "58.595272",
     longitude: "25.912717",
   },
@@ -206,6 +221,7 @@ const countries = [
     nationsLeagueGroup: "C4",
     qualGroup: "E",
     nationsLeaguePosition: 3,
+    nlRank: 200,
     latitude: "61.892635",
     longitude: "-6.911806",
   },
@@ -216,6 +232,7 @@ const countries = [
     nationsLeagueGroup: "B2",
     qualGroup: "F",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "61.924110",
     longitude: "24.935459",
   },
@@ -226,6 +243,7 @@ const countries = [
     nationsLeagueGroup: "A2",
     qualGroup: "F",
     nationsLeaguePosition: 1,
+    nlRank: 4,
     latitude: "46.227638",
     longitude: "2.213749",
   },
@@ -236,6 +254,7 @@ const countries = [
     nationsLeagueGroup: "B1",
     qualGroup: "F",
     nationsLeaguePosition: 3,
+    nlRank: 200,
     latitude: "42.315407",
     longitude: "43.356892",
   },
@@ -246,6 +265,7 @@ const countries = [
     nationsLeagueGroup: "A3",
     qualGroup: "F",
     nationsLeaguePosition: 1,
+    nlRank: 2,
     latitude: "51.165691",
     longitude: "10.451526",
   },
@@ -256,6 +276,7 @@ const countries = [
     nationsLeagueGroup: "B2",
     qualGroup: "G",
     nationsLeaguePosition: 2,
+    nlRank: 200,
     latitude: "39.074208",
     longitude: "21.824312",
   },
@@ -266,6 +287,7 @@ const countries = [
     nationsLeagueGroup: "A3",
     qualGroup: "G",
     nationsLeaguePosition: 3,
+    nlRank: 25,
     latitude: "47.162491",
     longitude: "19.503304",
   },
@@ -276,6 +298,7 @@ const countries = [
     nationsLeagueGroup: "B4",
     qualGroup: "G",
     nationsLeaguePosition: 3,
+    nlRank: 200,
     latitude: "64.963051",
     longitude: "-17.020835",
   },
@@ -286,6 +309,7 @@ const countries = [
     nationsLeagueGroup: "B2",
     qualGroup: "G",
     nationsLeaguePosition: 3,
+    nlRank: 200,
     latitude: "53.412910",
     longitude: "-8.243890",
   },
@@ -296,6 +320,7 @@ const countries = [
     nationsLeagueGroup: "A2",
     qualGroup: "G",
     nationsLeaguePosition: 2,
+    nlRank: 16,
     latitude: "41.871941",
     longitude: "12.567380",
   },
@@ -306,6 +331,7 @@ const countries = [
     nationsLeagueGroup: "A2",
     qualGroup: "H",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "31.046051",
     longitude: "34.851612",
   },
@@ -316,6 +342,7 @@ const countries = [
     nationsLeagueGroup: "B3",
     qualGroup: "H",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "48.019589",
     longitude: "54.923684",
   },
@@ -326,6 +353,7 @@ const countries = [
     nationsLeagueGroup: "C2",
     qualGroup: "H",
     nationsLeaguePosition: 2,
+    nlRank: 200,
     latitude: "42.602636",
     longitude: "20.902981",
   },
@@ -336,6 +364,7 @@ const countries = [
     nationsLeagueGroup: "C4",
     qualGroup: "H",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "56.949646",
     longitude: "24.105186",
   },
@@ -346,6 +375,7 @@ const countries = [
     nationsLeagueGroup: "D1",
     qualGroup: "H",
     nationsLeaguePosition: 3,
+    nlRank: 200,
     latitude: "47.166000",
     longitude: "9.555373",
   },
@@ -356,6 +386,7 @@ const countries = [
     nationsLeagueGroup: "C2",
     qualGroup: "I",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "54.689652",
     longitude: "25.279959",
   },
@@ -367,6 +398,7 @@ const countries = [
     nationsLeagueGroup: "C3",
     qualGroup: "I",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "49.815273",
     longitude: "6.129583",
   },
@@ -377,6 +409,7 @@ const countries = [
     nationsLeagueGroup: "D2",
     qualGroup: "I",
     nationsLeaguePosition: 2,
+    nlRank: 200,
     latitude: "35.937496",
     longitude: "14.375416",
   },
@@ -387,6 +420,7 @@ const countries = [
     nationsLeagueGroup: "D2",
     qualGroup: "I",
     nationsLeaguePosition: 1,
+    nlRank: 14,
     latitude: "47.411653",
     longitude: "28.833887",
   },
@@ -397,6 +431,7 @@ const countries = [
     nationsLeagueGroup: "B4",
     qualGroup: "I",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "42.506389",
     longitude: "19.408850",
   },
@@ -407,6 +442,7 @@ const countries = [
     nationsLeagueGroup: "A3",
     qualGroup: "J",
     nationsLeaguePosition: 2,
+    nlRank: 17,
     latitude: "52.132633",
     longitude: "5.291266",
   },
@@ -417,6 +453,7 @@ const countries = [
     nationsLeagueGroup: "C3",
     qualGroup: "J",
     nationsLeaguePosition: 1,
+    nlRank: 13,
     latitude: "54.609323",
     longitude: "-6.131386",
   },
@@ -427,6 +464,7 @@ const countries = [
     nationsLeagueGroup: "C4",
     qualGroup: "J",
     nationsLeaguePosition: 1,
+    nlRank: 12,
     latitude: "41.608635",
     longitude: "21.745275",
   },
@@ -437,6 +475,7 @@ const countries = [
     nationsLeagueGroup: "B3",
     qualGroup: "J",
     nationsLeaguePosition: 1,
+    nlRank: 6,
     latitude: "59.91129366297636",
     longitude: "10.753603061457929",
   },
@@ -447,6 +486,7 @@ const countries = [
     nationsLeagueGroup: "A1",
     qualGroup: "J",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "51.919438",
     longitude: "19.145136",
   },
@@ -457,6 +497,7 @@ const countries = [
     nationsLeagueGroup: "A1",
     qualGroup: "K",
     nationsLeaguePosition: 1,
+    nlRank: 3,
     latitude: "39.399872",
     longitude: "-8.224454",
   },
@@ -467,6 +508,7 @@ const countries = [
     nationsLeagueGroup: "C2",
     qualGroup: "K",
     nationsLeaguePosition: 1,
+    nlRank: 9,
     latitude: "45.943161",
     longitude: "24.966760",
   },
@@ -477,6 +519,7 @@ const countries = [
     nationsLeagueGroup: "D1",
     qualGroup: "K",
     nationsLeaguePosition: 1,
+    nlRank: 15,
     latitude: "43.942360",
     longitude: "12.457777",
   },
@@ -487,6 +530,7 @@ const countries = [
     nationsLeagueGroup: "A1",
     qualGroup: "K",
     nationsLeaguePosition: 3,
+    nlRank: 21,
     latitude: "56.492000",
     longitude: "-3.201000",
   },
@@ -497,6 +541,7 @@ const countries = [
     nationsLeagueGroup: "A4",
     qualGroup: "K",
     nationsLeaguePosition: 3,
+    nlRank: 22,
     latitude: "44.016521",
     longitude: "21.005859",
   },
@@ -507,6 +552,7 @@ const countries = [
     nationsLeagueGroup: "C1",
     qualGroup: "L",
     nationsLeaguePosition: 2,
+    nlRank: 200,
     latitude: "48.669026",
     longitude: "19.699024",
   },
@@ -517,6 +563,7 @@ const countries = [
     nationsLeagueGroup: "B3",
     qualGroup: "L",
     nationsLeaguePosition: 3,
+    nlRank: 200,
     latitude: "46.151241",
     longitude: "14.995463",
   },
@@ -527,6 +574,7 @@ const countries = [
     nationsLeagueGroup: "A4",
     qualGroup: "L",
     nationsLeaguePosition: 1,
+    nlRank: 1,
     latitude: "40.463667",
     longitude: "-3.749220",
   },
@@ -537,6 +585,7 @@ const countries = [
     nationsLeagueGroup: "C1",
     qualGroup: "L",
     nationsLeaguePosition: 1,
+    nlRank: 10,
     latitude: "60.128161",
     longitude: "18.643501",
   },
@@ -547,6 +596,7 @@ const countries = [
     nationsLeagueGroup: "A4",
     qualGroup: "L",
     nationsLeaguePosition: 4,
+    nlRank: 200,
     latitude: "46.818188",
     longitude: "8.227512",
   },
@@ -557,6 +607,7 @@ const countries = [
     nationsLeagueGroup: "B4",
     qualGroup: "A",
     nationsLeaguePosition: 2,
+    nlRank: 200,
     latitude: "38.963745",
     longitude: "35.243322",
   },
@@ -567,6 +618,7 @@ const countries = [
     nationsLeagueGroup: "B1",
     qualGroup: "A",
     nationsLeaguePosition: 2,
+    nlRank: 200,
     latitude: "49.838268",
     longitude: "31.165580",
   },
@@ -577,6 +629,7 @@ const countries = [
     nationsLeagueGroup: "B4",
     qualGroup: "A",
     nationsLeaguePosition: 1,
+    nlRank: 7,
     latitude: "52.130858",
     longitude: "-3.988022",
   },
@@ -587,6 +640,7 @@ const countries = [
     nationsLeagueGroup: "D1",
     qualGroup: "A",
     nationsLeaguePosition: 2,
+    nlRank: 200,
     latitude: "36.140740",
     longitude: "-5.351330",
   },
@@ -956,6 +1010,8 @@ function sortQualGroups() {
 
 // 6
 function playQualGroups() {
+  qualified = [];
+  secondPlacers = [];
   console.log("playQualGroups");
   data = [];
   circleData = [];
@@ -1000,7 +1056,7 @@ function playQualGroups() {
 // 7
 function showQualWinners() {
   console.log("playQualGroups");
-  data = []
+  data = [];
   const qualGroups = groupBy(countries, "qualGroup");
   Object.keys(qualGroups)
     .sort()
@@ -1061,6 +1117,7 @@ function ShowSecondPlacers() {
 // 9
 function ShowNL() {
   data = [];
+  console.log(qualified);
   const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
   Object.keys(nationsLeagueGroups).map((key, i) => {
     nationsLeagueGroups[key].map((c) => {
@@ -1157,27 +1214,26 @@ function handleResize() {
   var stepH = Math.floor(window.innerHeight * 0.9);
   step.style("height", stepH + "px");
 
-  if (window.screen.width > 600) {
-    var figureHeight = window.innerHeight;
-    var figureMarginTop = (window.innerHeight - figureHeight) / 2;
+  var figureHeight = window.innerHeight;
+  var figureMarginTop = (window.innerHeight - figureHeight) / 2;
 
-    figure
-      .style("height", figureHeight + "px")
-      .style("top", figureMarginTop + "px");
+  figure
+    .style("height", figureHeight + "px")
+    .style("top", figureMarginTop + "px");
+    
+  svg =
+    window.screen.width > 600
+      ? d3.select("svg.desktop")
+      : d3.select("svg.mobile");
 
-    svg = d3.select("svg.desktop");
-
-    svg.style("height", figureHeight + "px");
-    svgWidth = parseInt(svg.style("width"));
-    svgHeight = figureHeight;
-    xPadding = svgWidth * 0.06;
-    yPadding = svgHeight * 0.06;
-    flagSize = svgHeight / 40;
-    bigFlagSize = flagSize * 3;
-    flagPadding = flagSize / 3;
-  } else {
-    //if mobile
-  }
+  svg.style("height", figureHeight + "px");
+  svgWidth = parseInt(svg.style("width"));
+  svgHeight = figureHeight;
+  xPadding = svgWidth * 0.06;
+  yPadding = svgHeight * 0.06;
+  flagSize = svgHeight / 40;
+  bigFlagSize = flagSize * 3;
+  flagPadding = flagSize / 3;
 
   // 3. tell scrollama to update new element dimensions
   scroller.resize();
