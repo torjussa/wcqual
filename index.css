@@ -96,7 +96,6 @@ figure p {
   @media screen and (max-width: 600px) {
     background-color: transparent;
     color: #404040;
-    
   }
 }
 * {
@@ -117,15 +116,13 @@ figure p {
 }
 
 .step p {
-  text-align: center;
-  padding: 0.5rem;
+  padding: 1rem;
   font-size: 1.5rem;
   @media screen and (max-width: 600px) {
     font-size: 1rem;
   }
 }
 .step h2 {
-  text-align: center;
   padding: 1rem;
   font-size: 1.6rem;
   @media screen and (max-width: 600px) {
@@ -137,6 +134,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  background-color: #659b5e;
 }
 
 body {
@@ -162,12 +160,33 @@ a {
     padding: 1rem;
     padding-bottom: 2rem;
     background-image: linear-gradient(
-        to bottom,
-        rgba(240, 237, 237, 0) 0%,
-        rgba(240, 237, 237, 0.9) 20%,
-        rgba(240, 237, 237, 1) 50%,
-        rgba(240, 237, 237, 0.9) 80%,
-        rgba(240, 237, 237, 0) 100%
+      to bottom,
+      rgba(240, 237, 237, 0) 0%,
+      rgba(240, 237, 237, 0.9) 20%,
+      rgba(240, 237, 237, 1) 50%,
+      rgba(240, 237, 237, 0.9) 80%,
+      rgba(240, 237, 237, 0) 100%
     );
   }
+}
+
+button {
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  font: inherit; /* Use the same font as the parent */
+  color: inherit; /* Use the same text color as the parent */
+  cursor: pointer; /* Ensure it still looks clickable */
+  outline: none; /* Remove the default focus outline */
+  appearance: none; /* Remove platform-specific styling (e.g., on Safari) */
+  -webkit-appearance: none; /* For older versions of Safari */
+  -moz-appearance: none; /* For Firefox */
+}
+
+.language-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  
 }

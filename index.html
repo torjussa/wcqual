@@ -22,16 +22,89 @@
     />
     <link rel="manifest" href="icons/site.webmanifest" />
     <title>World Cup Qualifiers - Europe</title>
-    <meta name="description" content="World cup qualifiers" />
+    <meta
+      name="description"
+      content="Interactive guide to the 2026 FIFA World Cup European Qualifiers. Learn how European teams qualify through the group stages and playoffs."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wcqual.com/" />
+    <meta
+      property="og:title"
+      content="World Cup 2026 European Qualifiers Guide"
+    />
+    <meta
+      property="og:description"
+      content="Interactive guide explaining how European teams qualify for the 2026 FIFA World Cup through the Nations League, group stages and playoffs."
+    />
+    <meta property="og:image" content="https://wcqual.com/og-image.jpg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://wcqual.com/" />
+    <meta
+      name="twitter:title"
+      content="World Cup 2026 European Qualifiers Guide"
+    />
+    <meta
+      name="twitter:description"
+      content="Interactive guide explaining how European teams qualify for the 2026 FIFA World Cup through the Nations League, group stages and playoffs."
+    />
+    <meta name="twitter:image" content="https://wcqual.com/og-image.jpg" />
+
+    <!-- Additional SEO -->
+    <meta
+      name="keywords"
+      content="World Cup 2026, European Qualifiers, FIFA, Nations League, Football, Soccer, World Cup qualification, UEFA"
+    />
+    <meta name="author" content="WCQual" />
+    <link rel="canonical" href="https://wcqual.com/" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./index.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"
     />
-    <script type="module" src="./index.js"></script>
+    <script src="/content.js"></script>
     <script src="https://unpkg.com/scrollama"></script>
     <script src="//d3js.org/d3.v5.js"></script>
+    <script type="module" src="/index.js"></script>
+
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "World Cup 2026 European Qualifiers Guide",
+        "description": "Interactive guide explaining how European teams qualify for the 2026 FIFA World Cup through the Nations League, group stages and playoffs.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "WCQual",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://wcqual.com/icons/apple-touch-icon.png"
+          }
+        },
+        "image": "https://wcqual.com/og-image.jpg",
+        "url": "https://wcqual.com/",
+        "inLanguage": ["en", "no"],
+        "about": {
+          "@type": "SportsEvent",
+          "name": "FIFA World Cup 2026 European Qualification",
+          "sport": "Soccer",
+          "location": {
+            "@type": "Place",
+            "name": "Europe"
+          },
+          "organizer": {
+            "@type": "Organization",
+            "name": "UEFA"
+          }
+        }
+      }
+    </script>
   </head>
 
   <body>
@@ -51,107 +124,44 @@
 
         <article>
           <div class="step" style="margin-top: 50%" data-step="0">
-            <div class="text-wrapper">
-              <h2>
-                The 2026 World Cup will be hosted in Canada, USA and Mexico.
-              </h2>
-            </div>
+            <div class="text-wrapper" id="content-0"></div>
           </div>
           <div class="step" data-step="1">
-            <div class="text-wrapper">
-              <p>
-                In Europe, 55 nations will compete for 16 golden tickets across
-                the Atlantic.
-              </p>
-              <p class="rotate">The Atlantic Ocean</p>
-            </div>
+            <div class="text-wrapper" id="content-1"></div>
           </div>
           <div class="step" data-step="2">
-            <div class="text-wrapper">
-              <p>Let's head to Europe</p>
-            </div>
+            <div class="text-wrapper" id="content-2"></div>
           </div>
           <div class="step" data-step="3">
-            <div class="text-wrapper">
-              <h2>2024 Nations League</h2>
-              <p>
-                Europe's competing nations are sorted into 4 Leagues (A-D) as
-                shown.
-              </p>
-            </div>
+            <div class="text-wrapper" id="content-3"></div>
           </div>
           <div class="step" data-step="4">
-            <div class="text-wrapper">
-              <h2>November 2024</h2>
-              <p>The Nations League group stage is finished!</p>
-              <p>We'll get back to the Nations league later..</p>
-            </div>
+            <div class="text-wrapper" id="content-4"></div>
           </div>
           <div class="step" data-step="5">
-            <div class="text-wrapper">
-              <h2>December 2024</h2>
-              <p>
-                In Zurich, the draws for the European World Cup Qualifiers are
-                held.
-              </p>
-              <p>
-                This time, we divide Europe into 12 groups of four and five
-                teams.
-              </p>
-            </div>
+            <div class="text-wrapper" id="content-5"></div>
           </div>
           <div class="step" data-step="6">
-            <div class="text-wrapper">
-              <h2>November 2025</h2>
-              <p>
-                After facing each other twice, we conclude the qualifiers group
-                stage.
-              </p>
-            </div>
+            <div class="text-wrapper" id="content-6"></div>
           </div>
           <div class="step" data-step="7">
-            <div class="text-wrapper">
-              <p>The 12 group winners are qualified for the 2026 World Cup.</p>
-            </div>
+            <div class="text-wrapper" id="content-7"></div>
           </div>
           <div class="step" data-step="8">
-            <div class="text-wrapper">
-              <p>
-                The 12 runner ups, will join the playoffs for the last 4 spots
-                in the World Cup.
-              </p>
-            </div>
+            <div class="text-wrapper" id="content-8"></div>
           </div>
           <div class="step" data-step="9">
-            <div class="text-wrapper">
-              <h2>Remeber Nations League?</h2>
-              <p>
-                An additional 4 entries for the playoffs will be selected from
-                the best 4 group winners from the Nations League, that finished
-                outside top two in their qualifiing group.
-              </p>
-            </div>
+            <div class="text-wrapper" id="content-9"></div>
           </div>
           <div class="step" data-step="10">
-            <div class="text-wrapper">
-              <p>
-                Any nations not highlighted, will not qualify for the World Cup
-              </p>
-            </div>
+            <div class="text-wrapper" id="content-10"></div>
           </div>
           <div class="step" data-step="11">
-            <div class="text-wrapper">
-              <p>
-                The qualifier runner ups will be seeded in pot 1-3 by their fifa
-                rank, while the nations from Nations league will not be seeded.
-              </p>
-            </div>
+            <div class="text-wrapper" id="content-11"></div>
           </div>
           <div class="step" data-step="12">
-            <div class="text-wrapper">
-              <p>
-                ..
-              </p>
+            <div class="text-wrapper" id="content-12">
+              <p>..</p>
             </div>
           </div>
         </article>
@@ -169,5 +179,73 @@
         </figure>
       </section>
     </main>
+
+    <button
+      class="language-button"
+      onClick="changeLanguage(); updateAllContent();"
+    >
+      <img
+        id="language-flag"
+        height="30"
+        src="https://hatscripts.github.io/circle-flags/flags/uk.svg"
+      />
+    </button>
+
+    <script>
+      // Function to update content based on current language
+      function updateContent(stepIndex) {
+        const stepData = steps[stepIndex];
+        const contentElement = document.getElementById(`content-${stepIndex}`);
+
+        if (!stepData || !contentElement) return;
+
+        const langData = stepData[currentLang];
+        if (!langData) return;
+
+        contentElement.innerHTML = "";
+
+        // Add h2 if exists
+        if (langData.h2) {
+          const h2 = document.createElement("h2");
+          h2.textContent = langData.h2;
+          contentElement.appendChild(h2);
+        }
+
+        // Add paragraphs
+        if (langData.p) {
+          if (Array.isArray(langData.p)) {
+            langData.p.forEach((text, index) => {
+              const p = document.createElement("p");
+              p.textContent = text;
+              if (index === 1 && stepIndex === 1) {
+                // Special case for "Atlantic Ocean" rotated text
+                p.className = "rotate";
+              }
+              contentElement.appendChild(p);
+            });
+          } else {
+            const p = document.createElement("p");
+            p.textContent = langData.p;
+            contentElement.appendChild(p);
+          }
+        }
+      }
+
+      // Function to update all content
+      function updateAllContent() {
+        for (let i = 0; i <= 12; i++) {
+          updateContent(i);
+        }
+      }
+
+      // Make functions available globally
+      window.updateContent = updateContent;
+      window.updateAllContent = updateAllContent;
+
+      // Initialize content when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        updateAllContent();
+      });
+    </script>
   </body>
 </html>

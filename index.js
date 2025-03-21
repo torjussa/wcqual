@@ -939,13 +939,13 @@ function sortNLGroups() {
 
 function getQualX(groupNumber) {
   if (groupNumber % 3 == 0) {
-    return svgWidth / 4 -xPadding;
+    return svgWidth / 4 - xPadding;
   }
   if (groupNumber % 3 == 1) {
-    return (2 * svgWidth) / 4 -xPadding;
+    return (2 * svgWidth) / 4 - xPadding;
   }
   if (groupNumber % 3 == 2) {
-    return (3 * svgWidth) / 4 -xPadding;
+    return (3 * svgWidth) / 4 - xPadding;
   }
 }
 function getQualY(groupNumber, j) {
@@ -1132,7 +1132,7 @@ function ShowSecondPlacers() {
     }
   });
   circleData = circles;
-  textData = []
+  textData = [];
 
   redraw();
 }
@@ -1274,52 +1274,50 @@ function playoffs1() {
       }
     });
   });
-  textData = ["Pot 1","Pot 2", "Pot 3", "Pot 4"]
-  .map((key, i) => ({
+  textData = ["Pot 1", "Pot 2", "Pot 3", "Pot 4"].map((key, i) => ({
     text: key,
-    x: 3/4 *svgWidth,
-    y: (svgHeight-2*yPadding) * (i+1)/4 - 3*flagSize,
+    x: (3 / 4) * svgWidth,
+    y: ((svgHeight - 2 * yPadding) * (i + 1)) / 4 - 3 * flagSize,
   }));
 
   redraw();
 }
 // 12
 function playoffs2() {
-    data = [];
-  
-    const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
-    Object.keys(nationsLeagueGroups).map((key, i) => {
-      nationsLeagueGroups[key].map((c) => {
-        if (qualified.some((q) => q.isoCode == c.isoCode)) {
-          data.push({
-            isoCode: c.isoCode,
-            x: svgWidth / 12 - flagSize / 2,
-            y: yPadding + (svgHeight / 18) * qualified.indexOf(c) - flagSize / 2,
-            size: flagSize,
-            opacity: 1,
-            delay: 100 + i * 40,
-          });
-        } else if (playoffs.some((q) => q.isoCode == c.isoCode)) {
-          data.push({
-            isoCode: c.isoCode,
-            x: svgWidth - svgWidth / 12,
-            y: yPadding + (svgHeight / 18) * playoffs.indexOf(c) - flagSize / 2,
-            size: flagSize,
-            opacity: 1,
-            delay: 100 + i * 40,
-          });
-        }
-      });
+  data = [];
+
+  const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
+  Object.keys(nationsLeagueGroups).map((key, i) => {
+    nationsLeagueGroups[key].map((c) => {
+      if (qualified.some((q) => q.isoCode == c.isoCode)) {
+        data.push({
+          isoCode: c.isoCode,
+          x: svgWidth / 12 - flagSize / 2,
+          y: yPadding + (svgHeight / 18) * qualified.indexOf(c) - flagSize / 2,
+          size: flagSize,
+          opacity: 1,
+          delay: 100 + i * 40,
+        });
+      } else if (playoffs.some((q) => q.isoCode == c.isoCode)) {
+        data.push({
+          isoCode: c.isoCode,
+          x: svgWidth - svgWidth / 12,
+          y: yPadding + (svgHeight / 18) * playoffs.indexOf(c) - flagSize / 2,
+          size: flagSize,
+          opacity: 1,
+          delay: 100 + i * 40,
+        });
+      }
     });
-    textData = ["Pot 1","Pot 2", "Pot 3", "Pot 4"]
-    .map((key, i) => ({
-      text: key,
-      x: 3/4 *svgWidth,
-      y: (svgHeight-2*yPadding) * (i+1)/4 - 3*flagSize,
-    }));
-  
-    redraw();
-  }
+  });
+  textData = ["Pot 1", "Pot 2", "Pot 3", "Pot 4"].map((key, i) => ({
+    text: key,
+    x: (3 / 4) * svgWidth,
+    y: ((svgHeight - 2 * yPadding) * (i + 1)) / 4 - 3 * flagSize,
+  }));
+
+  redraw();
+}
 
 // scrollama event handlers
 function handleStepEnter(response) {
@@ -1329,6 +1327,11 @@ function handleStepEnter(response) {
   });
 
   console.log("Enter step ", response.index, " - dir: " + response.direction);
+
+  // Update the content for this step based on current language
+  if (window.updateContent) {
+    window.updateContent(response.index);
+  }
 
   switch (response.index) {
     case 0:
