@@ -108,7 +108,7 @@
   </head>
 
   <body>
-    <main style="background-color: #2a5d93">
+    <main style="background-color: #659b5e">
       <section id="scrolly">
         <figure id="mobile-fig">
           <svg
@@ -117,6 +117,8 @@
             height="100%"
             viweBox="0 0 100 100"
             preserveAspectRatio="xMidYMid meet"
+            aria-hidden="true"
+            role="img"
           >
             <g id="circles-group" />
           </svg>
@@ -134,7 +136,10 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-labelledby="mobileArrowTitle"
+                role="img"
               >
+                <title id="mobileArrowTitle">Scroll down arrow</title>
                 <path d="M12 5v14M5 12l7 7 7-7" />
               </svg>
             </div>
@@ -180,9 +185,13 @@
             <div class="text-wrapper" id="content-11"></div>
           </div>
           <div class="step" data-step="12">
-            <div class="text-wrapper" id="content-12">
-              <p>..</p>
-            </div>
+            <div class="text-wrapper" id="content-12"></div>
+          </div>
+          <div class="step" data-step="13">
+            <div class="text-wrapper" id="content-13"></div>
+          </div>
+          <div class="step" data-step="14">
+            <div class="text-wrapper" id="content-14"></div>
           </div>
         </article>
 
@@ -193,6 +202,8 @@
             height="100%"
             viweBox="0 0 100 100"
             preserveAspectRatio="xMidYMid meet"
+            aria-hidden="true"
+            role="img"
           >
             <g id="circles-group" />
           </svg>
@@ -210,7 +221,10 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-labelledby="desktopArrowTitle"
+                role="img"
               >
+                <title id="desktopArrowTitle">Scroll down arrow</title>
                 <path d="M12 5v14M5 12l7 7 7-7" />
               </svg>
             </div>
@@ -226,6 +240,7 @@
           id="language-flag"
           height="30"
           src="https://hatscripts.github.io/circle-flags/flags/uk.svg"
+          alt="Current language flag"
         />
         <span class="dropdown-arrow">▼</span>
       </div>
@@ -234,6 +249,7 @@
           <img
             height="24"
             src="https://hatscripts.github.io/circle-flags/flags/uk.svg"
+            alt="English flag"
           />
           <span>English</span>
         </div>
@@ -241,6 +257,7 @@
           <img
             height="24"
             src="https://hatscripts.github.io/circle-flags/flags/no.svg"
+            alt="Norwegian flag"
           />
           <span>Norsk</span>
         </div>
@@ -248,6 +265,7 @@
           <img
             height="24"
             src="https://hatscripts.github.io/circle-flags/flags/es.svg"
+            alt="Spanish flag"
           />
           <span>Español</span>
         </div>
@@ -292,11 +310,30 @@
             contentElement.appendChild(p);
           }
         }
+
+        // Add Play Again button to step 6 (November 2025)
+        if (stepIndex === 6 && langData.button) {
+          const buttonContainer = document.createElement("div");
+          buttonContainer.className = "button-container";
+
+          const button = document.createElement("button");
+          button.id = "play-again-button";
+          button.className = "play-again-button";
+          button.textContent = langData.button;
+          button.setAttribute("aria-label", langData.button);
+          button.onclick = function () {
+            window.reshuffleResults();
+          };
+
+          buttonContainer.appendChild(button);
+          contentElement.appendChild(buttonContainer);
+        }
       }
 
       // Function to update all content
       function updateAllContent() {
-        for (let i = 0; i <= 12; i++) {
+        // Loop through all steps (0-14) and update their content
+        for (let i = 0; i <= 14; i++) {
           updateContent(i);
         }
       }

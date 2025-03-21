@@ -775,6 +775,7 @@ function drawGroupNames() {
     )
     .transition()
     .duration(400)
+    .delay((d) => d.delay || 0)
     .attr("x", (d) => d.x)
     .attr("y", (d) => d.y)
     .style("opacity", 0.85)
@@ -985,6 +986,7 @@ function sortQualGroups() {
   Object.keys(qualGroups)
     .sort()
     .map((key, i) => {
+      // No sorting here - we're just showing the groups
       qualGroups[key].map((c, j) =>
         data.push({
           isoCode: c.isoCode,
@@ -1018,7 +1020,11 @@ function playQualGroups() {
     .sort()
     .map((key, i) => {
       qualGroups[key]
-        .sort((c1, c2) => c1.fifaRank - c2.fifaRank)
+        .sort((c1, c2) =>
+          c1.qualPosition !== undefined
+            ? c1.qualPosition - c2.qualPosition
+            : c1.fifaRank - c2.fifaRank
+        )
         .map((c, j) => {
           if (j == 0) {
             // add group winners
@@ -1053,14 +1059,18 @@ function playQualGroups() {
 
 // 7
 function showQualWinners() {
-  console.log("playQualGroups");
+  console.log("showQualWinners");
   data = [];
   const qualGroups = groupBy(countries, "qualGroup");
   Object.keys(qualGroups)
     .sort()
     .map((key, i) => {
       qualGroups[key]
-        .sort((c1, c2) => c1.fifaRank - c2.fifaRank)
+        .sort((c1, c2) =>
+          c1.qualPosition !== undefined
+            ? c1.qualPosition - c2.qualPosition
+            : c1.fifaRank - c2.fifaRank
+        )
         .map((c, j) =>
           data.push({
             isoCode: c.isoCode,
@@ -1102,7 +1112,11 @@ function ShowSecondPlacers() {
     .sort()
     .map((key, i) => {
       qualGroups[key]
-        .sort((c1, c2) => c1.fifaRank - c2.fifaRank)
+        .sort((c1, c2) =>
+          c1.qualPosition !== undefined
+            ? c1.qualPosition - c2.qualPosition
+            : c1.fifaRank - c2.fifaRank
+        )
         .map((c, j) =>
           data.push({
             isoCode: c.isoCode,
@@ -1140,10 +1154,14 @@ function ShowSecondPlacers() {
 function ShowNL() {
   data = [];
 
+  // Use our already determined qualified and secondPlacers arrays
+  // which were populated based on qualPosition in playQualGroups
+
   const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
   Object.keys(nationsLeagueGroups).map((key, i) => {
     nationsLeagueGroups[key].map((c) => {
       if (qualified.some((q) => q.isoCode == c.isoCode)) {
+        // This country qualified directly
         data.push({
           isoCode: c.isoCode,
           x: svgWidth / 12 - flagSize / 2,
@@ -1153,6 +1171,7 @@ function ShowNL() {
           delay: 100 + i * 40,
         });
       } else if (secondPlacers.some((q) => q.isoCode == c.isoCode)) {
+        // This country is a runner-up
         data.push({
           isoCode: c.isoCode,
           x: svgWidth - svgWidth / 12,
@@ -1165,6 +1184,7 @@ function ShowNL() {
           delay: 100 + i * 40,
         });
       } else {
+        // This country did not qualify directly and is not a runner-up
         data.push({
           isoCode: c.isoCode,
           x: getNlX(key),
@@ -1188,6 +1208,8 @@ function ShowNL() {
 function LastPlayoffSpots() {
   data = [];
   playoffs = [];
+
+  // Define top4 Nations League teams that didn't qualify directly
   var top4 = countries
     .filter(
       (c) =>
@@ -1197,6 +1219,7 @@ function LastPlayoffSpots() {
     .sort((a, b) => a.nlRank - b.nlRank)
     .slice(0, 4);
 
+  // Use secondPlacers which is already based on qualPosition
   playoffs = [...secondPlacers]
     .sort((a, b) => a.fifaRank - b.fifaRank)
     .concat(top4);
@@ -1282,42 +1305,484 @@ function playoffs1() {
 
   redraw();
 }
-// 12
-function playoffs2() {
-  data = [];
 
-  const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
-  Object.keys(nationsLeagueGroups).map((key, i) => {
-    nationsLeagueGroups[key].map((c) => {
-      if (qualified.some((q) => q.isoCode == c.isoCode)) {
-        data.push({
-          isoCode: c.isoCode,
-          x: svgWidth / 12 - flagSize / 2,
-          y: yPadding + (svgHeight / 18) * qualified.indexOf(c) - flagSize / 2,
-          size: flagSize,
-          opacity: 1,
-          delay: 100 + i * 40,
-        });
-      } else if (playoffs.some((q) => q.isoCode == c.isoCode)) {
-        data.push({
-          isoCode: c.isoCode,
-          x: svgWidth - svgWidth / 12,
-          y: yPadding + (svgHeight / 18) * playoffs.indexOf(c) - flagSize / 2,
-          size: flagSize,
-          opacity: 1,
-          delay: 100 + i * 40,
-        });
-      }
+// 12
+function playoffMatches() {
+  console.log("playoffMatches");
+  data = [];
+  textData = [];
+
+  // Create copies of the playoffs array for each pot
+  // Playoff teams should already be sorted by FIFA rank from the previous step
+  if (playoffs.length >= 16) {
+    const pot1 = playoffs.slice(0, 4);
+    const pot2 = playoffs.slice(4, 8);
+    const pot3 = playoffs.slice(8, 12);
+    const pot4 = playoffs.slice(12, 16);
+
+    // Show qualified teams on the left side
+    qualified.forEach((team, index) => {
+      data.push({
+        isoCode: team.isoCode,
+        x: svgWidth / 12 - flagSize / 2,
+        y: yPadding + (svgHeight / 18) * index - flagSize / 2,
+        size: flagSize,
+        opacity: 1,
+        delay: 50 * index,
+      });
     });
-  });
-  textData = ["Pot 1", "Pot 2", "Pot 3", "Pot 4"].map((key, i) => ({
-    text: key,
-    x: (3 / 4) * svgWidth,
-    y: ((svgHeight - 2 * yPadding) * (i + 1)) / 4 - 3 * flagSize,
-  }));
+
+    // Matchup 1: Pot 1 vs Pot 4 (top half of screen)
+    for (let i = 0; i < Math.min(pot1.length, pot4.length); i++) {
+      // Pot 1 team
+      data.push({
+        isoCode: pot1[i].isoCode,
+        x: svgWidth / 3 - flagSize * 1.5,
+        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        size: flagSize,
+        opacity: 1,
+        delay: 500 + 50 * i,
+      });
+
+      // Pot 4 team
+      data.push({
+        isoCode: pot4[i].isoCode,
+        x: svgWidth / 3 + flagSize * 1.5,
+        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        size: flagSize,
+        opacity: 1,
+        delay: 1000 + 50 * i,
+      });
+
+      // Add "vs" text between teams
+      textData.push({
+        text: "vs",
+        x: svgWidth / 3,
+        y: (svgHeight / 5) * (i + 1) + flagSize * 0.25,
+      });
+    }
+
+    // Matchup 2: Pot 2 vs Pot 3 (bottom half of screen)
+    for (let i = 0; i < Math.min(pot2.length, pot3.length); i++) {
+      // Pot 2 team
+      data.push({
+        isoCode: pot2[i].isoCode,
+        x: (2 * svgWidth) / 3 - flagSize * 1.5,
+        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        size: flagSize,
+        opacity: 1,
+        delay: 1500 + 50 * i,
+      });
+
+      // Pot 3 team
+      data.push({
+        isoCode: pot3[i].isoCode,
+        x: (2 * svgWidth) / 3 + flagSize * 1.5,
+        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        size: flagSize,
+        opacity: 1,
+        delay: 2000 + 50 * i,
+      });
+
+      // Add "vs" text between teams
+      textData.push({
+        text: "vs",
+        x: (2 * svgWidth) / 3,
+        y: (svgHeight / 5) * (i + 1) + flagSize * 0.25,
+      });
+    }
+
+    // Add section labels
+    textData.push({
+      text: "Pot 1 vs Pot 4",
+      x: svgWidth / 3 - flagSize * 2,
+      y: svgHeight / 10 - flagSize,
+    });
+
+    textData.push({
+      text: "Pot 2 vs Pot 3",
+      x: (2 * svgWidth) / 3 - flagSize * 2,
+      y: svgHeight / 10 - flagSize,
+    });
+  }
 
   redraw();
 }
+
+// 13
+function playoffFinalists() {
+  console.log("playoffFinalists");
+  data = [];
+  textData = [];
+
+  // Create copies of the playoffs array for each pot
+  if (playoffs.length >= 16) {
+    const pot1 = playoffs.slice(0, 4);
+    const pot2 = playoffs.slice(4, 8);
+    const pot3 = playoffs.slice(8, 12);
+    const pot4 = playoffs.slice(12, 16);
+
+    // Show qualified teams on the left side
+    qualified.forEach((team, index) => {
+      data.push({
+        isoCode: team.isoCode,
+        x: svgWidth / 12 - flagSize / 2,
+        y: yPadding + (svgHeight / 18) * index - flagSize / 2,
+        size: flagSize,
+        opacity: 1,
+        delay: 50 * index,
+      });
+    });
+
+    // For each matchup, determine winners based on FIFA rank
+    let winners = [];
+
+    // Process Pot 1 vs Pot 4 matchups
+    for (let i = 0; i < Math.min(pot1.length, pot4.length); i++) {
+      // Determine winner (60% chance for pot1 to win)
+      const pot1Wins = Math.random() < 0.6;
+      const winner = pot1Wins ? pot1[i] : pot4[i];
+      winners.push(winner);
+
+      // Calculate the final position with more vertical spacing
+      // Move teams up by one flag height
+      const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
+
+      // Add pot1 team (winner or loser)
+      data.push({
+        isoCode: pot1[i].isoCode,
+        x: svgWidth / 3 - flagSize * 1.5,
+        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        size: flagSize,
+        opacity: pot1Wins ? 1 : 0.2,
+        delay: 200,
+        winnerDestX: pot1Wins ? svgWidth / 2 - flagSize * 1.5 : null,
+        winnerDestY: pot1Wins ? finalPositionY : null,
+        isWinner: pot1Wins,
+      });
+
+      // Add pot4 team (winner or loser)
+      data.push({
+        isoCode: pot4[i].isoCode,
+        x: svgWidth / 3 + flagSize * 1.5,
+        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        size: flagSize,
+        opacity: pot1Wins ? 0.2 : 1,
+        delay: 200,
+        winnerDestX: pot1Wins ? null : svgWidth / 2 - flagSize * 1.5,
+        winnerDestY: pot1Wins ? null : finalPositionY,
+        isWinner: !pot1Wins,
+      });
+    }
+
+    // Process Pot 2 vs Pot 3 matchups
+    for (let i = 0; i < Math.min(pot2.length, pot3.length); i++) {
+      // Determine winner (70% chance for pot2 to win)
+      const pot2Wins = Math.random() < 0.7;
+      const winner = pot2Wins ? pot2[i] : pot3[i];
+      winners.push(winner);
+
+      // Calculate the final position with more vertical spacing
+      // Move teams up by one flag height
+      const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
+
+      // Add pot2 team (winner or loser)
+      data.push({
+        isoCode: pot2[i].isoCode,
+        x: (2 * svgWidth) / 3 - flagSize * 1.5,
+        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        size: flagSize,
+        opacity: pot2Wins ? 1 : 0.2,
+        delay: 200,
+        winnerDestX: pot2Wins ? svgWidth / 2 + flagSize * 1.5 : null,
+        winnerDestY: pot2Wins ? finalPositionY : null,
+        isWinner: pot2Wins,
+      });
+
+      // Add pot3 team (winner or loser)
+      data.push({
+        isoCode: pot3[i].isoCode,
+        x: (2 * svgWidth) / 3 + flagSize * 1.5,
+        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        size: flagSize,
+        opacity: pot2Wins ? 0.2 : 1,
+        delay: 200,
+        winnerDestX: pot2Wins ? null : svgWidth / 2 + flagSize * 1.5,
+        winnerDestY: pot2Wins ? null : finalPositionY,
+        isWinner: !pot2Wins,
+      });
+    }
+
+    // Add "vs" text for the finals - adjust to match new positions
+    for (let i = 0; i < 4; i++) {
+      textData.push({
+        text: "vs",
+        x: svgWidth / 2,
+        y: (svgHeight / 5) * (i + 1) - flagSize * 1.2,
+        delay: 1000,
+      });
+    }
+
+    textData.push({
+      text: "Playoff Finals",
+      x: svgWidth / 2 - flagSize * 2,
+      y: svgHeight / 14,
+      delay: 0,
+    });
+
+    // Apply second stage of animation: move winners to center
+    setTimeout(() => {
+      data.forEach((team) => {
+        if (team.isWinner && team.winnerDestX !== null) {
+          team.x = team.winnerDestX;
+          team.y = team.winnerDestY;
+          team.delay = 0;
+        }
+      });
+      redraw();
+    }, 1500);
+  }
+
+  redraw();
+}
+
+// 14
+function finalQualifiers() {
+  console.log("finalQualifiers");
+  data = [];
+  textData = [];
+
+  // Create copies of the playoffs array for each pot
+  if (playoffs.length >= 16) {
+    const pot1 = playoffs.slice(0, 4);
+    const pot2 = playoffs.slice(4, 8);
+    const pot3 = playoffs.slice(8, 12);
+    const pot4 = playoffs.slice(12, 16);
+
+    // Show already qualified teams on the left side
+    qualified.forEach((team, index) => {
+      data.push({
+        isoCode: team.isoCode,
+        x: svgWidth / 12 - flagSize / 2,
+        y: yPadding + (svgHeight / 18) * index - flagSize / 2,
+        size: flagSize,
+        opacity: 1,
+        delay: 0,
+      });
+    });
+
+    // Determine finalists
+    let finalists = [];
+    let winners = [];
+
+    // Process Pot 1 vs Pot 4 for left finalists
+    for (let i = 0; i < Math.min(pot1.length, pot4.length); i++) {
+      const pot1Wins = Math.random() < 0.6;
+      finalists.push({
+        left: pot1[i],
+        right: pot4[i],
+        leftWins: pot1Wins,
+        index: i,
+      });
+    }
+
+    // Process Pot 2 vs Pot 3 for right finalists
+    for (let i = 0; i < Math.min(pot2.length, pot3.length); i++) {
+      const pot2Wins = Math.random() < 0.7;
+      finalists.push({
+        left: pot2[i],
+        right: pot3[i],
+        leftWins: pot2Wins,
+        index: i + 4,
+      });
+    }
+
+    // Determine final matchups
+    let finalMatchups = [];
+    for (let i = 0; i < 4; i++) {
+      const leftMatchup = finalists[i];
+      const rightMatchup = finalists[i + 4];
+
+      // Determine left finalist
+      const leftFinalist = leftMatchup.leftWins
+        ? leftMatchup.left
+        : leftMatchup.right;
+
+      // Determine right finalist
+      const rightFinalist = rightMatchup.leftWins
+        ? rightMatchup.left
+        : rightMatchup.right;
+
+      // Better FIFA rank gives advantage (65% chance)
+      const leftRank = parseInt(leftFinalist.fifaRank);
+      const rightRank = parseInt(rightFinalist.fifaRank);
+      const leftWins =
+        leftRank < rightRank ? Math.random() < 0.65 : Math.random() < 0.35;
+
+      // Determine the final winner
+      const winner = leftWins ? leftFinalist : rightFinalist;
+      winners.push(winner);
+
+      finalMatchups.push({
+        left: leftFinalist,
+        right: rightFinalist,
+        leftWins: leftWins,
+      });
+    }
+
+    // First show final matchups (loser faded, winner highlighted)
+    for (let i = 0; i < finalMatchups.length; i++) {
+      const matchup = finalMatchups[i];
+      const yPos = (svgHeight / 5) * (i + 1) - flagSize * 2;
+
+      // Left finalist
+      data.push({
+        isoCode: matchup.left.isoCode,
+        x: svgWidth / 2 - flagSize * 1.5,
+        y: yPos,
+        size: flagSize,
+        opacity: matchup.leftWins ? 1 : 0.2,
+        delay: 0,
+        isWinner: matchup.leftWins,
+        finalIndex: i,
+      });
+
+      // Right finalist
+      data.push({
+        isoCode: matchup.right.isoCode,
+        x: svgWidth / 2 + flagSize * 1.5,
+        y: yPos,
+        size: flagSize,
+        opacity: matchup.leftWins ? 0.2 : 1,
+        delay: 0,
+        isWinner: !matchup.leftWins,
+        finalIndex: i,
+      });
+    }
+
+    // After 1 seconds, move winners to join qualified teams
+    setTimeout(() => {
+      data = data.filter((team) => {
+        // Keep already qualified teams
+        if (!team.hasOwnProperty("isWinner")) return true;
+        // Only keep winner teams
+        return team.isWinner;
+      });
+
+      // Move winners to their new positions, one by one with 200ms delay between each
+      data.forEach((team, index) => {
+        if (team.hasOwnProperty("isWinner") && team.isWinner) {
+          // Calculate new position - add to the bottom of the qualified teams
+          const newIndex = qualified.length + team.finalIndex;
+          team.x = svgWidth / 12 - flagSize / 2;
+          team.y = yPadding + (svgHeight / 18) * newIndex - flagSize / 2;
+          team.delay = 1500 + team.finalIndex * 200; // Staggered animation
+          team.duration = 1000; // Longer animation duration
+        }
+      });
+
+      textData = []; // Remove all text
+      redraw();
+    }, 1000);
+  }
+
+  redraw();
+}
+
+// Functions for handling results reshuffling
+function reshuffleResults() {
+  console.log("Reshuffling results...");
+
+  // Add animation to the button
+  const button = document.getElementById("play-again-button");
+  if (button) {
+    button.classList.add("button-clicked");
+    setTimeout(() => {
+      button.classList.remove("button-clicked");
+    }, 300);
+  }
+
+  // Reset qualified and second placers
+  qualified = [];
+  secondPlacers = [];
+
+  // Group countries by qualification group
+  const qualGroups = groupBy(countries, "qualGroup");
+
+  // First assign a default qualPosition to all countries (reset previous shuffles)
+  countries.forEach((country) => {
+    country.qualPosition = 999; // Default high position
+  });
+
+  // Process each qualification group
+  Object.keys(qualGroups)
+    .sort()
+    .forEach((groupKey) => {
+      const group = qualGroups[groupKey];
+
+      // Create a copy of the group for shuffling
+      const shuffledGroup = [...group];
+
+      // Randomize results with FIFA rank weighting
+      shuffleWithFifaWeighting(shuffledGroup);
+
+      // Store the final positions in the original country objects
+      shuffledGroup.forEach((country, index) => {
+        // Find the original country object and update its qualPosition
+        const originalCountry = countries.find(
+          (c) => c.isoCode === country.isoCode
+        );
+        if (originalCountry) {
+          originalCountry.qualPosition = index; // 0 = winner, 1 = runner-up, etc.
+        }
+      });
+
+      // Use the first country as the winner and second as runner-up
+      if (shuffledGroup.length > 0) {
+        qualified.push(shuffledGroup[0]);
+      }
+
+      if (shuffledGroup.length > 1) {
+        secondPlacers.push(shuffledGroup[1]);
+      }
+    });
+
+  // Re-run the playQualGroups function to update the visualization
+  playQualGroups();
+}
+
+function shuffleWithFifaWeighting(array) {
+  // Sort by FIFA rank (lower is better)
+  array.sort((a, b) => a.fifaRank - b.fifaRank);
+
+  // Apply randomization with weighting based on FIFA rank
+  // Teams with better FIFA rankings have higher chances of winning
+  for (let i = 0; i < array.length; i++) {
+    const fifaRank = parseInt(array[i].fifaRank);
+
+    // Create a more decisive weighting for FIFA rank
+    // Using an exponential function to increase the advantage for top-ranked teams
+    // The power of 2 makes the weighting curve steeper
+    const baseWeight = (1000 - fifaRank) / 1000;
+    const weight = Math.pow(baseWeight, 2.5);
+
+    // Add a rank-based bonus for top 20 teams to make them even more likely to win
+    const topTeamBonus = fifaRank <= 20 ? 0.3 : 0;
+
+    // Generate a random value with stronger influence from FIFA rank
+    // The multiplier is higher (3 instead of 2) to increase variance
+    const randomValue = Math.random() * weight * 3 + topTeamBonus;
+
+    // Assign this value to the team
+    array[i].randomValue = randomValue;
+  }
+
+  // Sort by the randomized values (higher is better)
+  array.sort((a, b) => b.randomValue - a.randomValue);
+}
+
+// Handle step enter (add reshuffleResults to the global scope)
+window.reshuffleResults = reshuffleResults;
 
 // scrollama event handlers
 function handleStepEnter(response) {
@@ -1371,7 +1836,13 @@ function handleStepEnter(response) {
       playoffs1();
       break;
     case 12:
-      playoffs2();
+      playoffMatches();
+      break;
+    case 13:
+      playoffFinalists();
+      break;
+    case 14:
+      finalQualifiers();
       break;
   }
 }
@@ -1415,11 +1886,19 @@ function handleResize(init) {
 
 function init() {
   // 1. force a resize on load to ensure proper dimensions are sent to scrollama
-
   handleResize(true);
 
   addEventListener("resize", () => handleResize());
+
+  // Initialize qualPosition for all countries
+  countries.forEach((country) => {
+    country.qualPosition = country.fifaRank;
+  });
+
   startScreen();
+
+  // Make reshuffleResults available globally
+  window.reshuffleResults = reshuffleResults;
 
   // Hide scroll indicator when user scrolls past first section
   window.addEventListener("scroll", function () {

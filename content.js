@@ -186,14 +186,17 @@ const steps = {
     eng: {
       h2: "November 2025",
       p: "After facing each other twice, we conclude the qualifiers group stage.",
+      button: "Play Again",
     },
     no: {
       h2: "November 2025",
       p: "Etter å ha møtt hverandre to ganger gjennom 2025, er også dette gruppespillet over.",
+      button: "Spill igjen",
     },
     es: {
       h2: "Noviembre 2025",
       p: "Después de enfrentarse entre sí dos veces, concluimos la fase de grupos de las eliminatorias.",
+      button: "Jugar de nuevo",
     },
   },
   7: {
@@ -248,10 +251,49 @@ const steps = {
       p: "The qualifier runner ups will be seeded in pot 1-3 by their fifa rank, while the nations from Nations league will not be seeded.",
     },
     no: {
-      p: "Gruppetoerne i kvalifiseringen vil bli seedet i pot 1-3 basert på sin FIFA-ranking, mens nasjonene fra Nations League er useedet.",
+      p: "Gruppetoerne i kvalifiseringen seedes i puljer 1-3 basert på FIFA-ranking, mens nasjonene fra Nations League er useedet.",
     },
     es: {
       p: "Los segundos clasificados de las eliminatorias se asignarán a los bombos 1-3 según su ranking FIFA, mientras que las naciones de la Liga de Naciones no serán cabezas de serie.",
+    },
+  },
+  12: {
+    eng: {
+      h2: "March 2026",
+      p: "The top seeds (Pot 1) face teams from Pot 4, while teams from Pot 2 face those from Pot 3 in one-game semifinals.",
+    },
+    no: {
+      h2: "Mars 2026",
+      p: "De høyest seedede lagene (Pot 1) møter lag fra Pot 4, mens lag fra Pot 2 møter lag fra Pot 3 i semifinaler over én kamp.",
+    },
+    es: {
+      h2: "Mars 2026",
+      p: "Los equipos con mejor clasificación (Bombo 1) se enfrentan a equipos del Bombo 4, mientras que los equipos del Bombo 2 se enfrentan a los del Bombo 3 en semifinales a partido único.",
+    },
+  },
+  13: {
+    eng: {
+      h2: "Playoff Finals",
+      p: "The winners of the semifinals advance to the playoff finals. ",
+    },
+    no: {
+      h2: "Playoff-finaler",
+      p: "Vinnerne fra semifinalene går videre til playoff-finalene. ",
+    },
+    es: {
+      h2: "Finales de Playoffs",
+      p: "Los ganadores de las semifinales avanzan a las finales de playoffs. ",
+    },
+  },
+  14: {
+    eng: {
+      p: "With the playoff winners decided, all 16 European teams for the 2026 World Cup are now confirmed. These nations will join the hosts and qualifiers from other confederations in the expanded 48-team tournament.",
+    },
+    no: {
+      p: "De fire vinnerne av playoff-finalene er nå kvalifisert til VM 2026. De vil slutte seg til de 12 gruppevinnerne fra kvalifiseringen.",
+    },
+    es: {
+      p: "Los cuatro ganadores de las finales de playoffs están ahora clasificados para el Mundial 2026. Se unirán a los ganadores de grupos y a los 12 gruppevinnarene fra Liga de Naciones.",
     },
   },
 };
