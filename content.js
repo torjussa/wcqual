@@ -1,28 +1,72 @@
-// Detect browser preferred language and set to Norwegian if preferred, otherwise English
+// Detect browser preferred language and set to Norwegian, Spanish or English
 let currentLang = navigator.languages
   .map((lang) => lang.toLowerCase())
   .some((lang) => lang.startsWith("no") || lang === "nb" || lang === "nn")
   ? "no"
+  : navigator.languages
+      .map((lang) => lang.toLowerCase())
+      .some((lang) => lang.startsWith("es"))
+  ? "es"
   : "eng";
 
 // Set initial language flag based on detected language
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("language-flag").src =
-    currentLang === "no"
-      ? "https://hatscripts.github.io/circle-flags/flags/no.svg"
-      : "https://hatscripts.github.io/circle-flags/flags/uk.svg";
+  updateLanguageFlag();
+
+  // Set scroll text based on language
+  const scrollTextElement = document.getElementById("scroll-text");
+  if (scrollTextElement) {
+    updateScrollText();
+  }
 });
 
-function changeLanguage() {
-  if (currentLang == "eng") {
-    currentLang = "no";
-    document.getElementById("language-flag").src =
-      "https://hatscripts.github.io/circle-flags/flags/uk.svg";
-  } else if (currentLang == "no") {
-    currentLang = "eng";
-    document.getElementById("language-flag").src =
-      "https://hatscripts.github.io/circle-flags/flags/no.svg";
+// Update language flag based on current language
+function updateLanguageFlag() {
+  const flagSrc =
+    currentLang === "no"
+      ? "https://hatscripts.github.io/circle-flags/flags/no.svg"
+      : currentLang === "es"
+      ? "https://hatscripts.github.io/circle-flags/flags/es.svg"
+      : "https://hatscripts.github.io/circle-flags/flags/uk.svg";
+
+  document.getElementById("language-flag").src = flagSrc;
+}
+
+// Update scroll text based on current language
+function updateScrollText() {
+  // Always use English "Scroll" text regardless of language
+  const scrollText = "Scroll";
+
+  // Update mobile scroll text
+  const scrollTextElement = document.getElementById("scroll-text");
+  if (scrollTextElement) {
+    scrollTextElement.textContent = scrollText;
   }
+
+  // Update desktop scroll text
+  const desktopScrollTextElement = document.getElementById(
+    "desktop-scroll-text"
+  );
+  if (desktopScrollTextElement) {
+    desktopScrollTextElement.textContent = scrollText;
+  }
+}
+
+function changeLanguage() {
+  // Cycle through languages: eng -> no -> es -> eng
+  if (currentLang === "eng") {
+    currentLang = "no";
+  } else if (currentLang === "no") {
+    currentLang = "es";
+  } else if (currentLang === "es") {
+    currentLang = "eng";
+  }
+
+  // Update language flag
+  updateLanguageFlag();
+
+  // Update scroll text
+  updateScrollText();
 
   // Update all content with the new language if the function exists
   if (window.updateAllContent) {
@@ -40,6 +84,12 @@ const steps = {
     no: {
       p: ["⚽️🏆 ", "VM i fotball 2026 arrangeres i Canada, USA og Mexico."],
     },
+    es: {
+      p: [
+        "⚽️🏆 ",
+        "La Copa Mundial 2026 se celebrará en Canadá, Estados Unidos y México.",
+      ],
+    },
   },
   1: {
     eng: {
@@ -54,13 +104,22 @@ const steps = {
         "Atlanterhavet",
       ],
     },
+    es: {
+      p: [
+        "En Europa, 55 naciones competirán por 16 boletos dorados para cruzar el Atlántico.",
+        "El Océano Atlántico",
+      ],
+    },
   },
   2: {
     eng: {
-      p: "Let's head to Europe",
+      p: "Let's head to Europe! 🌍",
     },
     no: {
-      p: "Vi drar til Europa",
+      p: "Vi drar til Europa! 🌍",
+    },
+    es: {
+      p: "¡Vamos a Europa! 🌍",
     },
   },
   3: {
@@ -72,6 +131,10 @@ const steps = {
       h2: "2024 Nations League",
       p: "Europas konkurrerende nasjoner deles inn i 4 grupper (A-D)",
     },
+    es: {
+      h2: "Liga de Naciones 2024",
+      p: "Las naciones europeas participantes se clasifican en 4 Ligas (A-D)",
+    },
   },
   4: {
     eng: {
@@ -82,10 +145,17 @@ const steps = {
       ],
     },
     no: {
-      h2: "November 2024",
+      h2: "November 2024 🇳🇴",
       p: [
-        "Gruppespillet i Nations League er avsluttet!🇳🇴",
+        "Gruppespillet i Nations League er avsluttet!",
         "Norge vant gruppen sin, men det har ikke så mye å si. Enda..",
+      ],
+    },
+    es: {
+      h2: "Noviembre 2024",
+      p: [
+        "¡La fase de grupos de la Liga de Naciones ha terminado!",
+        "Volveremos a la Liga de Naciones más adelante..",
       ],
     },
   },
@@ -104,6 +174,13 @@ const steps = {
         "Denne gangen deler vi Europa inn i 12 grupper á fire og fem lag.",
       ],
     },
+    es: {
+      h2: "Diciembre 2024",
+      p: [
+        "En Zúrich, se realizan los sorteos para las Eliminatorias Europeas del Mundial.",
+        "Esta vez, dividimos Europa en 12 grupos de cuatro y cinco equipos.",
+      ],
+    },
   },
   6: {
     eng: {
@@ -114,6 +191,10 @@ const steps = {
       h2: "November 2025",
       p: "Etter å ha møtt hverandre to ganger gjennom 2025, er også dette gruppespillet over.",
     },
+    es: {
+      h2: "Noviembre 2025",
+      p: "Después de enfrentarse entre sí dos veces, concluimos la fase de grupos de las eliminatorias.",
+    },
   },
   7: {
     eng: {
@@ -122,6 +203,9 @@ const steps = {
     no: {
       p: "De 12 gruppevinnerne er kvalifisert til VM i 2026 🎉",
     },
+    es: {
+      p: "Los 12 ganadores de grupo están clasificados para el Mundial 2026 🎉",
+    },
   },
   8: {
     eng: {
@@ -129,6 +213,9 @@ const steps = {
     },
     no: {
       p: "De 12 gruppetoerne går til playoff for å kjempe om de siste 4 europeiske plassene i VM.",
+    },
+    es: {
+      p: "Los 12 segundos clasificados participarán en los playoffs por las últimas 4 plazas europeas en el Mundial.",
     },
   },
   9: {
@@ -140,6 +227,10 @@ const steps = {
       h2: "Husker du Nations League?",
       p: "Ytterligere 4 playoffplasser går til de 4 beste gruppevinnerne fra Nations League, som endte utenfor topp to i kvalifiseringsgruppen sin.",
     },
+    es: {
+      h2: "¿Recuerdas la Liga de Naciones?",
+      p: "Se seleccionarán 4 participantes adicionales para los playoffs entre los mejores 4 ganadores de grupo de la Liga de Naciones que quedaron fuera de los dos primeros puestos en su grupo de clasificación.",
+    },
   },
   10: {
     eng: {
@@ -148,6 +239,9 @@ const steps = {
     no: {
       p: "Nasjoner som er grået ut, vil ikke kvalifisere seg til VM 🥲",
     },
+    es: {
+      p: "Las naciones que no están resaltadas no se clasificarán para el Mundial 🥲",
+    },
   },
   11: {
     eng: {
@@ -155,6 +249,9 @@ const steps = {
     },
     no: {
       p: "Gruppetoerne i kvalifiseringen vil bli seedet i pot 1-3 basert på sin FIFA-ranking, mens nasjonene fra Nations League er useedet.",
+    },
+    es: {
+      p: "Los segundos clasificados de las eliminatorias se asignarán a los bombos 1-3 según su ranking FIFA, mientras que las naciones de la Liga de Naciones no serán cabezas de serie.",
     },
   },
 };

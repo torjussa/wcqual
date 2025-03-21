@@ -108,7 +108,7 @@
   </head>
 
   <body>
-    <main>
+    <main style="background-color: #2a5d93">
       <section id="scrolly">
         <figure id="mobile-fig">
           <svg
@@ -120,6 +120,26 @@
           >
             <g id="circles-group" />
           </svg>
+
+          <!-- Down arrow indicator for mobile -->
+          <div class="scroll-indicator">
+            <div class="arrow-down">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+            </div>
+            <span id="scroll-text">Scroll</span>
+          </div>
         </figure>
 
         <article>
@@ -176,20 +196,63 @@
           >
             <g id="circles-group" />
           </svg>
+
+          <!-- Down arrow indicator for desktop -->
+          <div class="scroll-indicator desktop-scroll">
+            <div class="arrow-down">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+            </div>
+            <span id="desktop-scroll-text">Scroll</span>
+          </div>
         </figure>
       </section>
     </main>
 
-    <button
-      class="language-button"
-      onClick="changeLanguage(); updateAllContent();"
-    >
-      <img
-        id="language-flag"
-        height="30"
-        src="https://hatscripts.github.io/circle-flags/flags/uk.svg"
-      />
-    </button>
+    <div class="language-selector">
+      <div class="language-button" onClick="toggleLanguageMenu()">
+        <img
+          id="language-flag"
+          height="30"
+          src="https://hatscripts.github.io/circle-flags/flags/uk.svg"
+        />
+        <span class="dropdown-arrow">▼</span>
+      </div>
+      <div class="language-menu" id="language-menu">
+        <div class="language-option" onClick="selectLanguage('eng')">
+          <img
+            height="24"
+            src="https://hatscripts.github.io/circle-flags/flags/uk.svg"
+          />
+          <span>English</span>
+        </div>
+        <div class="language-option" onClick="selectLanguage('no')">
+          <img
+            height="24"
+            src="https://hatscripts.github.io/circle-flags/flags/no.svg"
+          />
+          <span>Norsk</span>
+        </div>
+        <div class="language-option" onClick="selectLanguage('es')">
+          <img
+            height="24"
+            src="https://hatscripts.github.io/circle-flags/flags/es.svg"
+          />
+          <span>Español</span>
+        </div>
+      </div>
+    </div>
 
     <script>
       // Function to update content based on current language
@@ -238,13 +301,46 @@
         }
       }
 
+      // Function to toggle language menu visibility
+      function toggleLanguageMenu() {
+        const menu = document.getElementById("language-menu");
+        menu.classList.toggle("visible");
+      }
+
+      // Function to select a specific language
+      function selectLanguage(lang) {
+        if (currentLang !== lang) {
+          currentLang = lang;
+          updateLanguageFlag();
+          updateScrollText();
+          updateAllContent();
+        }
+
+        // Hide menu after selection
+        document.getElementById("language-menu").classList.remove("visible");
+      }
+
       // Make functions available globally
       window.updateContent = updateContent;
       window.updateAllContent = updateAllContent;
+      window.toggleLanguageMenu = toggleLanguageMenu;
+      window.selectLanguage = selectLanguage;
 
       // Initialize content when page loads
       document.addEventListener("DOMContentLoaded", function () {
         updateAllContent();
+
+        // Close language menu when clicking elsewhere on the page
+        document.addEventListener("click", function (event) {
+          const languageSelector = document.querySelector(".language-selector");
+          const clickedInsideSelector = languageSelector.contains(event.target);
+
+          if (!clickedInsideSelector) {
+            document
+              .getElementById("language-menu")
+              .classList.remove("visible");
+          }
+        });
       });
     </script>
   </body>

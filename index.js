@@ -1385,7 +1385,7 @@ function handleResize(init) {
   if (!isDesktop && !init) return;
 
   // 1. update height of step elements
-  var stepH = Math.floor(window.innerHeight * 0.9);
+  var stepH = Math.floor(window.innerHeight * 1.3);
   step.style("height", stepH + "px");
 
   var figureHeight = window.innerHeight;
@@ -1420,6 +1420,20 @@ function init() {
 
   addEventListener("resize", () => handleResize());
   startScreen();
+
+  // Hide scroll indicator when user scrolls past first section
+  window.addEventListener("scroll", function () {
+    const scrollIndicators = document.querySelectorAll(".scroll-indicator");
+    if (window.scrollY > 100) {
+      scrollIndicators.forEach((indicator) => {
+        indicator.style.opacity = "0";
+        // Remove it after fade out animation completes
+        setTimeout(() => {
+          if (indicator) indicator.style.display = "none";
+        }, 300);
+      });
+    }
+  });
 
   // 2. setup the scroller passing options
   // 		this will also initialize trigger observations
