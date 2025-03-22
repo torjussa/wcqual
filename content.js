@@ -248,13 +248,13 @@ const steps = {
   },
   11: {
     eng: {
-      p: "The qualifier runner ups will be seeded in pot 1-3 by their fifa rank, while the nations from Nations league will not be seeded.",
+      p: "The qualifier runner ups will be seeded in pot 1-3 by their fifa rank, while the teams from Nations league will not be seeded.",
     },
     no: {
-      p: "Gruppetoerne i kvalifiseringen seedes i puljer 1-3 basert på FIFA-ranking, mens nasjonene fra Nations League er useedet.",
+      p: "Gruppetoerne i kvalifiseringen seedes i puljer 1-3 basert på FIFA-ranking, mens lagene fra Nations League er useedet.",
     },
     es: {
-      p: "Los segundos clasificados de las eliminatorias se asignarán a los bombos 1-3 según su ranking FIFA, mientras que las naciones de la Liga de Naciones no serán cabezas de serie.",
+      p: "Los segundos clasificados de las eliminatorias se asignarán a los grupos 1-3 según su ranking FIFA, mientras que las naciones de la Liga de Naciones no serán cabezas de serie.",
     },
   },
   12: {
@@ -268,26 +268,26 @@ const steps = {
     },
     es: {
       h2: "Marzo 2026",
-      p: "Los equipos con mejor clasificación (Bombo 1) se enfrentan a equipos del Bombo 4, mientras que los equipos del Bombo 2 se enfrentan a los del Bombo 3 en semifinales a partido único.",
+      p: "Los equipos con mejor clasificación (grupo 1) se enfrentan a equipos del grupo 4, mientras que los equipos del grupo 2 se enfrentan a los del grupo 3 en semifinales a partido único.",
     },
   },
   13: {
     eng: {
-      h2: "Playoff Finals",
-      p: "The winners of the semifinals advance to the playoff finals. ",
+      h2: "Playoff finals",
+      p: "The winners of the semifinals advance to the playoff finals, where on game decides who qualifies for the World Cup. ",
     },
     no: {
       h2: "Playoff-finaler",
-      p: "Vinnerne fra semifinalene går videre til playoff-finalene. ",
+      p: "Vinnerne fra semifinalene går videre til playoff-finalene, der en kamp avgjør hvem som kvalifiserer til VM. ",
     },
     es: {
       h2: "Finales de Playoffs",
-      p: "Los ganadores de las semifinales avanzan a las finales de playoffs. ",
+      p: "Los ganadores de las semifinales avanzan a las finales de playoffs, donde una partida decide quién clasifica para el Mundial. ",
     },
   },
   14: {
     eng: {
-      h2: "The final 16",
+      h2: "The last 16",
       p: [
         "With the playoff winners decided, all 16 European teams for the 2026 World Cup are now confirmed.",
         "These nations will join the hosts and qualifiers from other confederations, for a total of 48 teams.",
@@ -301,7 +301,7 @@ const steps = {
       ],
     },
     es: {
-      h2: "Los 16",
+      h2: "Los ultimos 16",
       p: [
         "Con los ganadores de los playoffs decididos, los 16 equipos europeos para el Mundial 2026 ya están confirmados.",
         "Estas naciones se unirán a los anfitriones y a los clasificados de otras confederaciones en el torneo ampliado de 48 equipos.",
@@ -310,8 +310,8 @@ const steps = {
   },
   15: {
     eng: {
-      h2: "Thanks for watching ⚽️",
-      p: "May your country qualify!",
+      h2: "Thanks for watching!",
+      p: "May your country qualify ⚽️",
     },
     no: {
       h2: "Takk for at du så på!",
