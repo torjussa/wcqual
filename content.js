@@ -267,7 +267,7 @@ const steps = {
       p: "De høyest seedede lagene (Pot 1) møter lag fra Pot 4, mens lag fra Pot 2 møter lag fra Pot 3 i semifinaler over én kamp.",
     },
     es: {
-      h2: "Mars 2026",
+      h2: "Marzo 2026",
       p: "Los equipos con mejor clasificación (Bombo 1) se enfrentan a equipos del Bombo 4, mientras que los equipos del Bombo 2 se enfrentan a los del Bombo 3 en semifinales a partido único.",
     },
   },
@@ -287,13 +287,39 @@ const steps = {
   },
   14: {
     eng: {
-      p: "With the playoff winners decided, all 16 European teams for the 2026 World Cup are now confirmed. These nations will join the hosts and qualifiers from other confederations in the expanded 48-team tournament.",
+      h2: "The final 16",
+      p: [
+        "With the playoff winners decided, all 16 European teams for the 2026 World Cup are now confirmed.",
+        "These nations will join the hosts and qualifiers from other confederations, for a total of 48 teams.",
+      ],
     },
     no: {
-      p: "De fire vinnerne av playoff-finalene er nå kvalifisert til VM 2026. De vil slutte seg til de 12 gruppevinnerne fra kvalifiseringen.",
+      h2: "De 16 heldige",
+      p: [
+        "Med playoffen avgjort, er alle 16 europeiske lag for VM 2026 nå bekreftet.",
+        "Disse nasjonene vil slutte seg til vertene og lag fra andre verdensdeler, totalt 48 land.",
+      ],
     },
     es: {
-      p: "Los cuatro ganadores de las finales de playoffs están ahora clasificados para el Mundial 2026. Se unirán a los ganadores de grupos y a los 12 gruppevinnarene fra Liga de Naciones.",
+      h2: "Los 16",
+      p: [
+        "Con los ganadores de los playoffs decididos, los 16 equipos europeos para el Mundial 2026 ya están confirmados.",
+        "Estas naciones se unirán a los anfitriones y a los clasificados de otras confederaciones en el torneo ampliado de 48 equipos.",
+      ],
+    },
+  },
+  15: {
+    eng: {
+      h2: "Thanks for watching",
+      p: "May your country qualify!",
+    },
+    no: {
+      h2: "Takk for at du så på!",
+      p: "Heia Norge! 🇳🇴",
+    },
+    es: {
+      h2: "Gracias por ver",
+      p: "¡Que tu país clasifique!",
     },
   },
 };

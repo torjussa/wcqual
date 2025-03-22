@@ -651,6 +651,8 @@ var textData = [];
 var qualified = [];
 var secondPlacers = [];
 var playoffs = [];
+var playoffFinalistsData = []; // Store finalists from step 13 to use in step 14
+var playoffWinners = []; // Store winners from step 14 to use in step 15
 
 //HELPERS
 var minLat = countries.reduce(
@@ -1414,6 +1416,7 @@ function playoffFinalists() {
   console.log("playoffFinalists");
   data = [];
   textData = [];
+  playoffFinalistsData = []; // Reset finalists data
 
   // Create copies of the playoffs array for each pot
   if (playoffs.length >= 16) {
@@ -1443,6 +1446,14 @@ function playoffFinalists() {
       const pot1Wins = Math.random() < 0.6;
       const winner = pot1Wins ? pot1[i] : pot4[i];
       winners.push(winner);
+
+      // Store the matchup result for use in step 14
+      playoffFinalistsData.push({
+        left: pot1[i],
+        right: pot4[i],
+        leftWins: pot1Wins,
+        index: i,
+      });
 
       // Calculate the final position with more vertical spacing
       // Move teams up by one flag height
@@ -1481,6 +1492,14 @@ function playoffFinalists() {
       const pot2Wins = Math.random() < 0.7;
       const winner = pot2Wins ? pot2[i] : pot3[i];
       winners.push(winner);
+
+      // Store the matchup result for use in step 14
+      playoffFinalistsData.push({
+        left: pot2[i],
+        right: pot3[i],
+        leftWins: pot2Wins,
+        index: i + 4,
+      });
 
       // Calculate the final position with more vertical spacing
       // Move teams up by one flag height
@@ -1551,57 +1570,28 @@ function finalQualifiers() {
   console.log("finalQualifiers");
   data = [];
   textData = [];
+  playoffWinners = []; // Reset winners array
 
-  // Create copies of the playoffs array for each pot
-  if (playoffs.length >= 16) {
-    const pot1 = playoffs.slice(0, 4);
-    const pot2 = playoffs.slice(4, 8);
-    const pot3 = playoffs.slice(8, 12);
-    const pot4 = playoffs.slice(12, 16);
-
-    // Show already qualified teams on the left side
-    qualified.forEach((team, index) => {
-      data.push({
-        isoCode: team.isoCode,
-        x: svgWidth / 12 - flagSize / 2,
-        y: yPadding + (svgHeight / 18) * index - flagSize / 2,
-        size: flagSize,
-        opacity: 1,
-        delay: 0,
-      });
+  // Show already qualified teams on the left side
+  qualified.forEach((team, index) => {
+    data.push({
+      isoCode: team.isoCode,
+      x: svgWidth / 12 - flagSize / 2,
+      y: yPadding + (svgHeight / 18) * index - flagSize / 2,
+      size: flagSize,
+      opacity: 1,
+      delay: 0,
     });
+  });
 
-    // Determine finalists
-    let finalists = [];
-    let winners = [];
-
-    // Process Pot 1 vs Pot 4 for left finalists
-    for (let i = 0; i < Math.min(pot1.length, pot4.length); i++) {
-      const pot1Wins = Math.random() < 0.6;
-      finalists.push({
-        left: pot1[i],
-        right: pot4[i],
-        leftWins: pot1Wins,
-        index: i,
-      });
-    }
-
-    // Process Pot 2 vs Pot 3 for right finalists
-    for (let i = 0; i < Math.min(pot2.length, pot3.length); i++) {
-      const pot2Wins = Math.random() < 0.7;
-      finalists.push({
-        left: pot2[i],
-        right: pot3[i],
-        leftWins: pot2Wins,
-        index: i + 4,
-      });
-    }
-
-    // Determine final matchups
+  // Use playoff finalists determined in the previous step
+  if (playoffFinalistsData.length >= 8) {
+    // Determine final matchups using the stored semifinal results
     let finalMatchups = [];
+
     for (let i = 0; i < 4; i++) {
-      const leftMatchup = finalists[i];
-      const rightMatchup = finalists[i + 4];
+      const leftMatchup = playoffFinalistsData[i];
+      const rightMatchup = playoffFinalistsData[i + 4];
 
       // Determine left finalist
       const leftFinalist = leftMatchup.leftWins
@@ -1621,7 +1611,7 @@ function finalQualifiers() {
 
       // Determine the final winner
       const winner = leftWins ? leftFinalist : rightFinalist;
-      winners.push(winner);
+      playoffWinners.push(winner);
 
       finalMatchups.push({
         left: leftFinalist,
@@ -1630,60 +1620,120 @@ function finalQualifiers() {
       });
     }
 
-    // First show final matchups (loser faded, winner highlighted)
+    // Show final matchups (loser faded, winner highlighted) initially
     for (let i = 0; i < finalMatchups.length; i++) {
       const matchup = finalMatchups[i];
       const yPos = (svgHeight / 5) * (i + 1) - flagSize * 2;
 
-      // Left finalist
-      data.push({
-        isoCode: matchup.left.isoCode,
-        x: svgWidth / 2 - flagSize * 1.5,
-        y: yPos,
-        size: flagSize,
-        opacity: matchup.leftWins ? 1 : 0.2,
-        delay: 0,
-        isWinner: matchup.leftWins,
-        finalIndex: i,
-      });
-
-      // Right finalist
-      data.push({
-        isoCode: matchup.right.isoCode,
-        x: svgWidth / 2 + flagSize * 1.5,
-        y: yPos,
-        size: flagSize,
-        opacity: matchup.leftWins ? 0.2 : 1,
-        delay: 0,
-        isWinner: !matchup.leftWins,
-        finalIndex: i,
-      });
+      // Add winner flag only
+      if (matchup.leftWins) {
+        // Left finalist wins
+        data.push({
+          isoCode: matchup.left.isoCode,
+          x: svgWidth / 2 - flagSize * 1.5,
+          y: yPos,
+          size: flagSize,
+          opacity: 1,
+          delay: 0,
+          isWinner: true,
+          index: i,
+        });
+      } else {
+        // Right finalist wins
+        data.push({
+          isoCode: matchup.right.isoCode,
+          x: svgWidth / 2 + flagSize * 1.5,
+          y: yPos,
+          size: flagSize,
+          opacity: 1,
+          delay: 0,
+          isWinner: true,
+          index: i,
+        });
+      }
     }
 
-    // After 1 seconds, move winners to join qualified teams
+    // After a short delay, move winners to join qualified teams
     setTimeout(() => {
-      data = data.filter((team) => {
-        // Keep already qualified teams
-        if (!team.hasOwnProperty("isWinner")) return true;
-        // Only keep winner teams
-        return team.isWinner;
+      // Only keep winners and qualified teams
+      const newData = [];
+
+      // Keep qualified teams
+      qualified.forEach((team, index) => {
+        newData.push({
+          isoCode: team.isoCode,
+          x: svgWidth / 12 - flagSize / 2,
+          y: yPadding + (svgHeight / 18) * index - flagSize / 2,
+          size: flagSize,
+          opacity: 1,
+          delay: 0,
+        });
       });
 
-      // Move winners to their new positions, one by one with 200ms delay between each
-      data.forEach((team, index) => {
-        if (team.hasOwnProperty("isWinner") && team.isWinner) {
-          // Calculate new position - add to the bottom of the qualified teams
-          const newIndex = qualified.length + team.finalIndex;
-          team.x = svgWidth / 12 - flagSize / 2;
-          team.y = yPadding + (svgHeight / 18) * newIndex - flagSize / 2;
-          team.delay = 1500 + team.finalIndex * 200; // Staggered animation
-          team.duration = 1000; // Longer animation duration
+      // Add winners and animate them to join qualified teams
+      data.forEach((team, idx) => {
+        if (team.isWinner) {
+          newData.push({
+            isoCode: team.isoCode,
+            x: svgWidth / 12 - flagSize / 2,
+            y:
+              yPadding +
+              (svgHeight / 18) * (qualified.length + team.index) -
+              flagSize / 2,
+            size: flagSize,
+            opacity: 1,
+            delay: 200 + team.index * 200,
+            duration: 1000,
+          });
         }
       });
 
-      textData = []; // Remove all text
+      // Replace data with filtered data
+      data = newData;
+      textData = []; // Clear all text
       redraw();
-    }, 1000);
+    }, 1500);
+  }
+
+  redraw();
+}
+
+// 15
+function finalDisplay() {
+  console.log("finalDisplay");
+  data = [];
+  textData = [];
+  // Keep golden tickets visible by using the circles data
+  circleData = circles;
+
+  // Show already qualified teams on the left side
+  qualified.forEach((team, index) => {
+    data.push({
+      isoCode: team.isoCode,
+      x: svgWidth / 12 - flagSize / 2,
+      y: yPadding + (svgHeight / 18) * index - flagSize / 2,
+      size: flagSize,
+      opacity: 1,
+      delay: 0,
+    });
+  });
+
+  // Use playoff winners determined in step 14
+  if (playoffWinners.length === 4) {
+    // Add the playoff winners to the display
+    playoffWinners.forEach((winner, index) => {
+      data.push({
+        isoCode: winner.isoCode,
+        x: svgWidth / 12 - flagSize / 2,
+        y:
+          yPadding +
+          (svgHeight / 18) * (qualified.length + index) -
+          flagSize / 2,
+        size: flagSize,
+        opacity: 1,
+        delay: 0,
+      });
+    });
   }
 
   redraw();
@@ -1843,6 +1893,9 @@ function handleStepEnter(response) {
       break;
     case 14:
       finalQualifiers();
+      break;
+    case 15:
+      finalDisplay();
       break;
   }
 }
