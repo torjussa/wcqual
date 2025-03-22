@@ -274,7 +274,7 @@ const steps = {
   13: {
     eng: {
       h2: "Playoff finals",
-      p: "The winners of the semifinals advance to the playoff finals, where on game decides who qualifies for the World Cup. ",
+      p: "The winners of the semifinals advance to the playoff finals, where one game decides who qualifies for the World Cup. ",
     },
     no: {
       h2: "Playoff-finaler",
