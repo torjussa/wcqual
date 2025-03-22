@@ -310,16 +310,16 @@ const steps = {
   },
   15: {
     eng: {
-      h2: "Thanks for watching",
+      h2: "Thanks for watching ⚽️",
       p: "May your country qualify!",
     },
     no: {
       h2: "Takk for at du så på!",
-      p: "Heia Norge! 🇳🇴",
+      p: "Heia Norge! 🇳🇴⚽️",
     },
     es: {
       h2: "Gracias por ver",
-      p: "¡Que tu país clasifique!",
+      p: "¡Que tu país clasifique! ⚽️",
     },
   },
 };
