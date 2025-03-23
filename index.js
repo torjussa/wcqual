@@ -1275,9 +1275,27 @@ function LastPlayoffSpots() {
 function playoffs1() {
   data = [];
 
+  // Calculate which pot each team belongs to based on their position in the playoffs array
+  function getPotIndex(position) {
+    if (position < 4) return 0; // Pot 1
+    if (position < 8) return 1; // Pot 2
+    if (position < 12) return 2; // Pot 3
+    return 3; // Pot 4
+  }
+
+  // Add padding between pots
+  function getYPosition(index) {
+    const potIndex = getPotIndex(index);
+    // Add extra vertical padding (20 pixels) between pots
+    const potPadding = potIndex * 25;
+    return yPadding + (svgHeight / 20) * index + potPadding - flagSize / 2;
+  }
+
   const nationsLeagueGroups = groupBy(countries, "nationsLeagueGroup");
   Object.keys(nationsLeagueGroups).map((key, i) => {
     nationsLeagueGroups[key].map((c) => {
+      console.log(c.name);
+      console.log(i);
       if (qualified.some((q) => q.isoCode == c.isoCode)) {
         data.push({
           isoCode: c.isoCode,
@@ -1285,24 +1303,27 @@ function playoffs1() {
           y: yPadding + (svgHeight / 18) * qualified.indexOf(c) - flagSize / 2,
           size: flagSize,
           opacity: 1,
-          delay: 100 + i * 40,
+          delay: 40,
         });
       } else if (playoffs.some((q) => q.isoCode == c.isoCode)) {
+        const playoffIndex = playoffs.indexOf(c);
         data.push({
           isoCode: c.isoCode,
           x: svgWidth - svgWidth / 12,
-          y: yPadding + (svgHeight / 18) * playoffs.indexOf(c) - flagSize / 2,
+          y: getYPosition(playoffIndex),
           size: flagSize,
           opacity: 1,
-          delay: 100 + i * 40,
+          delay: getPotIndex(playoffIndex) == 3 ? 1500 : 200,
         });
       }
     });
   });
+
   textData = ["Pot 1", "Pot 2", "Pot 3", "Pot 4"].map((key, i) => ({
     text: key,
     x: (3 / 4) * svgWidth,
-    y: ((svgHeight - 2 * yPadding) * (i + 1)) / 4 - 3 * flagSize,
+    y:
+      15 + ((svgHeight - 2.5 * yPadding) * (i + 1)) / 4 - 4 * flagSize + i * 20,
   }));
 
   redraw();
@@ -1412,11 +1433,16 @@ function playoffMatches() {
 }
 
 // 13
-function playoffFinalists() {
-  console.log("playoffFinalists");
+function playoffFinalists(direction) {
+  console.log("playoffFinalists", direction);
   data = [];
   textData = [];
-  playoffFinalistsData = []; // Reset finalists data
+
+  // Only reset playoffFinalistsData when scrolling forward or entering first time
+  // This preserves the data when scrolling back from step 14
+  if (direction !== "up") {
+    playoffFinalistsData = [];
+  }
 
   // Create copies of the playoffs array for each pot
   if (playoffs.length >= 16) {
@@ -1437,99 +1463,171 @@ function playoffFinalists() {
       });
     });
 
-    // For each matchup, determine winners based on FIFA rank
-    let winners = [];
+    // If we're scrolling back from step 14, use existing matchup data
+    // Otherwise, generate new random matchups
+    if (direction === "up" && playoffFinalistsData.length >= 8) {
+      // Reuse the existing results when scrolling back
+      for (let i = 0; i < 4; i++) {
+        const matchup = playoffFinalistsData[i];
 
-    // Process Pot 1 vs Pot 4 matchups
-    for (let i = 0; i < Math.min(pot1.length, pot4.length); i++) {
-      // Determine winner (60% chance for pot1 to win)
-      const pot1Wins = Math.random() < 0.6;
-      const winner = pot1Wins ? pot1[i] : pot4[i];
-      winners.push(winner);
+        // Calculate the final position with more vertical spacing
+        const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
 
-      // Store the matchup result for use in step 14
-      playoffFinalistsData.push({
-        left: pot1[i],
-        right: pot4[i],
-        leftWins: pot1Wins,
-        index: i,
-      });
+        // Add pot1 team (winner or loser)
+        data.push({
+          isoCode: matchup.left.isoCode,
+          x: svgWidth / 3 - flagSize * 1.5,
+          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          size: flagSize,
+          opacity: matchup.leftWins ? 1 : 0.2,
+          delay: 200,
+          winnerDestX: matchup.leftWins ? svgWidth / 2 - flagSize * 1.5 : null,
+          winnerDestY: matchup.leftWins ? finalPositionY : null,
+          isWinner: matchup.leftWins,
+        });
 
-      // Calculate the final position with more vertical spacing
-      // Move teams up by one flag height
-      const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
+        // Add pot4 team (winner or loser)
+        data.push({
+          isoCode: matchup.right.isoCode,
+          x: svgWidth / 3 + flagSize * 1.5,
+          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          size: flagSize,
+          opacity: matchup.leftWins ? 0.2 : 1,
+          delay: 200,
+          winnerDestX: matchup.leftWins ? null : svgWidth / 2 - flagSize * 1.5,
+          winnerDestY: matchup.leftWins ? null : finalPositionY,
+          isWinner: !matchup.leftWins,
+        });
+      }
 
-      // Add pot1 team (winner or loser)
-      data.push({
-        isoCode: pot1[i].isoCode,
-        x: svgWidth / 3 - flagSize * 1.5,
-        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
-        size: flagSize,
-        opacity: pot1Wins ? 1 : 0.2,
-        delay: 200,
-        winnerDestX: pot1Wins ? svgWidth / 2 - flagSize * 1.5 : null,
-        winnerDestY: pot1Wins ? finalPositionY : null,
-        isWinner: pot1Wins,
-      });
+      // Process Pot 2 vs Pot 3 matchups (second half of playoffFinalistsData)
+      for (let i = 0; i < 4; i++) {
+        const matchup = playoffFinalistsData[i + 4];
 
-      // Add pot4 team (winner or loser)
-      data.push({
-        isoCode: pot4[i].isoCode,
-        x: svgWidth / 3 + flagSize * 1.5,
-        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
-        size: flagSize,
-        opacity: pot1Wins ? 0.2 : 1,
-        delay: 200,
-        winnerDestX: pot1Wins ? null : svgWidth / 2 - flagSize * 1.5,
-        winnerDestY: pot1Wins ? null : finalPositionY,
-        isWinner: !pot1Wins,
-      });
-    }
+        // Calculate the final position with more vertical spacing
+        const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
 
-    // Process Pot 2 vs Pot 3 matchups
-    for (let i = 0; i < Math.min(pot2.length, pot3.length); i++) {
-      // Determine winner (70% chance for pot2 to win)
-      const pot2Wins = Math.random() < 0.7;
-      const winner = pot2Wins ? pot2[i] : pot3[i];
-      winners.push(winner);
+        // Add pot2 team (winner or loser)
+        data.push({
+          isoCode: matchup.left.isoCode,
+          x: (2 * svgWidth) / 3 - flagSize * 1.5,
+          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          size: flagSize,
+          opacity: matchup.leftWins ? 1 : 0.2,
+          delay: 200,
+          winnerDestX: matchup.leftWins ? svgWidth / 2 + flagSize * 1.5 : null,
+          winnerDestY: matchup.leftWins ? finalPositionY : null,
+          isWinner: matchup.leftWins,
+        });
 
-      // Store the matchup result for use in step 14
-      playoffFinalistsData.push({
-        left: pot2[i],
-        right: pot3[i],
-        leftWins: pot2Wins,
-        index: i + 4,
-      });
+        // Add pot3 team (winner or loser)
+        data.push({
+          isoCode: matchup.right.isoCode,
+          x: (2 * svgWidth) / 3 + flagSize * 1.5,
+          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          size: flagSize,
+          opacity: matchup.leftWins ? 0.2 : 1,
+          delay: 200,
+          winnerDestX: matchup.leftWins ? null : svgWidth / 2 + flagSize * 1.5,
+          winnerDestY: matchup.leftWins ? null : finalPositionY,
+          isWinner: !matchup.leftWins,
+        });
+      }
+    } else {
+      // Generate new random matchups when scrolling forward
+      var winners = [];
+      // Process Pot 1 vs Pot 4 matchups
+      for (let i = 0; i < Math.min(pot1.length, pot4.length); i++) {
+        // Determine winner (60% chance for pot1 to win)
+        const pot1Wins = Math.random() < 0.6;
+        const winner = pot1Wins ? pot1[i] : pot4[i];
 
-      // Calculate the final position with more vertical spacing
-      // Move teams up by one flag height
-      const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
+        winners.push(winner);
 
-      // Add pot2 team (winner or loser)
-      data.push({
-        isoCode: pot2[i].isoCode,
-        x: (2 * svgWidth) / 3 - flagSize * 1.5,
-        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
-        size: flagSize,
-        opacity: pot2Wins ? 1 : 0.2,
-        delay: 200,
-        winnerDestX: pot2Wins ? svgWidth / 2 + flagSize * 1.5 : null,
-        winnerDestY: pot2Wins ? finalPositionY : null,
-        isWinner: pot2Wins,
-      });
+        // Store the matchup result for use in step 14
+        playoffFinalistsData.push({
+          left: pot1[i],
+          right: pot4[i],
+          leftWins: pot1Wins,
+          index: i,
+        });
 
-      // Add pot3 team (winner or loser)
-      data.push({
-        isoCode: pot3[i].isoCode,
-        x: (2 * svgWidth) / 3 + flagSize * 1.5,
-        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
-        size: flagSize,
-        opacity: pot2Wins ? 0.2 : 1,
-        delay: 200,
-        winnerDestX: pot2Wins ? null : svgWidth / 2 + flagSize * 1.5,
-        winnerDestY: pot2Wins ? null : finalPositionY,
-        isWinner: !pot2Wins,
-      });
+        // Calculate the final position with more vertical spacing
+        // Move teams up by one flag height
+        const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
+
+        // Add pot1 team (winner or loser)
+        data.push({
+          isoCode: pot1[i].isoCode,
+          x: svgWidth / 3 - flagSize * 1.5,
+          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          size: flagSize,
+          opacity: pot1Wins ? 1 : 0.2,
+          delay: 200,
+          winnerDestX: pot1Wins ? svgWidth / 2 - flagSize * 1.5 : null,
+          winnerDestY: pot1Wins ? finalPositionY : null,
+          isWinner: pot1Wins,
+        });
+
+        // Add pot4 team (winner or loser)
+        data.push({
+          isoCode: pot4[i].isoCode,
+          x: svgWidth / 3 + flagSize * 1.5,
+          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          size: flagSize,
+          opacity: pot1Wins ? 0.2 : 1,
+          delay: 200,
+          winnerDestX: pot1Wins ? null : svgWidth / 2 - flagSize * 1.5,
+          winnerDestY: pot1Wins ? null : finalPositionY,
+          isWinner: !pot1Wins,
+        });
+      }
+
+      // Process Pot 2 vs Pot 3 matchups
+      for (let i = 0; i < Math.min(pot2.length, pot3.length); i++) {
+        // Determine winner (70% chance for pot2 to win)
+        const pot2Wins = Math.random() < 0.7;
+        const winner = pot2Wins ? pot2[i] : pot3[i];
+        winners.push(winner);
+
+        // Store the matchup result for use in step 14
+        playoffFinalistsData.push({
+          left: pot2[i],
+          right: pot3[i],
+          leftWins: pot2Wins,
+          index: i + 4,
+        });
+
+        // Calculate the final position with more vertical spacing
+        // Move teams up by one flag height
+        const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
+
+        // Add pot2 team (winner or loser)
+        data.push({
+          isoCode: pot2[i].isoCode,
+          x: (2 * svgWidth) / 3 - flagSize * 1.5,
+          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          size: flagSize,
+          opacity: pot2Wins ? 1 : 0.2,
+          delay: 200,
+          winnerDestX: pot2Wins ? svgWidth / 2 + flagSize * 1.5 : null,
+          winnerDestY: pot2Wins ? finalPositionY : null,
+          isWinner: pot2Wins,
+        });
+
+        // Add pot3 team (winner or loser)
+        data.push({
+          isoCode: pot3[i].isoCode,
+          x: (2 * svgWidth) / 3 + flagSize * 1.5,
+          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          size: flagSize,
+          opacity: pot2Wins ? 0.2 : 1,
+          delay: 200,
+          winnerDestX: pot2Wins ? null : svgWidth / 2 + flagSize * 1.5,
+          winnerDestY: pot2Wins ? null : finalPositionY,
+          isWinner: !pot2Wins,
+        });
+      }
     }
 
     // Add "vs" text for the finals - adjust to match new positions
@@ -1550,23 +1648,20 @@ function playoffFinalists() {
     });
 
     // Apply second stage of animation: move winners to center
-    setTimeout(() => {
-      data.forEach((team) => {
-        if (team.isWinner && team.winnerDestX !== null) {
-          team.x = team.winnerDestX;
-          team.y = team.winnerDestY;
-          team.delay = 0;
-        }
-      });
-      redraw();
-    }, 1500);
+    data.forEach((team) => {
+      if (team.isWinner && team.winnerDestX !== null) {
+        team.x = team.winnerDestX;
+        team.y = team.winnerDestY;
+        team.delay = 1500;
+      }
+    });
   }
-
   redraw();
 }
 
 // 14
-function finalQualifiers() {
+function finalQualifiers(direction) {
+  if (direction == "up") return;
   console.log("finalQualifiers");
   data = [];
   textData = [];
@@ -1653,46 +1748,42 @@ function finalQualifiers() {
       }
     }
 
-    // After a short delay, move winners to join qualified teams
-    setTimeout(() => {
-      // Only keep winners and qualified teams
-      const newData = [];
+    // Only keep winners and qualified teams
+    const newData = [];
 
-      // Keep qualified teams
-      qualified.forEach((team, index) => {
+    // Keep qualified teams
+    qualified.forEach((team, index) => {
+      newData.push({
+        isoCode: team.isoCode,
+        x: svgWidth / 12 - flagSize / 2,
+        y: yPadding + (svgHeight / 18) * index - flagSize / 2,
+        size: flagSize,
+        opacity: 1,
+        delay: 0,
+      });
+    });
+
+    // Add winners and animate them to join qualified teams
+    data.forEach((team, idx) => {
+      if (team.isWinner) {
         newData.push({
           isoCode: team.isoCode,
           x: svgWidth / 12 - flagSize / 2,
-          y: yPadding + (svgHeight / 18) * index - flagSize / 2,
+          y:
+            yPadding +
+            (svgHeight / 18) * (qualified.length + team.index) -
+            flagSize / 2,
           size: flagSize,
           opacity: 1,
-          delay: 0,
+          delay: 1200 + team.index * 200,
+          duration: 500,
         });
-      });
+      }
+    });
 
-      // Add winners and animate them to join qualified teams
-      data.forEach((team, idx) => {
-        if (team.isWinner) {
-          newData.push({
-            isoCode: team.isoCode,
-            x: svgWidth / 12 - flagSize / 2,
-            y:
-              yPadding +
-              (svgHeight / 18) * (qualified.length + team.index) -
-              flagSize / 2,
-            size: flagSize,
-            opacity: 1,
-            delay: 200 + team.index * 200,
-            duration: 1000,
-          });
-        }
-      });
-
-      // Replace data with filtered data
-      data = newData;
-      textData = []; // Clear all text
-      redraw();
-    }, 1500);
+    // Replace data with filtered data
+    data = newData;
+    textData = []; // Clear all text
   }
 
   redraw();
@@ -1703,7 +1794,6 @@ function finalDisplay() {
   console.log("finalDisplay");
   data = [];
   textData = [];
-  // Keep golden tickets visible by using the circles data
   circleData = circles;
 
   // Show already qualified teams on the left side
@@ -1889,10 +1979,10 @@ function handleStepEnter(response) {
       playoffMatches();
       break;
     case 13:
-      playoffFinalists();
+      playoffFinalists(response.direction);
       break;
     case 14:
-      finalQualifiers();
+      finalQualifiers(response.direction);
       break;
     case 15:
       finalDisplay();
