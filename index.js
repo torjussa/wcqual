@@ -1183,7 +1183,7 @@ function ShowNL() {
             flagSize / 2,
           size: flagSize,
           opacity: 1,
-          delay: 100 + i * 40,
+          delay: 100,
         });
       } else {
         // This country did not qualify directly and is not a runner-up

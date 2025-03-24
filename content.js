@@ -248,12 +248,15 @@ const steps = {
   },
   11: {
     eng: {
+      h1: "Playoffs",
       p: "The qualifier runner ups will be seeded in pot 1-3 by their fifa rank, while the teams from Nations league will not be seeded.",
     },
     no: {
+      h1: "Playoffs",
       p: "Gruppetoerne i kvalifiseringen seedes i puljer 1-3 basert på FIFA-ranking, mens lagene fra Nations League er useedet.",
     },
     es: {
+      h1: "Playoffs",
       p: "Los segundos clasificados de las eliminatorias se asignarán a los grupos 1-3 según su ranking FIFA, mientras que las naciones de la Liga de Naciones no serán cabezas de serie.",
     },
   },
