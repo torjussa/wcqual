@@ -186,17 +186,14 @@ const steps = {
     eng: {
       h2: "November 2025",
       p: "After facing each other twice, we conclude the qualifiers group stage.",
-      button: "Play Again",
     },
     no: {
       h2: "November 2025",
       p: "Etter å ha møtt hverandre to ganger gjennom 2025, er også dette gruppespillet over.",
-      button: "Spill igjen",
     },
     es: {
       h2: "Noviembre 2025",
       p: "Después de enfrentarse entre sí dos veces, concluimos la fase de grupos de las eliminatorias.",
-      button: "Jugar de nuevo",
     },
   },
   7: {

@@ -52,6 +52,7 @@ const countries = [
     fifaRank: "82",
     nationsLeagueGroup: "B1",
     qualGroup: "K",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "41.153332",
@@ -63,6 +64,7 @@ const countries = [
     fifaRank: "157",
     nationsLeagueGroup: "D2",
     qualGroup: "K",
+    qualGroupPosition: 5,
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "42.506305",
@@ -74,6 +76,7 @@ const countries = [
     fifaRank: "92",
     nationsLeagueGroup: "C4",
     qualGroup: "F",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "40.069099",
@@ -85,6 +88,7 @@ const countries = [
     fifaRank: "24",
     nationsLeagueGroup: "B3",
     qualGroup: "H",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "47.809402",
@@ -96,6 +100,7 @@ const countries = [
     fifaRank: "110",
     nationsLeagueGroup: "C1",
     qualGroup: "D",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "40.399133",
@@ -107,6 +112,7 @@ const countries = [
     fifaRank: "75",
     nationsLeagueGroup: "C3",
     qualGroup: "C",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "53.709807",
@@ -118,6 +124,7 @@ const countries = [
     fifaRank: "21",
     nationsLeagueGroup: "A2",
     qualGroup: "J",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "50.503887",
@@ -129,6 +136,7 @@ const countries = [
     fifaRank: "62",
     nationsLeagueGroup: "A3",
     qualGroup: "H",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "44.204791",
@@ -140,6 +148,7 @@ const countries = [
     fifaRank: "78",
     nationsLeagueGroup: "C3",
     qualGroup: "E",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "42.733882",
@@ -151,6 +160,7 @@ const countries = [
     fifaRank: "7",
     nationsLeagueGroup: "A1",
     qualGroup: "L",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 2,
     nlRank: 20,
     latitude: "45.815010",
@@ -162,6 +172,7 @@ const countries = [
     fifaRank: "105",
     nationsLeagueGroup: "C2",
     qualGroup: "H",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "35.126413",
@@ -173,6 +184,7 @@ const countries = [
     fifaRank: "23",
     nationsLeagueGroup: "B1",
     qualGroup: "L",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 1,
     nlRank: 8,
     latitude: "49.817492",
@@ -184,6 +196,7 @@ const countries = [
     fifaRank: "17",
     nationsLeagueGroup: "A4",
     qualGroup: "C",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 2,
     nlRank: 18,
     latitude: "56.263920",
@@ -195,6 +208,7 @@ const countries = [
     fifaRank: "5",
     nationsLeagueGroup: "B2",
     qualGroup: "K",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 1,
     nlRank: 5,
     latitude: "52.355518",
@@ -206,6 +220,7 @@ const countries = [
     fifaRank: "108",
     nationsLeagueGroup: "C1",
     qualGroup: "I",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "58.595272",
@@ -217,6 +232,7 @@ const countries = [
     fifaRank: "111",
     nationsLeagueGroup: "C4",
     qualGroup: "L",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "61.892635",
@@ -228,6 +244,7 @@ const countries = [
     fifaRank: "57",
     nationsLeagueGroup: "B2",
     qualGroup: "G",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "61.924110",
@@ -239,6 +256,7 @@ const countries = [
     fifaRank: "3",
     nationsLeagueGroup: "A2",
     qualGroup: "D",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 1,
     nlRank: 4,
     latitude: "46.227638",
@@ -250,6 +268,7 @@ const countries = [
     fifaRank: "117",
     nationsLeagueGroup: "B1",
     qualGroup: "E",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "42.315407",
@@ -261,6 +280,7 @@ const countries = [
     fifaRank: "11",
     nationsLeagueGroup: "A3",
     qualGroup: "A",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 1,
     nlRank: 2,
     latitude: "51.165691",
@@ -272,6 +292,7 @@ const countries = [
     fifaRank: "47",
     nationsLeagueGroup: "B2",
     qualGroup: "C",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "39.074208",
@@ -283,6 +304,7 @@ const countries = [
     fifaRank: "40",
     nationsLeagueGroup: "A3",
     qualGroup: "F",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 3,
     nlRank: 25,
     latitude: "47.162491",
@@ -294,6 +316,7 @@ const countries = [
     fifaRank: "61",
     nationsLeagueGroup: "B4",
     qualGroup: "D",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "64.963051",
@@ -305,6 +328,7 @@ const countries = [
     fifaRank: "49",
     nationsLeagueGroup: "B2",
     qualGroup: "F",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "53.412910",
@@ -316,6 +340,7 @@ const countries = [
     fifaRank: "6",
     nationsLeagueGroup: "A2",
     qualGroup: "I",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 2,
     nlRank: 16,
     latitude: "41.871941",
@@ -327,6 +352,7 @@ const countries = [
     fifaRank: "114",
     nationsLeagueGroup: "A2",
     qualGroup: "I",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "31.046051",
@@ -338,6 +364,7 @@ const countries = [
     fifaRank: "103",
     nationsLeagueGroup: "B3",
     qualGroup: "J",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "48.019589",
@@ -349,6 +376,7 @@ const countries = [
     fifaRank: "107",
     nationsLeagueGroup: "C2",
     qualGroup: "B",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "42.602636",
@@ -360,6 +388,7 @@ const countries = [
     fifaRank: "135",
     nationsLeagueGroup: "C4",
     qualGroup: "K",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "56.949646",
@@ -371,6 +400,7 @@ const countries = [
     fifaRank: "192",
     nationsLeagueGroup: "D1",
     qualGroup: "J",
+    qualGroupPosition: 5,
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "47.166000",
@@ -382,6 +412,7 @@ const countries = [
     fifaRank: "113",
     nationsLeagueGroup: "C2",
     qualGroup: "G",
+    qualGroupPosition: 5,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "54.689652",
@@ -394,6 +425,7 @@ const countries = [
     fifaRank: "96",
     nationsLeagueGroup: "C3",
     qualGroup: "A",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "49.815273",
@@ -405,6 +437,7 @@ const countries = [
     fifaRank: "174",
     nationsLeagueGroup: "D2",
     qualGroup: "G",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "35.937496",
@@ -416,6 +449,7 @@ const countries = [
     fifaRank: "171",
     nationsLeagueGroup: "D2",
     qualGroup: "I",
+    qualGroupPosition: 5,
     nationsLeaguePosition: 1,
     nlRank: 14,
     latitude: "47.411653",
@@ -427,6 +461,7 @@ const countries = [
     fifaRank: "73",
     nationsLeagueGroup: "B4",
     qualGroup: "L",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "42.506389",
@@ -438,6 +473,7 @@ const countries = [
     fifaRank: "10",
     nationsLeagueGroup: "A3",
     qualGroup: "G",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 2,
     nlRank: 17,
     latitude: "52.132633",
@@ -449,6 +485,7 @@ const countries = [
     fifaRank: "59", // As of November 2023
     nationsLeagueGroup: "C3",
     qualGroup: "A",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 1,
     nlRank: 13,
     latitude: "54.609323",
@@ -460,6 +497,7 @@ const countries = [
     fifaRank: "67",
     nationsLeagueGroup: "C4",
     qualGroup: "J",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 1,
     nlRank: 12,
     latitude: "41.608635",
@@ -471,6 +509,7 @@ const countries = [
     fifaRank: "48",
     nationsLeagueGroup: "B3",
     qualGroup: "I",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 1,
     nlRank: 6,
     latitude: "59.91129366297636",
@@ -482,6 +521,7 @@ const countries = [
     fifaRank: "15",
     nationsLeagueGroup: "A1",
     qualGroup: "G",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "51.919438",
@@ -493,6 +533,7 @@ const countries = [
     fifaRank: "9",
     nationsLeagueGroup: "A1",
     qualGroup: "F",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 1,
     nlRank: 3,
     latitude: "39.399872",
@@ -504,6 +545,7 @@ const countries = [
     fifaRank: "46",
     nationsLeagueGroup: "C2",
     qualGroup: "H",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 1,
     nlRank: 9,
     latitude: "45.943161",
@@ -515,6 +557,7 @@ const countries = [
     fifaRank: "211",
     nationsLeagueGroup: "D1",
     qualGroup: "H",
+    qualGroupPosition: 5,
     nationsLeaguePosition: 1,
     nlRank: 15,
     latitude: "43.942360",
@@ -526,6 +569,7 @@ const countries = [
     fifaRank: "38", // As of November 2023
     nationsLeagueGroup: "A1",
     qualGroup: "C",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 3,
     nlRank: 21,
     latitude: "56.492000",
@@ -537,6 +581,7 @@ const countries = [
     fifaRank: "22",
     nationsLeagueGroup: "A4",
     qualGroup: "K",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 3,
     nlRank: 22,
     latitude: "44.016521",
@@ -548,6 +593,7 @@ const countries = [
     fifaRank: "53",
     nationsLeagueGroup: "C1",
     qualGroup: "A",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "48.669026",
@@ -559,6 +605,7 @@ const countries = [
     fifaRank: "64",
     nationsLeagueGroup: "B3",
     qualGroup: "B",
+    qualGroupPosition: 3,
     nationsLeaguePosition: 3,
     nlRank: 200,
     latitude: "46.151241",
@@ -570,6 +617,7 @@ const countries = [
     fifaRank: "8",
     nationsLeagueGroup: "A4",
     qualGroup: "E",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 1,
     nlRank: 1,
     latitude: "40.463667",
@@ -581,6 +629,7 @@ const countries = [
     fifaRank: "20",
     nationsLeagueGroup: "C1",
     qualGroup: "B",
+    qualGroupPosition: 4,
     nationsLeaguePosition: 1,
     nlRank: 10,
     latitude: "60.128161",
@@ -592,6 +641,7 @@ const countries = [
     fifaRank: "16",
     nationsLeagueGroup: "A4",
     qualGroup: "B",
+    qualGroupPosition: 1,
     nationsLeaguePosition: 4,
     nlRank: 200,
     latitude: "46.818188",
@@ -603,6 +653,7 @@ const countries = [
     fifaRank: "39",
     nationsLeagueGroup: "B4",
     qualGroup: "E",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "38.963745",
@@ -614,6 +665,7 @@ const countries = [
     fifaRank: "27",
     nationsLeagueGroup: "B1",
     qualGroup: "D",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "49.838268",
@@ -625,6 +677,7 @@ const countries = [
     fifaRank: "28",
     nationsLeagueGroup: "B4",
     qualGroup: "J",
+    qualGroupPosition: 2,
     nationsLeaguePosition: 1,
     nlRank: 7,
     latitude: "52.130858",
@@ -636,6 +689,7 @@ const countries = [
     fifaRank: "194",
     nationsLeagueGroup: "D1",
     qualGroup: "L",
+    qualGroupPosition: 5,
     nationsLeaguePosition: 2,
     nlRank: 200,
     latitude: "36.140740",
@@ -1023,8 +1077,8 @@ function playQualGroups() {
     .map((key, i) => {
       qualGroups[key]
         .sort((c1, c2) =>
-          c1.qualPosition !== undefined
-            ? c1.qualPosition - c2.qualPosition
+          c1.qualGroupPosition !== undefined
+            ? c1.qualGroupPosition - c2.qualGroupPosition
             : c1.fifaRank - c2.fifaRank
         )
         .map((c, j) => {
@@ -1033,7 +1087,7 @@ function playQualGroups() {
             qualified.push(c);
           }
           if (j == 1) {
-            // add group winners
+            // add group runners-up
             secondPlacers.push(c);
           }
           return data.push({
@@ -1069,8 +1123,8 @@ function showQualWinners() {
     .map((key, i) => {
       qualGroups[key]
         .sort((c1, c2) =>
-          c1.qualPosition !== undefined
-            ? c1.qualPosition - c2.qualPosition
+          c1.qualGroupPosition !== undefined
+            ? c1.qualGroupPosition - c2.qualGroupPosition
             : c1.fifaRank - c2.fifaRank
         )
         .map((c, j) =>
@@ -1115,8 +1169,8 @@ function ShowSecondPlacers() {
     .map((key, i) => {
       qualGroups[key]
         .sort((c1, c2) =>
-          c1.qualPosition !== undefined
-            ? c1.qualPosition - c2.qualPosition
+          c1.qualGroupPosition !== undefined
+            ? c1.qualGroupPosition - c2.qualGroupPosition
             : c1.fifaRank - c2.fifaRank
         )
         .map((c, j) =>
@@ -1829,101 +1883,6 @@ function finalDisplay() {
   redraw();
 }
 
-// Functions for handling results reshuffling
-function reshuffleResults() {
-  console.log("Reshuffling results...");
-
-  // Add animation to the button
-  const button = document.getElementById("play-again-button");
-  if (button) {
-    button.classList.add("button-clicked");
-    setTimeout(() => {
-      button.classList.remove("button-clicked");
-    }, 300);
-  }
-
-  // Reset qualified and second placers
-  qualified = [];
-  secondPlacers = [];
-
-  // Group countries by qualification group
-  const qualGroups = groupBy(countries, "qualGroup");
-
-  // First assign a default qualPosition to all countries (reset previous shuffles)
-  countries.forEach((country) => {
-    country.qualPosition = 999; // Default high position
-  });
-
-  // Process each qualification group
-  Object.keys(qualGroups)
-    .sort()
-    .forEach((groupKey) => {
-      const group = qualGroups[groupKey];
-
-      // Create a copy of the group for shuffling
-      const shuffledGroup = [...group];
-
-      // Randomize results with FIFA rank weighting
-      shuffleWithFifaWeighting(shuffledGroup);
-
-      // Store the final positions in the original country objects
-      shuffledGroup.forEach((country, index) => {
-        // Find the original country object and update its qualPosition
-        const originalCountry = countries.find(
-          (c) => c.isoCode === country.isoCode
-        );
-        if (originalCountry) {
-          originalCountry.qualPosition = index; // 0 = winner, 1 = runner-up, etc.
-        }
-      });
-
-      // Use the first country as the winner and second as runner-up
-      if (shuffledGroup.length > 0) {
-        qualified.push(shuffledGroup[0]);
-      }
-
-      if (shuffledGroup.length > 1) {
-        secondPlacers.push(shuffledGroup[1]);
-      }
-    });
-
-  // Re-run the playQualGroups function to update the visualization
-  playQualGroups();
-}
-
-function shuffleWithFifaWeighting(array) {
-  // Sort by FIFA rank (lower is better)
-  array.sort((a, b) => a.fifaRank - b.fifaRank);
-
-  // Apply randomization with weighting based on FIFA rank
-  // Teams with better FIFA rankings have higher chances of winning
-  for (let i = 0; i < array.length; i++) {
-    const fifaRank = parseInt(array[i].fifaRank);
-
-    // Create a more decisive weighting for FIFA rank
-    // Using an exponential function to increase the advantage for top-ranked teams
-    // The power of 2 makes the weighting curve steeper
-    const baseWeight = (1000 - fifaRank) / 1000;
-    const weight = Math.pow(baseWeight, 2.5);
-
-    // Add a rank-based bonus for top 20 teams to make them even more likely to win
-    const topTeamBonus = fifaRank <= 20 ? 0.3 : 0;
-
-    // Generate a random value with stronger influence from FIFA rank
-    // The multiplier is higher (3 instead of 2) to increase variance
-    const randomValue = Math.random() * weight * 3 + topTeamBonus;
-
-    // Assign this value to the team
-    array[i].randomValue = randomValue;
-  }
-
-  // Sort by the randomized values (higher is better)
-  array.sort((a, b) => b.randomValue - a.randomValue);
-}
-
-// Handle step enter (add reshuffleResults to the global scope)
-window.reshuffleResults = reshuffleResults;
-
 // scrollama event handlers
 function handleStepEnter(response) {
   // add color to current step only
@@ -2039,9 +1998,6 @@ function init() {
   });
 
   startScreen();
-
-  // Make reshuffleResults available globally
-  window.reshuffleResults = reshuffleResults;
 
   // Hide scroll indicator when user scrolls past first section
   window.addEventListener("scroll", function () {

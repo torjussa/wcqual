@@ -338,23 +338,6 @@
           }
         }
 
-        // Add Play Again button to step 6 (November 2025)
-        if (stepIndex === 6 && langData.button) {
-          const buttonContainer = document.createElement("div");
-          buttonContainer.className = "button-container";
-
-          const button = document.createElement("button");
-          button.id = "play-again-button";
-          button.className = "play-again-button";
-          button.textContent = langData.button;
-          button.setAttribute("aria-label", langData.button);
-          button.onclick = function () {
-            window.reshuffleResults();
-          };
-
-          buttonContainer.appendChild(button);
-          contentElement.appendChild(buttonContainer);
-        }
       }
 
       // Function to update all content
