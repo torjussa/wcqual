@@ -49,7 +49,7 @@ const countries = [
   {
     name: "Albania",
     isoCode: "al",
-    fifaRank: "82",
+    fifaRank: "63",
     nationsLeagueGroup: "B1",
     qualGroup: "K",
     qualGroupPosition: 2,
@@ -61,7 +61,7 @@ const countries = [
   {
     name: "Andorra",
     isoCode: "ad",
-    fifaRank: "157",
+    fifaRank: "172",
     nationsLeagueGroup: "D2",
     qualGroup: "K",
     qualGroupPosition: 5,
@@ -73,7 +73,7 @@ const countries = [
   {
     name: "Armenia",
     isoCode: "am",
-    fifaRank: "92",
+    fifaRank: "106",
     nationsLeagueGroup: "C4",
     qualGroup: "F",
     qualGroupPosition: 4,
@@ -85,7 +85,7 @@ const countries = [
   {
     name: "Austria",
     isoCode: "at",
-    fifaRank: "24",
+    fifaRank: "23",
     nationsLeagueGroup: "B3",
     qualGroup: "H",
     qualGroupPosition: 1,
@@ -97,7 +97,7 @@ const countries = [
   {
     name: "Azerbaijan",
     isoCode: "az",
-    fifaRank: "110",
+    fifaRank: "126",
     nationsLeagueGroup: "C1",
     qualGroup: "D",
     qualGroupPosition: 4,
@@ -109,7 +109,7 @@ const countries = [
   {
     name: "Belarus",
     isoCode: "by",
-    fifaRank: "75",
+    fifaRank: "102",
     nationsLeagueGroup: "C3",
     qualGroup: "C",
     qualGroupPosition: 4,
@@ -121,7 +121,7 @@ const countries = [
   {
     name: "Belgium",
     isoCode: "be",
-    fifaRank: "21",
+    fifaRank: "8",
     nationsLeagueGroup: "A2",
     qualGroup: "J",
     qualGroupPosition: 1,
@@ -133,7 +133,7 @@ const countries = [
   {
     name: "Bosnia and Herzegovina",
     isoCode: "ba",
-    fifaRank: "62",
+    fifaRank: "72",
     nationsLeagueGroup: "A3",
     qualGroup: "H",
     qualGroupPosition: 2,
@@ -145,7 +145,7 @@ const countries = [
   {
     name: "Bulgaria",
     isoCode: "bg",
-    fifaRank: "78",
+    fifaRank: "92",
     nationsLeagueGroup: "C3",
     qualGroup: "E",
     qualGroupPosition: 4,
@@ -157,7 +157,7 @@ const countries = [
   {
     name: "Croatia",
     isoCode: "hr",
-    fifaRank: "7",
+    fifaRank: "10",
     nationsLeagueGroup: "A1",
     qualGroup: "L",
     qualGroupPosition: 1,
@@ -169,7 +169,7 @@ const countries = [
   {
     name: "Cyprus",
     isoCode: "cy",
-    fifaRank: "105",
+    fifaRank: "125",
     nationsLeagueGroup: "C2",
     qualGroup: "H",
     qualGroupPosition: 4,
@@ -181,7 +181,7 @@ const countries = [
   {
     name: "Czech Republic",
     isoCode: "cz",
-    fifaRank: "23",
+    fifaRank: "43",
     nationsLeagueGroup: "B1",
     qualGroup: "L",
     qualGroupPosition: 2,
@@ -193,7 +193,7 @@ const countries = [
   {
     name: "Denmark",
     isoCode: "dk",
-    fifaRank: "17",
+    fifaRank: "20",
     nationsLeagueGroup: "A4",
     qualGroup: "C",
     qualGroupPosition: 2,
@@ -205,7 +205,7 @@ const countries = [
   {
     name: "England",
     isoCode: "gb-eng",
-    fifaRank: "5",
+    fifaRank: "4",
     nationsLeagueGroup: "B2",
     qualGroup: "K",
     qualGroupPosition: 1,
@@ -217,7 +217,7 @@ const countries = [
   {
     name: "Estonia",
     isoCode: "ee",
-    fifaRank: "108",
+    fifaRank: "131",
     nationsLeagueGroup: "C1",
     qualGroup: "I",
     qualGroupPosition: 4,
@@ -229,7 +229,7 @@ const countries = [
   {
     name: "Faroe Islands",
     isoCode: "fo",
-    fifaRank: "111",
+    fifaRank: "128",
     nationsLeagueGroup: "C4",
     qualGroup: "L",
     qualGroupPosition: 3,
@@ -241,7 +241,7 @@ const countries = [
   {
     name: "Finland",
     isoCode: "fi",
-    fifaRank: "57",
+    fifaRank: "75",
     nationsLeagueGroup: "B2",
     qualGroup: "G",
     qualGroupPosition: 3,
@@ -265,7 +265,7 @@ const countries = [
   {
     name: "Georgia",
     isoCode: "ge",
-    fifaRank: "117",
+    fifaRank: "71",
     nationsLeagueGroup: "B1",
     qualGroup: "E",
     qualGroupPosition: 3,
@@ -277,7 +277,7 @@ const countries = [
   {
     name: "Germany",
     isoCode: "de",
-    fifaRank: "11",
+    fifaRank: "9",
     nationsLeagueGroup: "A3",
     qualGroup: "A",
     qualGroupPosition: 1,
@@ -289,7 +289,7 @@ const countries = [
   {
     name: "Greece",
     isoCode: "gr",
-    fifaRank: "47",
+    fifaRank: "44",
     nationsLeagueGroup: "B2",
     qualGroup: "C",
     qualGroupPosition: 3,
@@ -301,7 +301,7 @@ const countries = [
   {
     name: "Hungary",
     isoCode: "hu",
-    fifaRank: "40",
+    fifaRank: "38",
     nationsLeagueGroup: "A3",
     qualGroup: "F",
     qualGroupPosition: 3,
@@ -313,7 +313,7 @@ const countries = [
   {
     name: "Iceland",
     isoCode: "is",
-    fifaRank: "61",
+    fifaRank: "74",
     nationsLeagueGroup: "B4",
     qualGroup: "D",
     qualGroupPosition: 3,
@@ -325,7 +325,7 @@ const countries = [
   {
     name: "Ireland",
     isoCode: "ie",
-    fifaRank: "49",
+    fifaRank: "58",
     nationsLeagueGroup: "B2",
     qualGroup: "F",
     qualGroupPosition: 2,
@@ -337,7 +337,7 @@ const countries = [
   {
     name: "Italy",
     isoCode: "it",
-    fifaRank: "6",
+    fifaRank: "12",
     nationsLeagueGroup: "A2",
     qualGroup: "I",
     qualGroupPosition: 2,
@@ -349,7 +349,7 @@ const countries = [
   {
     name: "Israel",
     isoCode: "il",
-    fifaRank: "114",
+    fifaRank: "77",
     nationsLeagueGroup: "A2",
     qualGroup: "I",
     qualGroupPosition: 3,
@@ -361,7 +361,7 @@ const countries = [
   {
     name: "Kazakhstan",
     isoCode: "kz",
-    fifaRank: "103",
+    fifaRank: "114",
     nationsLeagueGroup: "B3",
     qualGroup: "J",
     qualGroupPosition: 4,
@@ -373,7 +373,7 @@ const countries = [
   {
     name: "Kosovo",
     isoCode: "xk",
-    fifaRank: "107",
+    fifaRank: "81",
     nationsLeagueGroup: "C2",
     qualGroup: "B",
     qualGroupPosition: 2,
@@ -385,7 +385,7 @@ const countries = [
   {
     name: "Latvia",
     isoCode: "lv",
-    fifaRank: "135",
+    fifaRank: "140",
     nationsLeagueGroup: "C4",
     qualGroup: "K",
     qualGroupPosition: 4,
@@ -409,7 +409,7 @@ const countries = [
   {
     name: "Lithuania",
     isoCode: "lt",
-    fifaRank: "113",
+    fifaRank: "146",
     nationsLeagueGroup: "C2",
     qualGroup: "G",
     qualGroupPosition: 5,
@@ -422,7 +422,7 @@ const countries = [
   {
     name: "Luxembourg",
     isoCode: "lu",
-    fifaRank: "96",
+    fifaRank: "103",
     nationsLeagueGroup: "C3",
     qualGroup: "A",
     qualGroupPosition: 4,
@@ -434,7 +434,7 @@ const countries = [
   {
     name: "Malta",
     isoCode: "mt",
-    fifaRank: "174",
+    fifaRank: "161",
     nationsLeagueGroup: "D2",
     qualGroup: "G",
     qualGroupPosition: 4,
@@ -446,7 +446,7 @@ const countries = [
   {
     name: "Moldova",
     isoCode: "md",
-    fifaRank: "171",
+    fifaRank: "158",
     nationsLeagueGroup: "D2",
     qualGroup: "I",
     qualGroupPosition: 5,
@@ -458,7 +458,7 @@ const countries = [
   {
     name: "Montenegro",
     isoCode: "me",
-    fifaRank: "73",
+    fifaRank: "83",
     nationsLeagueGroup: "B4",
     qualGroup: "L",
     qualGroupPosition: 4,
@@ -470,7 +470,7 @@ const countries = [
   {
     name: "Netherlands",
     isoCode: "nl",
-    fifaRank: "10",
+    fifaRank: "7",
     nationsLeagueGroup: "A3",
     qualGroup: "G",
     qualGroupPosition: 1,
@@ -482,7 +482,7 @@ const countries = [
   {
     name: "Northern Ireland",
     isoCode: "gb-nir",
-    fifaRank: "59", // As of November 2023
+    fifaRank: "69",
     nationsLeagueGroup: "C3",
     qualGroup: "A",
     qualGroupPosition: 3,
@@ -494,7 +494,7 @@ const countries = [
   {
     name: "North Macedonia",
     isoCode: "mk",
-    fifaRank: "67",
+    fifaRank: "64",
     nationsLeagueGroup: "C4",
     qualGroup: "J",
     qualGroupPosition: 3,
@@ -506,7 +506,7 @@ const countries = [
   {
     name: "Norway",
     isoCode: "no",
-    fifaRank: "48",
+    fifaRank: "29",
     nationsLeagueGroup: "B3",
     qualGroup: "I",
     qualGroupPosition: 1,
@@ -518,7 +518,7 @@ const countries = [
   {
     name: "Poland",
     isoCode: "pl",
-    fifaRank: "15",
+    fifaRank: "31",
     nationsLeagueGroup: "A1",
     qualGroup: "G",
     qualGroupPosition: 2,
@@ -530,7 +530,7 @@ const countries = [
   {
     name: "Portugal",
     isoCode: "pt",
-    fifaRank: "9",
+    fifaRank: "6",
     nationsLeagueGroup: "A1",
     qualGroup: "F",
     qualGroupPosition: 1,
@@ -542,7 +542,7 @@ const countries = [
   {
     name: "Romania",
     isoCode: "ro",
-    fifaRank: "46",
+    fifaRank: "50",
     nationsLeagueGroup: "C2",
     qualGroup: "H",
     qualGroupPosition: 3,
@@ -566,7 +566,7 @@ const countries = [
   {
     name: "Scotland",
     isoCode: "gb-sct",
-    fifaRank: "38", // As of November 2023
+    fifaRank: "41",
     nationsLeagueGroup: "A1",
     qualGroup: "C",
     qualGroupPosition: 1,
@@ -578,7 +578,7 @@ const countries = [
   {
     name: "Serbia",
     isoCode: "rs",
-    fifaRank: "22",
+    fifaRank: "36",
     nationsLeagueGroup: "A4",
     qualGroup: "K",
     qualGroupPosition: 3,
@@ -590,7 +590,7 @@ const countries = [
   {
     name: "Slovakia",
     isoCode: "sk",
-    fifaRank: "53",
+    fifaRank: "46",
     nationsLeagueGroup: "C1",
     qualGroup: "A",
     qualGroupPosition: 2,
@@ -602,7 +602,7 @@ const countries = [
   {
     name: "Slovenia",
     isoCode: "si",
-    fifaRank: "64",
+    fifaRank: "55",
     nationsLeagueGroup: "B3",
     qualGroup: "B",
     qualGroupPosition: 3,
@@ -614,7 +614,7 @@ const countries = [
   {
     name: "Spain",
     isoCode: "es",
-    fifaRank: "8",
+    fifaRank: "1",
     nationsLeagueGroup: "A4",
     qualGroup: "E",
     qualGroupPosition: 1,
@@ -626,7 +626,7 @@ const countries = [
   {
     name: "Sweden",
     isoCode: "se",
-    fifaRank: "20",
+    fifaRank: "42",
     nationsLeagueGroup: "C1",
     qualGroup: "B",
     qualGroupPosition: 4,
@@ -638,7 +638,7 @@ const countries = [
   {
     name: "Switzerland",
     isoCode: "ch",
-    fifaRank: "16",
+    fifaRank: "17",
     nationsLeagueGroup: "A4",
     qualGroup: "B",
     qualGroupPosition: 1,
@@ -650,7 +650,7 @@ const countries = [
   {
     name: "Turkey",
     isoCode: "tr",
-    fifaRank: "39",
+    fifaRank: "26",
     nationsLeagueGroup: "B4",
     qualGroup: "E",
     qualGroupPosition: 2,
@@ -674,7 +674,7 @@ const countries = [
   {
     name: "Wales",
     isoCode: "gb-wls",
-    fifaRank: "28",
+    fifaRank: "33",
     nationsLeagueGroup: "B4",
     qualGroup: "J",
     qualGroupPosition: 2,
