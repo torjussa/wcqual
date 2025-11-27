@@ -708,6 +708,35 @@ var playoffs = [];
 var playoffFinalistsData = []; // Store finalists from step 13 to use in step 14
 var playoffWinners = []; // Store winners from step 14 to use in step 15
 
+// Playoff draw structure (as of November 2025)
+const playoffDraw = {
+  pathA: {
+    sf1: { team1: "it", team2: "gb-nir" }, // Italy vs Northern Ireland
+    sf2: { team1: "gb-wls", team2: "ba" }, // Wales vs Bosnia and Herzegovina
+    final: { left: "gb-wls/ba", right: "it/gb-nir" }, // Wales/Bosnia vs Italy/Northern Ireland
+  },
+  pathB: {
+    sf1: { team1: "ua", team2: "se" }, // Ukraine vs Sweden
+    sf2: { team1: "pl", team2: "al" }, // Poland vs Albania
+    final: { left: "ua/se", right: "pl/al" }, // Ukraine/Sweden vs Poland/Albania
+  },
+  pathC: {
+    sf1: { team1: "tr", team2: "ro" }, // Türkiye vs Romania
+    sf2: { team1: "sk", team2: "xk" }, // Slovakia vs Kosovo
+    final: { left: "sk/xk", right: "tr/ro" }, // Slovakia/Kosovo vs Türkiye/Romania
+  },
+  pathD: {
+    sf1: { team1: "dk", team2: "mk" }, // Denmark vs North Macedonia
+    sf2: { team1: "cz", team2: "ie" }, // Czechia vs Republic of Ireland
+    final: { left: "cz/ie", right: "dk/mk" }, // Czechia/Ireland vs Denmark/North Macedonia
+  },
+};
+
+// Helper function to find team by isoCode in playoffs array
+function findPlayoffTeam(isoCode) {
+  return playoffs.find((team) => team.isoCode === isoCode);
+}
+
 //HELPERS
 var minLat = countries.reduce(
   (min, country) => Math.min(min, country.latitude),
@@ -1389,99 +1418,106 @@ function playoffMatches() {
   data = [];
   textData = [];
 
-  // Create copies of the playoffs array for each pot
-  // Playoff teams should already be sorted by FIFA rank from the previous step
-  if (playoffs.length >= 16) {
-    const pot1 = playoffs.slice(0, 4);
-    const pot2 = playoffs.slice(4, 8);
-    const pot3 = playoffs.slice(8, 12);
-    const pot4 = playoffs.slice(12, 16);
-
-    // Show qualified teams on the left side
-    qualified.forEach((team, index) => {
-      data.push({
-        isoCode: team.isoCode,
-        x: svgWidth / 12 - flagSize / 2,
-        y: yPadding + (svgHeight / 18) * index - flagSize / 2,
-        size: flagSize,
-        opacity: 1,
-        delay: 50 * index,
-      });
+  // Show qualified teams on the left side
+  qualified.forEach((team, index) => {
+    data.push({
+      isoCode: team.isoCode,
+      x: svgWidth / 12 - flagSize / 2,
+      y: yPadding + (svgHeight / 18) * index - flagSize / 2,
+      size: flagSize,
+      opacity: 1,
+      delay: 50 * index,
     });
+  });
 
-    // Matchup 1: Pot 1 vs Pot 4 (top half of screen)
-    for (let i = 0; i < Math.min(pot1.length, pot4.length); i++) {
-      // Pot 1 team
+  // Define the paths in order - all stacked vertically
+  const paths = [
+    {
+      name: "Path A",
+      sf1: playoffDraw.pathA.sf1,
+      sf2: playoffDraw.pathA.sf2,
+    },
+    {
+      name: "Path B",
+      sf1: playoffDraw.pathB.sf1,
+      sf2: playoffDraw.pathB.sf2,
+    },
+    {
+      name: "Path C",
+      sf1: playoffDraw.pathC.sf1,
+      sf2: playoffDraw.pathC.sf2,
+    },
+    {
+      name: "Path D",
+      sf1: playoffDraw.pathD.sf1,
+      sf2: playoffDraw.pathD.sf2,
+    },
+  ];
+
+  // Bracket layout: SF1 on left, SF2 on right
+  const leftSfX = svgWidth / 4; // Left semifinal position (SF1)
+  const rightSfX = (3 * svgWidth) / 4; // Right semifinal position (SF2)
+
+  // Display each path's semifinals - SF1 on left, SF2 on right
+  paths.forEach((path, pathIndex) => {
+    // Calculate vertical position with more spacing between paths
+    const yBase = svgHeight / 6 + (svgHeight / 5) * pathIndex;
+
+    // SF1 on the left side
+    const sf1Team1 = findPlayoffTeam(path.sf1.team1);
+    const sf1Team2 = findPlayoffTeam(path.sf1.team2);
+
+    if (sf1Team1 && sf1Team2) {
       data.push({
-        isoCode: pot1[i].isoCode,
-        x: svgWidth / 3 - flagSize * 1.5,
-        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        isoCode: sf1Team1.isoCode,
+        x: leftSfX - flagSize * 1.5,
+        y: yBase - flagSize / 2,
         size: flagSize,
         opacity: 1,
-        delay: 500 + 50 * i,
+        delay: 500 + 50 * pathIndex,
       });
 
-      // Pot 4 team
       data.push({
-        isoCode: pot4[i].isoCode,
-        x: svgWidth / 3 + flagSize * 1.5,
-        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        isoCode: sf1Team2.isoCode,
+        x: leftSfX + flagSize * 1.5,
+        y: yBase - flagSize / 2,
         size: flagSize,
         opacity: 1,
-        delay: 1000 + 50 * i,
-      });
-
-      // Add "vs" text between teams
-      textData.push({
-        text: "vs",
-        x: svgWidth / 3,
-        y: (svgHeight / 5) * (i + 1) + flagSize * 0.25,
+        delay: 1000 + 50 * pathIndex,
       });
     }
 
-    // Matchup 2: Pot 2 vs Pot 3 (bottom half of screen)
-    for (let i = 0; i < Math.min(pot2.length, pot3.length); i++) {
-      // Pot 2 team
+    // SF2 on the right side
+    const sf2Team1 = findPlayoffTeam(path.sf2.team1);
+    const sf2Team2 = findPlayoffTeam(path.sf2.team2);
+
+    if (sf2Team1 && sf2Team2) {
       data.push({
-        isoCode: pot2[i].isoCode,
-        x: (2 * svgWidth) / 3 - flagSize * 1.5,
-        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        isoCode: sf2Team1.isoCode,
+        x: rightSfX - flagSize * 1.5,
+        y: yBase - flagSize / 2,
         size: flagSize,
         opacity: 1,
-        delay: 1500 + 50 * i,
+        delay: 1500 + 50 * pathIndex,
       });
 
-      // Pot 3 team
       data.push({
-        isoCode: pot3[i].isoCode,
-        x: (2 * svgWidth) / 3 + flagSize * 1.5,
-        y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+        isoCode: sf2Team2.isoCode,
+        x: rightSfX + flagSize * 1.5,
+        y: yBase - flagSize / 2,
         size: flagSize,
         opacity: 1,
-        delay: 2000 + 50 * i,
-      });
-
-      // Add "vs" text between teams
-      textData.push({
-        text: "vs",
-        x: (2 * svgWidth) / 3,
-        y: (svgHeight / 5) * (i + 1) + flagSize * 0.25,
+        delay: 2000 + 50 * pathIndex,
       });
     }
 
-    // Add section labels
+    // Add path label
     textData.push({
-      text: "Pot 1 vs Pot 4",
-      x: svgWidth / 3 - flagSize * 2,
-      y: svgHeight / 10 - flagSize,
+      text: path.name,
+      x: svgWidth / 2 - flagSize * 1.5,
+      y: yBase - flagSize * 1.5,
     });
-
-    textData.push({
-      text: "Pot 2 vs Pot 3",
-      x: (2 * svgWidth) / 3 - flagSize * 2,
-      y: svgHeight / 10 - flagSize,
-    });
-  }
+  });
 
   redraw();
 }
@@ -1498,218 +1534,256 @@ function playoffFinalists(direction) {
     playoffFinalistsData = [];
   }
 
-  // Create copies of the playoffs array for each pot
-  if (playoffs.length >= 16) {
-    const pot1 = playoffs.slice(0, 4);
-    const pot2 = playoffs.slice(4, 8);
-    const pot3 = playoffs.slice(8, 12);
-    const pot4 = playoffs.slice(12, 16);
-
-    // Show qualified teams on the left side
-    qualified.forEach((team, index) => {
-      data.push({
-        isoCode: team.isoCode,
-        x: svgWidth / 12 - flagSize / 2,
-        y: yPadding + (svgHeight / 18) * index - flagSize / 2,
-        size: flagSize,
-        opacity: 1,
-        delay: 50 * index,
-      });
+  // Show qualified teams on the left side
+  qualified.forEach((team, index) => {
+    data.push({
+      isoCode: team.isoCode,
+      x: svgWidth / 12 - flagSize / 2,
+      y: yPadding + (svgHeight / 18) * index - flagSize / 2,
+      size: flagSize,
+      opacity: 1,
+      delay: 50 * index,
     });
+  });
 
-    // If we're scrolling back from step 14, use existing matchup data
-    // Otherwise, generate new random matchups
-    if (direction === "up" && playoffFinalistsData.length >= 8) {
-      // Reuse the existing results when scrolling back
-      for (let i = 0; i < 4; i++) {
-        const matchup = playoffFinalistsData[i];
+  // Define the paths in order
+  const paths = [
+    {
+      name: "Path A",
+      sf1: playoffDraw.pathA.sf1,
+      sf2: playoffDraw.pathA.sf2,
+      pathIndex: 0,
+    },
+    {
+      name: "Path B",
+      sf1: playoffDraw.pathB.sf1,
+      sf2: playoffDraw.pathB.sf2,
+      pathIndex: 1,
+    },
+    {
+      name: "Path C",
+      sf1: playoffDraw.pathC.sf1,
+      sf2: playoffDraw.pathC.sf2,
+      pathIndex: 2,
+    },
+    {
+      name: "Path D",
+      sf1: playoffDraw.pathD.sf1,
+      sf2: playoffDraw.pathD.sf2,
+      pathIndex: 3,
+    },
+  ];
 
-        // Calculate the final position with more vertical spacing
-        const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
+  // Bracket layout: SF1 on left, SF2 on right, final in center
+  const leftSfX = svgWidth / 4; // Left semifinal position
+  const centerX = svgWidth / 2; // Center final position
+  const rightSfX = (3 * svgWidth) / 4; // Right semifinal position
 
-        // Add pot1 team (winner or loser)
+  // If we're scrolling back from step 14, use existing matchup data
+  // Otherwise, generate new random matchups
+  if (direction === "up" && playoffFinalistsData.length >= 8) {
+    // Reuse the existing results when scrolling back
+    paths.forEach((path, pathIndex) => {
+      const sf1Matchup = playoffFinalistsData[pathIndex * 2];
+      const sf2Matchup = playoffFinalistsData[pathIndex * 2 + 1];
+      // Calculate vertical position with spacing between paths
+      const yBase = svgHeight / 8 + (svgHeight / 5.5) * pathIndex;
+      const finalY = yBase;
+
+      // SF1 on the left side
+      if (sf1Matchup) {
+        const sf1Winner = sf1Matchup.leftWins
+          ? sf1Matchup.left
+          : sf1Matchup.right;
+
+        // Team 1 (top)
         data.push({
-          isoCode: matchup.left.isoCode,
-          x: svgWidth / 3 - flagSize * 1.5,
-          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          isoCode: sf1Matchup.left.isoCode,
+          x: leftSfX - flagSize * 1.5,
+          y: yBase - flagSize * 0.75 - flagSize / 2,
           size: flagSize,
-          opacity: matchup.leftWins ? 1 : 0.2,
+          opacity: sf1Matchup.leftWins ? 1 : 0.2,
           delay: 200,
-          winnerDestX: matchup.leftWins ? svgWidth / 2 - flagSize * 1.5 : null,
-          winnerDestY: matchup.leftWins ? finalPositionY : null,
-          isWinner: matchup.leftWins,
+          winnerDestX: sf1Matchup.leftWins ? centerX - flagSize * 1.5 : null,
+          winnerDestY: sf1Matchup.leftWins ? finalY : null,
+          isWinner: sf1Matchup.leftWins,
         });
 
-        // Add pot4 team (winner or loser)
+        // Team 2 (bottom)
         data.push({
-          isoCode: matchup.right.isoCode,
-          x: svgWidth / 3 + flagSize * 1.5,
-          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          isoCode: sf1Matchup.right.isoCode,
+          x: leftSfX - flagSize * 1.5,
+          y: yBase + flagSize * 0.75 - flagSize / 2,
           size: flagSize,
-          opacity: matchup.leftWins ? 0.2 : 1,
+          opacity: sf1Matchup.leftWins ? 0.2 : 1,
           delay: 200,
-          winnerDestX: matchup.leftWins ? null : svgWidth / 2 - flagSize * 1.5,
-          winnerDestY: matchup.leftWins ? null : finalPositionY,
-          isWinner: !matchup.leftWins,
+          winnerDestX: sf1Matchup.leftWins ? null : centerX - flagSize * 1.5,
+          winnerDestY: sf1Matchup.leftWins ? null : finalY,
+          isWinner: !sf1Matchup.leftWins,
         });
       }
 
-      // Process Pot 2 vs Pot 3 matchups (second half of playoffFinalistsData)
-      for (let i = 0; i < 4; i++) {
-        const matchup = playoffFinalistsData[i + 4];
+      // SF2 on the right side
+      if (sf2Matchup) {
+        const sf2Winner = sf2Matchup.leftWins
+          ? sf2Matchup.left
+          : sf2Matchup.right;
 
-        // Calculate the final position with more vertical spacing
-        const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
-
-        // Add pot2 team (winner or loser)
+        // Team 1 (top)
         data.push({
-          isoCode: matchup.left.isoCode,
-          x: (2 * svgWidth) / 3 - flagSize * 1.5,
-          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          isoCode: sf2Matchup.left.isoCode,
+          x: rightSfX + flagSize * 1.5,
+          y: yBase - flagSize * 0.75 - flagSize / 2,
           size: flagSize,
-          opacity: matchup.leftWins ? 1 : 0.2,
+          opacity: sf2Matchup.leftWins ? 1 : 0.2,
           delay: 200,
-          winnerDestX: matchup.leftWins ? svgWidth / 2 + flagSize * 1.5 : null,
-          winnerDestY: matchup.leftWins ? finalPositionY : null,
-          isWinner: matchup.leftWins,
+          winnerDestX: sf2Matchup.leftWins ? centerX + flagSize * 1.5 : null,
+          winnerDestY: sf2Matchup.leftWins ? finalY : null,
+          isWinner: sf2Matchup.leftWins,
         });
 
-        // Add pot3 team (winner or loser)
+        // Team 2 (bottom)
         data.push({
-          isoCode: matchup.right.isoCode,
-          x: (2 * svgWidth) / 3 + flagSize * 1.5,
-          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
+          isoCode: sf2Matchup.right.isoCode,
+          x: rightSfX + flagSize * 1.5,
+          y: yBase + flagSize * 0.75 - flagSize / 2,
           size: flagSize,
-          opacity: matchup.leftWins ? 0.2 : 1,
+          opacity: sf2Matchup.leftWins ? 0.2 : 1,
           delay: 200,
-          winnerDestX: matchup.leftWins ? null : svgWidth / 2 + flagSize * 1.5,
-          winnerDestY: matchup.leftWins ? null : finalPositionY,
-          isWinner: !matchup.leftWins,
-        });
-      }
-    } else {
-      // Generate new random matchups when scrolling forward
-      var winners = [];
-      // Process Pot 1 vs Pot 4 matchups
-      for (let i = 0; i < Math.min(pot1.length, pot4.length); i++) {
-        // Determine winner (60% chance for pot1 to win)
-        const pot1Wins = Math.random() < 0.6;
-        const winner = pot1Wins ? pot1[i] : pot4[i];
-
-        winners.push(winner);
-
-        // Store the matchup result for use in step 14
-        playoffFinalistsData.push({
-          left: pot1[i],
-          right: pot4[i],
-          leftWins: pot1Wins,
-          index: i,
-        });
-
-        // Calculate the final position with more vertical spacing
-        // Move teams up by one flag height
-        const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
-
-        // Add pot1 team (winner or loser)
-        data.push({
-          isoCode: pot1[i].isoCode,
-          x: svgWidth / 3 - flagSize * 1.5,
-          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
-          size: flagSize,
-          opacity: pot1Wins ? 1 : 0.2,
-          delay: 200,
-          winnerDestX: pot1Wins ? svgWidth / 2 - flagSize * 1.5 : null,
-          winnerDestY: pot1Wins ? finalPositionY : null,
-          isWinner: pot1Wins,
-        });
-
-        // Add pot4 team (winner or loser)
-        data.push({
-          isoCode: pot4[i].isoCode,
-          x: svgWidth / 3 + flagSize * 1.5,
-          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
-          size: flagSize,
-          opacity: pot1Wins ? 0.2 : 1,
-          delay: 200,
-          winnerDestX: pot1Wins ? null : svgWidth / 2 - flagSize * 1.5,
-          winnerDestY: pot1Wins ? null : finalPositionY,
-          isWinner: !pot1Wins,
+          winnerDestX: sf2Matchup.leftWins ? null : centerX + flagSize * 1.5,
+          winnerDestY: sf2Matchup.leftWins ? null : finalY,
+          isWinner: !sf2Matchup.leftWins,
         });
       }
 
-      // Process Pot 2 vs Pot 3 matchups
-      for (let i = 0; i < Math.min(pot2.length, pot3.length); i++) {
-        // Determine winner (70% chance for pot2 to win)
-        const pot2Wins = Math.random() < 0.7;
-        const winner = pot2Wins ? pot2[i] : pot3[i];
-        winners.push(winner);
-
-        // Store the matchup result for use in step 14
-        playoffFinalistsData.push({
-          left: pot2[i],
-          right: pot3[i],
-          leftWins: pot2Wins,
-          index: i + 4,
-        });
-
-        // Calculate the final position with more vertical spacing
-        // Move teams up by one flag height
-        const finalPositionY = (svgHeight / 5) * (i + 1) - flagSize * 2;
-
-        // Add pot2 team (winner or loser)
-        data.push({
-          isoCode: pot2[i].isoCode,
-          x: (2 * svgWidth) / 3 - flagSize * 1.5,
-          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
-          size: flagSize,
-          opacity: pot2Wins ? 1 : 0.2,
-          delay: 200,
-          winnerDestX: pot2Wins ? svgWidth / 2 + flagSize * 1.5 : null,
-          winnerDestY: pot2Wins ? finalPositionY : null,
-          isWinner: pot2Wins,
-        });
-
-        // Add pot3 team (winner or loser)
-        data.push({
-          isoCode: pot3[i].isoCode,
-          x: (2 * svgWidth) / 3 + flagSize * 1.5,
-          y: (svgHeight / 5) * (i + 1) - flagSize / 2,
-          size: flagSize,
-          opacity: pot2Wins ? 0.2 : 1,
-          delay: 200,
-          winnerDestX: pot2Wins ? null : svgWidth / 2 + flagSize * 1.5,
-          winnerDestY: pot2Wins ? null : finalPositionY,
-          isWinner: !pot2Wins,
-        });
-      }
-    }
-
-    // Add "vs" text for the finals - adjust to match new positions
-    for (let i = 0; i < 4; i++) {
+      // Add path label
       textData.push({
-        text: "vs",
-        x: svgWidth / 2,
-        y: (svgHeight / 5) * (i + 1) - flagSize * 1.2,
-        delay: 1000,
+        text: path.name,
+        x: centerX - flagSize * 1.5,
+        y: yBase - flagSize * 2,
+        delay: 0,
       });
-    }
-
-    textData.push({
-      text: "Playoff Finals",
-      x: svgWidth / 2 - flagSize * 2,
-      y: svgHeight / 14,
-      delay: 0,
     });
+  } else {
+    // Generate new random matchups when scrolling forward
+    paths.forEach((path, pathIndex) => {
+      // Calculate vertical position with spacing between paths
+      const yBase = svgHeight / 8 + (svgHeight / 5.5) * pathIndex;
+      const finalY = yBase;
 
-    // Apply second stage of animation: move winners to center
-    data.forEach((team) => {
-      if (team.isWinner && team.winnerDestX !== null) {
-        team.x = team.winnerDestX;
-        team.y = team.winnerDestY;
-        team.delay = 1500;
+      // SF1 on the left side
+      const sf1Team1 = findPlayoffTeam(path.sf1.team1);
+      const sf1Team2 = findPlayoffTeam(path.sf1.team2);
+
+      if (sf1Team1 && sf1Team2) {
+        // Better FIFA rank gives advantage (65% chance for better ranked team)
+        const team1Rank = parseInt(sf1Team1.fifaRank);
+        const team2Rank = parseInt(sf1Team2.fifaRank);
+        const team1Wins =
+          team1Rank < team2Rank ? Math.random() < 0.65 : Math.random() < 0.35;
+
+        // Store the matchup result for use in step 14
+        playoffFinalistsData.push({
+          left: sf1Team1,
+          right: sf1Team2,
+          leftWins: team1Wins,
+          pathIndex: pathIndex,
+          semifinal: 1,
+        });
+
+        // Team 1 (top)
+        data.push({
+          isoCode: sf1Team1.isoCode,
+          x: leftSfX - flagSize * 1.5,
+          y: yBase - flagSize * 0.75 - flagSize / 2,
+          size: flagSize,
+          opacity: team1Wins ? 1 : 0.2,
+          delay: 200,
+          winnerDestX: team1Wins ? centerX - flagSize * 1.5 : null,
+          winnerDestY: team1Wins ? finalY : null,
+          isWinner: team1Wins,
+        });
+
+        // Team 2 (bottom)
+        data.push({
+          isoCode: sf1Team2.isoCode,
+          x: leftSfX - flagSize * 1.5,
+          y: yBase + flagSize * 0.75 - flagSize / 2,
+          size: flagSize,
+          opacity: team1Wins ? 0.2 : 1,
+          delay: 200,
+          winnerDestX: team1Wins ? null : centerX - flagSize * 1.5,
+          winnerDestY: team1Wins ? null : finalY,
+          isWinner: !team1Wins,
+        });
       }
+
+      // SF2 on the right side
+      const sf2Team1 = findPlayoffTeam(path.sf2.team1);
+      const sf2Team2 = findPlayoffTeam(path.sf2.team2);
+
+      if (sf2Team1 && sf2Team2) {
+        // Better FIFA rank gives advantage (65% chance for better ranked team)
+        const team1Rank = parseInt(sf2Team1.fifaRank);
+        const team2Rank = parseInt(sf2Team2.fifaRank);
+        const team1Wins =
+          team1Rank < team2Rank ? Math.random() < 0.65 : Math.random() < 0.35;
+
+        // Store the matchup result for use in step 14
+        playoffFinalistsData.push({
+          left: sf2Team1,
+          right: sf2Team2,
+          leftWins: team1Wins,
+          pathIndex: pathIndex,
+          semifinal: 2,
+        });
+
+        // Team 1 (top)
+        data.push({
+          isoCode: sf2Team1.isoCode,
+          x: rightSfX + flagSize * 1.5,
+          y: yBase - flagSize * 0.75 - flagSize / 2,
+          size: flagSize,
+          opacity: team1Wins ? 1 : 0.2,
+          delay: 200,
+          winnerDestX: team1Wins ? centerX + flagSize * 1.5 : null,
+          winnerDestY: team1Wins ? finalY : null,
+          isWinner: team1Wins,
+        });
+
+        // Team 2 (bottom)
+        data.push({
+          isoCode: sf2Team2.isoCode,
+          x: rightSfX + flagSize * 1.5,
+          y: yBase + flagSize * 0.75 - flagSize / 2,
+          size: flagSize,
+          opacity: team1Wins ? 0.2 : 1,
+          delay: 200,
+          winnerDestX: team1Wins ? null : centerX + flagSize * 1.5,
+          winnerDestY: team1Wins ? null : finalY,
+          isWinner: !team1Wins,
+        });
+      }
+
+      // Add path label
+      textData.push({
+        text: path.name,
+        x: centerX - flagSize * 1.5,
+        y: yBase - flagSize * 2,
+        delay: 0,
+      });
     });
   }
+
+  // Apply second stage of animation: move winners to center
+  data.forEach((team) => {
+    if (team.isWinner && team.winnerDestX !== null) {
+      team.x = team.winnerDestX;
+      team.y = team.winnerDestY;
+      team.delay = 1500;
+    }
+  });
+
   redraw();
 }
 
@@ -1738,19 +1812,68 @@ function finalQualifiers(direction) {
     // Determine final matchups using the stored semifinal results
     let finalMatchups = [];
 
-    for (let i = 0; i < 4; i++) {
-      const leftMatchup = playoffFinalistsData[i];
-      const rightMatchup = playoffFinalistsData[i + 4];
+    // Define the paths and their final structure
+    const paths = [
+      {
+        name: "Path A",
+        final: playoffDraw.pathA.final,
+        sf1Index: 0,
+        sf2Index: 1,
+      },
+      {
+        name: "Path B",
+        final: playoffDraw.pathB.final,
+        sf1Index: 2,
+        sf2Index: 3,
+      },
+      {
+        name: "Path C",
+        final: playoffDraw.pathC.final,
+        sf1Index: 4,
+        sf2Index: 5,
+      },
+      {
+        name: "Path D",
+        final: playoffDraw.pathD.final,
+        sf1Index: 6,
+        sf2Index: 7,
+      },
+    ];
 
-      // Determine left finalist
-      const leftFinalist = leftMatchup.leftWins
-        ? leftMatchup.left
-        : leftMatchup.right;
+    paths.forEach((path, pathIndex) => {
+      const sf1Matchup = playoffFinalistsData[path.sf1Index];
+      const sf2Matchup = playoffFinalistsData[path.sf2Index];
 
-      // Determine right finalist
-      const rightFinalist = rightMatchup.leftWins
-        ? rightMatchup.left
-        : rightMatchup.right;
+      if (!sf1Matchup || !sf2Matchup) return;
+
+      // Determine SF1 winner
+      const sf1Winner = sf1Matchup.leftWins
+        ? sf1Matchup.left
+        : sf1Matchup.right;
+
+      // Determine SF2 winner
+      const sf2Winner = sf2Matchup.leftWins
+        ? sf2Matchup.left
+        : sf2Matchup.right;
+
+      // Determine which team goes on left and right based on final structure
+      // Parse the final structure to see which semifinal teams are on which side
+      const leftFinalistIsoCodes = path.final.left.split("/");
+
+      // Check if SF2 teams are on the left side (true for Path A, C, D; false for Path B)
+      const sf2Team1InLeft = leftFinalistIsoCodes.includes(
+        sf2Matchup.left.isoCode
+      );
+      const sf2Team2InLeft = leftFinalistIsoCodes.includes(
+        sf2Matchup.right.isoCode
+      );
+      const leftIsSf2 = sf2Team1InLeft || sf2Team2InLeft;
+
+      // Determine left and right finalists based on the draw
+      // Path A, C, D: SF2 winner (left) vs SF1 winner (right)
+      // Path B: SF1 winner (left) vs SF2 winner (right)
+      const leftFinalist = leftIsSf2 ? sf2Winner : sf1Winner;
+      const rightFinalist = leftIsSf2 ? sf1Winner : sf2Winner;
 
       // Better FIFA rank gives advantage (65% chance)
       const leftRank = parseInt(leftFinalist.fifaRank);
@@ -1767,7 +1890,7 @@ function finalQualifiers(direction) {
         right: rightFinalist,
         leftWins: leftWins,
       });
-    }
+    });
 
     // Show final matchups (loser faded, winner highlighted) initially
     for (let i = 0; i < finalMatchups.length; i++) {
